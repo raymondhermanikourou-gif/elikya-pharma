@@ -1,0 +1,1 @@
+/** @type {import('tailwindcss').config} */ module.exports = { Content: ["./src/**/*.html,j"]}
