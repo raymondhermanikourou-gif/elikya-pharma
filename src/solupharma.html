@@ -14,7 +14,30 @@
         SOLUPHARMA
     </h1>
 
-  
+  <!-- Conteneur des deux barres -->
+    <div class="space-y-4 max-w-md mx-auto">
+        
+        <!-- Barre Médicament -->
+        <div class="flex flex-col">
+            <span class="text-white text-xs font-bold mb-1 ml-2">MÉDICAMENTS</span>
+            <div class="relative">
+                <input type="text" placeholder="Rechercher un produit..." 
+                    class="w-full p-3 rounded-xl shadow-md focus:outline-none border-none text-gray-800">
+                <span class="absolute right-4 top-3 text-emerald-600">🔍</span>
+            </div>
+        </div>
+
+        <!-- Barre Sang -->
+        <div class="flex flex-col">
+            <span class="text-white text-xs font-bold mb-1 ml-2">SANG (SOS)</span>
+            <div class="relative">
+                <input type="text" placeholder="Groupe sanguin (A+, O...)" 
+                    class="w-full p-3 rounded-xl shadow-md focus:outline-none border-none text-gray-800">
+                <span class="absolute right-4 top-3 text-red-600">🩸</span>
+            </div>
+        </div>
+
+    </div>
 </header>
   </body>
 </html>
