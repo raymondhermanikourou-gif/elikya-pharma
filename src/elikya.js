@@ -325,3 +325,66 @@ function fermerConfirmation(e) {
 function toggleMenu() {
   document.getElementById("mobile-menu").classList.toggle("open");
 }
+
+// ══════════════════════════════════════════
+// SOS ALERTE
+// ══════════════════════════════════════════
+let modeAlerte = 'whatsapp';
+let typeAlerte = 'medicament';
+
+function selectTypeAlerte(type) {
+  typeAlerte = type;
+  const input = document.getElementById('alerte-produit');
+  const label = document.getElementById('label-produit-alerte');
+  if (type === 'medicament') {
+    input.placeholder = 'Ex : Paracétamol 500mg, Amoxicilline...';
+    label.textContent = 'Médicament recherché';
+    document.getElementById('btn-type-med').className = 'flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all';
+    document.getElementById('btn-type-sang').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+  } else {
+    input.placeholder = 'Ex : Groupe A+, O-, B+, AB+...';
+    label.textContent = 'Groupe sanguin recherché';
+    document.getElementById('btn-type-sang').className = 'flex items-center justify-center gap-2 border-2 border-red-400 bg-red-50 text-red-600 font-semibold text-xs py-2.5 rounded-xl transition-all';
+    document.getElementById('btn-type-med').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+  }
+}
+
+function selectModeAlerte(mode) {
+  modeAlerte = mode;
+  if (mode === 'whatsapp') {
+    document.getElementById('champ-whatsapp').classList.remove('hidden');
+    document.getElementById('champ-email').classList.add('hidden');
+    document.getElementById('btn-whatsapp').className = 'flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all';
+    document.getElementById('btn-email').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+  } else {
+    document.getElementById('champ-email').classList.remove('hidden');
+    document.getElementById('champ-whatsapp').classList.add('hidden');
+    document.getElementById('btn-email').className = 'flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all';
+    document.getElementById('btn-whatsapp').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+  }
+}
+
+function soumettreAlerte() {
+  const produit = document.getElementById('alerte-produit').value.trim();
+  const contact = modeAlerte === 'whatsapp'
+    ? document.getElementById('alerte-whatsapp').value.trim()
+    : document.getElementById('alerte-email').value.trim();
+  if (!produit || !contact) {
+    alert('Veuillez remplir le produit et votre contact.');
+    return;
+  }
+  const msg = typeAlerte === 'medicament'
+    ? `Vous serez alerté par ${modeAlerte === 'whatsapp' ? 'WhatsApp' : 'email'} dès que <strong>${produit}</strong> est disponible dans une pharmacie partenaire.`
+    : `Vous serez alerté par ${modeAlerte === 'whatsapp' ? 'WhatsApp' : 'email'} dès que le groupe <strong>${produit}</strong> est disponible dans un hôpital partenaire.`;
+  document.getElementById('msg-confirmation-alerte').innerHTML = msg;
+  document.getElementById('overlay-alerte').classList.add('show');
+  document.getElementById('alerte-produit').value = '';
+  document.getElementById('alerte-whatsapp').value = '';
+  document.getElementById('alerte-email').value = '';
+}
+
+function fermerAlerteOverlay(e) {
+  if (!e || e.target === document.getElementById('overlay-alerte')) {
+    document.getElementById('overlay-alerte').classList.remove('show');
+  }
+}
