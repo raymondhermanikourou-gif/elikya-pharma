@@ -12,6 +12,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <script src="src/elikya.js"></script>
+
     <title>ElikyaPharma</title>
     <style>
       * {
@@ -40,6 +42,60 @@
       }
       html {
         scroll-behavior: smooth;
+      }
+
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-up {
+        animation: fadeSlideUp 0.35s ease forwards;
+      }
+      .stock-ok {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .stock-low {
+        background: #fef9c3;
+        color: #a16207;
+      }
+      .stock-empty {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .overlay.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .overlay-box {
+        background: white;
+        border-radius: 20px;
+        padding: 1.75rem;
+        width: 90%;
+        max-width: 420px;
+        transform: translateY(20px);
+        transition: transform 0.25s;
+      }
+      .overlay.show .overlay-box {
+        transform: translateY(0);
       }
     </style>
   </head>
@@ -191,7 +247,7 @@
             <span
               class="flex items-center gap-1.5 border border-white/30 text-white text-xs font-medium px-4 py-2 rounded-full bg-white/10"
             >
-               Brazzaville, Congo · Disponible 24h/7
+              Brazzaville, Congo · Disponible 24h/7
             </span>
             <button
               class="flex items-center gap-1.5 border border-white/30 text-white text-xs font-medium px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -202,14 +258,14 @@
 
           <!-- Titre-->
           <h1
-            class="text-4xl lg:text-6xl font-black text-white mb-4 leading-tight max-w-2xl"
+            class="text-4xl lg:text-6xl font-black text-white mb-4 leading-tight max-w-2xl pt-4"
           >
             Vos <span class="text-green-300">médicaments</span><br />
             et votre <span class="text-red-400">sang</span> à portée de main.
           </h1>
 
           <p
-            class="text-white/75 text-sm lg:text-base leading-relaxed max-w-md mb-10"
+            class="text-white/75 text-sm lg:text-base leading-relaxed max-w-md mb-10 mt-3"
           >
             ElikyaPharma connecte les patients aux pharmacies, hôpitaux et
             donneurs de sang en un clic.
@@ -218,7 +274,7 @@
 
         <!-- Les deux cards -->
         <div class="w-full px-4 pb-0">
-          <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
             <!-- Card médicament -->
             <div class="bg-white rounded-2xl p-4 shadow-xl">
               <div class="flex items-center gap-3 mb-4">
@@ -232,38 +288,54 @@
                   />
                 </div>
                 <div>
-                  <p class="font-bold text-gray-900 text-sm ">
+                  <p class="font-bold text-gray-900 text-sm">
                     Rechercher un médicament
                   </p>
                   <p class="text-xs text-gray-400 mt-0.5">
-                    Pharmacies partenaires disponibles
+                    Pharmacies partenaires · Stock en temps réel
                   </p>
                 </div>
               </div>
+              <div
+                id="tags-medicament"
+                class="flex flex-wrap gap-2 mb-2 hidden"
+              ></div>
               <div class="flex flex-wrap gap-2">
                 <input
+                  id="search-medicament"
                   type="text"
-                  placeholder="Ex : Paracétamol 500mg..."
+                  placeholder="Ex : Paracétamol... (Entrée pour ajouter plusieurs)"
                   class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-400 focus:ring-1 focus:ring-green-100 transition"
                 />
                 <button
+                  onclick="lancerRecherche()"
                   class="bg-green-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-green-700 transition-colors whitespace-nowrap w-full sm:w-auto"
                 >
                   Chercher
                 </button>
               </div>
-            </div>
+              <p class="text-xs text-gray-400 mt-1.5">
+                Appuyez sur
+                <kbd class="bg-gray-100 px-1 rounded">Entrée</kbd> pour ajouter
+                plusieurs produits
+              </p>
 
-            <!-- Card sang — rouge uniquement ici -->
+              <div
+                id="resultats-medicament"
+                class="hidden mt-4 space-y-3 max-h-72 overflow-y-auto"
+              ></div>
+            </div>
+            <!-- Card sang -->
             <div class="bg-white rounded-2xl p-4 shadow-xl">
               <div class="flex items-center gap-3 mb-4">
                 <div
                   class="flex items-center justify-center w-11 h-11 bg-red-50 rounded-xl flex-shrink-0"
                 >
-                  <img src="src/assets/img-goute de sang.png" alt="" class="w-20 h-14 object-contain">
-            
-        
-                  </img>
+                  <img
+                    src="src/assets/img-goute de sang.png"
+                    alt=""
+                    class="w-20 h-14"
+                  />
                 </div>
                 <div>
                   <p class="font-bold text-gray-900 text-sm leading-tight">
@@ -276,16 +348,26 @@
               </div>
               <div class="flex flex-wrap gap-2">
                 <input
+                  id="search-sang"
                   type="text"
-                  placeholder="Ex : Groupe A+, O négatif..."
+                  placeholder="Ex : A+, O-, B+, AB+..."
                   class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"
                 />
+
                 <button
+                  onclick="lancerRechercheSang()"
                   class="bg-red-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-red-600 transition-colors whitespace-nowrap w-full sm:w-auto"
                 >
                   Chercher
                 </button>
               </div>
+              <p class="text-xs text-gray-400 mt-1.5">
+                Entrez votre groupe sanguin ex : A+, O-, B+, AB+
+              </p>
+              <div
+                id="resultats-sang"
+                class="hidden mt-4 space-y-3 max-h-72 overflow-y-auto"
+              ></div>
             </div>
           </div>
         </div>
@@ -295,14 +377,14 @@
           <div
             class="max-w-7xl mx-auto px-5 py-3 flex flex-wrap gap-6 justify-center md:justify-start"
           >
-            <span class="text-white/80 text-xs font-medium"
-              > +120 pharmacies partenaires</span
+            <span class="text-white/80 text-xs font-medium">
+              +120 pharmacies partenaires</span
             >
-            <span class="text-white/80 text-xs font-medium"
-              > +40 hôpitaux connectés</span
+            <span class="text-white/80 text-xs font-medium">
+              +40 hôpitaux connectés</span
             >
-            <span class="text-white/80 text-xs font-medium"
-              > Résultats en temps réel</span
+            <span class="text-white/80 text-xs font-medium">
+              Résultats en temps réel</span
             >
           </div>
         </div>
@@ -314,5 +396,122 @@
         document.getElementById("mobile-menu").classList.toggle("open");
       }
     </script>
+
+    <!-- Overlay réservation -->
+    <div
+      id="overlay-reservation"
+      class="overlay"
+      onclick="fermerOverlay(event)"
+    >
+      <div class="overlay-box">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-gray-900 text-base">
+              Réserver ce produit
+            </h3>
+            <p
+              id="overlay-pharmacie-nom"
+              class="text-xs text-gray-400 mt-0.5"
+            ></p>
+          </div>
+          <button
+            onclick="fermerOverlayDirect()"
+            class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition"
+          >
+            ✕
+          </button>
+        </div>
+        <div
+          id="overlay-produit-info"
+          class="bg-green-50 rounded-xl p-3 mb-4 text-sm text-green-800 font-medium"
+        ></div>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs font-medium text-gray-600 mb-1 block"
+              >Quantité souhaitée</label
+            >
+            <input
+              id="form-quantite"
+              type="number"
+              min="1"
+              max="20"
+              value="1"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-green-400 transition"
+            />
+          </div>
+          <div>
+            <label class="text-xs font-medium text-gray-600 mb-1 block"
+              >Votre nom complet</label
+            >
+            <input
+              id="form-nom"
+              type="text"
+              placeholder="Ex : Jean Moukoukou"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-green-400 transition"
+            />
+          </div>
+          <div>
+            <label class="text-xs font-medium text-gray-600 mb-1 block"
+              >Votre téléphone</label
+            >
+            <input
+              id="form-telephone"
+              type="tel"
+              placeholder="Ex : 06 123 45 67"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-green-400 transition"
+            />
+          </div>
+          <p class="text-xs text-gray-400">
+            ⏱ Réservation valable <strong>1 heure</strong> après confirmation.
+          </p>
+          <button
+            onclick="confirmerReservation()"
+            class="w-full bg-green-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-700 transition-colors"
+          >
+            Confirmer la réservation
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay confirmation card medicament -->
+    <div
+      id="overlay-confirmation"
+      class="overlay"
+      onclick="fermerConfirmation(event)"
+    >
+      <div class="overlay-box text-center">
+        <div
+          class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"
+        >
+          <svg
+            class="w-7 h-7 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <h3 class="font-bold text-gray-900 text-base mb-1">
+          Réservation confirmée !
+        </h3>
+        <p class="text-sm text-gray-500 mb-4">
+          La pharmacie a été notifiée. Votre produit est réservé pour
+          <strong>1 heure</strong>.
+        </p>
+        <button
+          onclick="fermerConfirmation()"
+          class="bg-green-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-green-700 transition-colors"
+        >
+          Parfait, merci !
+        </button>
+      </div>
+    </div>
   </body>
 </html>

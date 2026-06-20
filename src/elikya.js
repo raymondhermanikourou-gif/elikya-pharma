@@ -1,1 +1,327 @@
-let titre = document.querySelector("span")
+const pharmacies = [
+  {
+    id: 1,
+    nom: "Pharmacie du Centre",
+    adresse: "Avenue de l'Indépendance, Centre-ville",
+    lat: -4.2692,
+    lng: 15.2714,
+  },
+  {
+    id: 2,
+    nom: "Pharmacie Moungali",
+    adresse: "Rue Bouenza, Moungali",
+    lat: -4.245,
+    lng: 15.265,
+  },
+  {
+    id: 3,
+    nom: "Pharmacie Bacongo",
+    adresse: "Avenue du Djoué, Bacongo",
+    lat: -4.31,
+    lng: 15.26,
+  },
+  {
+    id: 4,
+    nom: "Pharmacie Poto-Poto",
+    adresse: "Boulevard Lyautey, Poto-Poto",
+    lat: -4.26,
+    lng: 15.29,
+  },
+  {
+    id: 5,
+    nom: "Pharmacie CHU Brazzaville",
+    adresse: "Avenue Auxence Ickonga, CHU",
+    lat: -4.275,
+    lng: 15.255,
+  },
+];
+const produits = [
+  {
+    nom: "Paracétamol 500mg",
+    stock: [42, 0, 15, 8, 120],
+    prix: [500, 0, 500, 500, 450],
+  },
+  {
+    nom: "Amoxicilline 250mg",
+    stock: [0, 30, 5, 22, 60],
+    prix: [0, 1200, 1200, 1200, 1100],
+  },
+  {
+    nom: "Ibuprofène 400mg",
+    stock: [18, 12, 0, 35, 9],
+    prix: [750, 750, 0, 750, 700],
+  },
+  {
+    nom: "Métronidazole 250mg",
+    stock: [7, 0, 28, 0, 14],
+    prix: [600, 0, 600, 0, 550],
+  },
+  {
+    nom: "Cotrimoxazole 480mg",
+    stock: [0, 45, 11, 3, 0],
+    prix: [0, 400, 400, 400, 0],
+  },
+  {
+    nom: "Doxycycline 100mg",
+    stock: [23, 6, 0, 19, 8],
+    prix: [900, 900, 0, 900, 850],
+  },
+];
+const hopitaux = [
+  {
+    id: 1,
+    nom: "CHU de Brazzaville",
+    adresse: "Avenue Auxence Ickonga",
+    lat: -4.275,
+    lng: 15.255,
+  },
+  {
+    id: 2,
+    nom: "Hôpital Adolphe Sicé",
+    adresse: "Rue Bouenza, Moungali",
+    lat: -4.245,
+    lng: 15.27,
+  },
+  {
+    id: 3,
+    nom: "Clinique Nganga Edouard",
+    adresse: "Avenue de France, Centre-ville",
+    lat: -4.27,
+    lng: 15.28,
+  },
+  {
+    id: 4,
+    nom: "Hôpital de Base de Bacongo",
+    adresse: "Avenue du Djoué, Bacongo",
+    lat: -4.305,
+    lng: 15.258,
+  },
+  {
+    id: 5,
+    nom: "Centre de Transfusion CNTS",
+    adresse: "Boulevard Denis Sassou Nguesso",
+    lat: -4.262,
+    lng: 15.266,
+  },
+];
+const sangData = [
+  { groupe: "A+", stock: [8, 0, 12, 3, 25], prix: [5000, 0, 5000, 5000, 4500] },
+  { groupe: "A-", stock: [0, 4, 2, 0, 8], prix: [0, 6000, 6000, 0, 5500] },
+  { groupe: "B+", stock: [15, 6, 0, 9, 20], prix: [5000, 5000, 0, 5000, 4500] },
+  { groupe: "B-", stock: [0, 2, 0, 1, 5], prix: [0, 6000, 0, 6000, 5500] },
+  {
+    groupe: "O+",
+    stock: [20, 10, 8, 0, 30],
+    prix: [5000, 5000, 5000, 0, 4500],
+  },
+  { groupe: "AB+", stock: [3, 0, 5, 2, 10], prix: [7000, 0, 7000, 7000, 6500] },
+];
+
+const normaliser = (str) =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+let tagsMed = [];
+
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("search-medicament");
+  if (input) {
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const val = this.value.trim();
+        if (val && !tagsMed.includes(val)) {
+          tagsMed.push(val);
+          afficherTagsMed();
+        }
+        this.value = "";
+      }
+    });
+  }
+});
+
+function afficherTagsMed() {
+  const c = document.getElementById("tags-medicament");
+  if (!c) return;
+  if (tagsMed.length === 0) {
+    c.classList.add("hidden");
+    return;
+  }
+  c.classList.remove("hidden");
+  c.innerHTML = tagsMed
+    .map(
+      (t, i) =>
+        `<span class="flex items-center gap-1.5 bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">${t}<button onclick="supprimerTagMed(${i})" class="text-green-600 hover:text-green-900 font-bold">✕</button></span>`,
+    )
+    .join("");
+}
+
+function supprimerTagMed(index) {
+  tagsMed.splice(index, 1);
+  afficherTagsMed();
+}
+
+function lancerRecherche() {
+  document.getElementById("resultats-sang").classList.add("hidden");
+  document.getElementById("resultats-sang").innerHTML = "";
+  const input = document.getElementById("search-medicament");
+  const val = input.value.trim();
+  if (val && !tagsMed.includes(val)) {
+    tagsMed.push(val);
+    afficherTagsMed();
+    input.value = "";
+  }
+  const recherches = tagsMed.length > 0 ? tagsMed : val ? [val] : [];
+  if (recherches.length === 0) {
+    input.focus();
+    return;
+  }
+  const zone = document.getElementById("resultats-medicament");
+  zone.innerHTML = "";
+  zone.classList.remove("hidden");
+  zone.innerHTML = `<div class="flex items-center justify-between mb-2"><p class="text-xs font-semibold text-gray-500">Résultats</p><button onclick="fermerResultatsMed()" class="text-xs text-gray-400 hover:text-gray-700">✕ Fermer</button></div>`;
+  recherches.forEach((terme) => {
+    const produit = produits.find((p) =>
+      normaliser(p.nom).includes(normaliser(terme)),
+    );
+    if (!produit) {
+      zone.innerHTML += `<div class="fade-up bg-red-50 border border-red-100 rounded-xl p-3 text-sm text-red-600"> <strong>${terme}</strong> — aucun résultat.</div>`;
+      return;
+    }
+    zone.innerHTML += `<p class="fade-up text-xs font-semibold text-gray-400 uppercase tracking-wider mt-3 mb-2">Résultats pour <span class="text-green-600">${produit.nom}</span></p>`;
+    let count = 0;
+    pharmacies.forEach((ph, idx) => {
+      if (count >= 3) return;
+      const stock = produit.stock[idx];
+      const prix = produit.prix[idx];
+      if (stock === 0) return;
+      count++;
+      const sc = stock <= 10 ? "stock-low" : "stock-ok";
+      const sl = stock <= 10 ? `⚠ ${stock} restants` : `✓ ${stock} en stock`;
+      zone.innerHTML += `<div class="fade-up bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow mb-2"><div class="flex items-start justify-between gap-2 mb-2"><div><p class="font-semibold text-gray-900 text-sm">${ph.nom}</p><p class="text-xs text-gray-400 mt-0.5"> ${ph.adresse}</p></div><span class="text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ${sc}">${sl}</span></div><div class="flex items-center gap-1.5 mb-3"><span class="text-green-700 font-bold text-sm">${prix.toLocaleString()} FCFA</span><span class="text-xs text-gray-400">/ unité</span></div><div class="flex gap-2"><button onclick="yAller(${ph.lat},${ph.lng})" class="flex-1 flex items-center justify-center gap-2 border border-green-500 text-green-700 font-semibold text-xs py-2 rounded-xl hover:bg-green-50 transition-colors"> Y aller</button><button onclick="ouvrirReservation('${produit.nom}','${ph.nom}',${prix})" class="flex-1 flex items-center justify-center gap-2 bg-green-600 text-white font-semibold text-xs py-2 rounded-xl hover:bg-green-700 transition-colors">🛒 Réserver</button></div></div>`;
+    });
+    if (count === 0) {
+      zone.innerHTML += `<div class="fade-up bg-yellow-50 border border-yellow-100 rounded-xl p-3 text-sm text-yellow-700">⚠ <strong>${produit.nom}</strong> en rupture dans toutes nos pharmacies.</div>`;
+    }
+  });
+  setTimeout(() => {
+    zone.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 100);
+}
+
+function fermerResultatsMed() {
+  const zone = document.getElementById("resultats-medicament");
+  zone.classList.add("hidden");
+  zone.innerHTML = "";
+  tagsMed = [];
+  afficherTagsMed();
+  document.getElementById("search-medicament").value = "";
+}
+
+function lancerRechercheSang() {
+  document.getElementById("resultats-medicament").classList.add("hidden");
+  document.getElementById("resultats-medicament").innerHTML = "";
+  const input = document.getElementById("search-sang");
+  const terme = input.value.trim();
+  if (!terme) {
+    input.focus();
+    return;
+  }
+  const zone = document.getElementById("resultats-sang");
+  zone.innerHTML = "";
+  zone.classList.remove("hidden");
+  const sang = sangData.find((s) =>
+    normaliser(s.groupe).includes(normaliser(terme)),
+  );
+  zone.innerHTML = `<div class="flex items-center justify-between mb-2"><p class="text-xs font-semibold text-gray-500">Résultats</p><button onclick="fermerResultatsSang()" class="text-xs text-gray-400 hover:text-gray-700">✕ Fermer</button></div>`;
+  if (!sang) {
+    zone.innerHTML += `<div class="fade-up bg-red-50 border border-red-100 rounded-xl p-3 text-sm text-red-600"> Groupe <strong>${terme}</strong> non trouvé. Essayez: A+, B-, O+, AB+</div>`;
+    return;
+  }
+  zone.innerHTML += `<p class="fade-up text-xs font-semibold text-gray-400 uppercase tracking-wider mt-3 mb-2">Poches <span class="text-red-500">Groupe ${sang.groupe}</span> disponibles</p>`;
+  let count = 0;
+  hopitaux.forEach((h, idx) => {
+    if (count >= 3) return;
+    const stock = sang.stock[idx];
+    const prix = sang.prix[idx];
+    if (stock === 0) return;
+    count++;
+    const sc = stock <= 5 ? "stock-low" : "stock-ok";
+    const sl =
+      stock <= 5
+        ? ` ${stock} poches restantes`
+        : ` ${stock} poches disponibles`;
+    zone.innerHTML += `<div class="fade-up bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow mb-2"><div class="flex items-start justify-between gap-2 mb-2"><div><p class="font-semibold text-gray-900 text-sm">${h.nom}</p><p class="text-xs text-gray-400 mt-0.5"> ${h.adresse}</p></div><span class="text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ${sc}">${sl}</span></div><div class="flex items-center gap-1.5 mb-3"><span class="text-red-600 font-bold text-sm">${prix.toLocaleString()} FCFA</span><span class="text-xs text-gray-400">/ poche</span></div><div class="flex gap-2"><button onclick="yAller(${h.lat},${h.lng})" class="flex-1 flex items-center justify-center gap-2 border border-red-400 text-red-600 font-semibold text-xs py-2 rounded-xl hover:bg-red-50 transition-colors"> Y aller</button><button onclick="ouvrirReservationSang('Groupe ${sang.groupe}','${h.nom}',${prix})" class="flex-1 flex items-center justify-center gap-2 bg-red-500 text-white font-semibold text-xs py-2 rounded-xl hover:bg-red-600 transition-colors"> Réserver</button></div></div>`;
+  });
+  if (count === 0) {
+    zone.innerHTML += `<div class="fade-up bg-yellow-50 border border-yellow-100 rounded-xl p-3 text-sm text-yellow-700">⚠ Groupe <strong>${sang.groupe}</strong> en rupture dans tous nos établissements.</div>`;
+  }
+  setTimeout(() => {
+    zone.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 100);
+}
+
+function fermerResultatsSang() {
+  const zone = document.getElementById("resultats-sang");
+  zone.classList.add("hidden");
+  zone.innerHTML = "";
+  document.getElementById("search-sang").value = "";
+}
+
+function yAller(lat, lng) {
+  window.open(
+    `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`,
+    "_blank",
+  );
+}
+
+let reservationEnCours = {};
+
+function ouvrirReservation(produitNom, pharmacieNom, prix) {
+  reservationEnCours = { produitNom, pharmacieNom, prix };
+  document.getElementById("overlay-pharmacie-nom").textContent = pharmacieNom;
+  document.getElementById("overlay-produit-info").innerHTML =
+    ` <strong>${produitNom}</strong> — ${prix.toLocaleString()} FCFA / unité`;
+  document.getElementById("overlay-reservation").classList.add("show");
+}
+
+function ouvrirReservationSang(groupe, hopitalNom, prix) {
+  reservationEnCours = { produitNom: groupe, pharmacieNom: hopitalNom, prix };
+  document.getElementById("overlay-pharmacie-nom").textContent = hopitalNom;
+  document.getElementById("overlay-produit-info").innerHTML =
+    ` <strong>${groupe}</strong> — ${prix.toLocaleString()} FCFA / poche`;
+  document.getElementById("overlay-reservation").classList.add("show");
+}
+
+function fermerOverlay(e) {
+  if (e.target === document.getElementById("overlay-reservation"))
+    fermerOverlayDirect();
+}
+function fermerOverlayDirect() {
+  document.getElementById("overlay-reservation").classList.remove("show");
+}
+
+function confirmerReservation() {
+  const nom = document.getElementById("form-nom").value.trim();
+  const tel = document.getElementById("form-telephone").value.trim();
+  if (!nom || !tel) {
+    alert("Veuillez remplir votre nom et téléphone.");
+    return;
+  }
+  fermerOverlayDirect();
+  document.getElementById("overlay-confirmation").classList.add("show");
+  document.getElementById("form-nom").value = "";
+  document.getElementById("form-telephone").value = "";
+  document.getElementById("form-quantite").value = 1;
+}
+
+function fermerConfirmation(e) {
+  if (!e || e.target === document.getElementById("overlay-confirmation")) {
+    document.getElementById("overlay-confirmation").classList.remove("show");
+  }
+}
+
+function toggleMenu() {
+  document.getElementById("mobile-menu").classList.toggle("open");
+}
