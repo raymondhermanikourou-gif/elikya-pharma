@@ -285,35 +285,35 @@
             class="max-w-7xl mx-auto px-5 py-3 flex flex-wrap items-center justify-center md:justify-start gap-6 lg:gap-10"
           >
             <div class="flex items-center gap-2">
-              <i class="fas fa-user-doctor text-green-200 text-sm"></i>
+              
               <span class="text-white text-xs font-medium"
                 >Professionnels qualifiés</span
               >
             </div>
             <div class="w-px h-4 bg-green-800 hidden md:block"></div>
             <div class="flex items-center gap-2">
-              <i class="fas fa-shield-heart text-green-200 text-sm"></i>
+            
               <span class="text-white text-xs font-medium"
                 >Service rapide et sécurisé</span
               >
             </div>
             <div class="w-px h-4 bg-green-800 hidden md:block"></div>
             <div class="flex items-center gap-2">
-              <i class="fas fa-clock text-green-200 text-sm"></i>
+            
               <span class="text-white text-xs font-medium"
                 >Disponible 7j/7</span
               >
             </div>
             <div class="w-px h-4 bg-green-800 hidden md:block"></div>
             <div class="flex items-center gap-2">
-              <i class="fas fa-hospital text-green-200 text-sm"></i>
+          
               <span class="text-white text-xs font-medium"
                 >+40 hôpitaux connectés</span
               >
             </div>
             <div class="w-px h-4 bg-green-800 hidden md:block"></div>
             <div class="flex items-center gap-2">
-              <i class="fas fa-pills text-green-200 text-sm"></i>
+          
               <span class="text-white text-xs font-medium"
                 >+120 pharmacies partenaires</span
               >
@@ -332,6 +332,130 @@
     
     <main>
     
+<!-- 
+     SECTION DEUX CARDS — DANS LE MAIN
+ -->
+<section id="recherche-medicament" class="bg-gray-50 py-12 px-4">
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!--
+         CARD MÉDICAMENT
+    -->
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+
+        <!-- Gauche — formulaire -->
+        <div class="p-6 lg:p-8 flex flex-col justify-center">
+
+          <!-- En-tête -->
+          <div class="flex items-center gap-3 mb-4">
+           <img src="src/assets/medi.png" alt="" class="w-20 h-14">
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg leading-tight">Rechercher un médicament</h3>
+              <p class="text-xs text-gray-400 mt-0.5">Trouvez rapidement vos médicaments disponibles dans les pharmacies les plus proches.</p>
+            </div>
+          </div>
+
+          <!-- Tags produits -->
+          <div id="tags-medicament" class="flex flex-wrap gap-2 mb-2 hidden"></div>
+
+          <!-- Champ + bouton -->
+          <div class="flex gap-2 mb-2">
+            <input
+              id="search-medicament"
+              type="text"
+              placeholder="Nom du médicament, maladie..."
+              class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+            />
+            <button
+              onclick="lancerRecherche()"
+              class="bg-green-700 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors flex items-center gap-2 whitespace-nowrap"
+            >
+              <i class="fas fa-search text-xs"></i>
+              <span class="hidden sm:inline">Rechercher</span>
+            </button>
+          </div>
+          <p class="text-xs text-gray-400 mb-1">
+             Appuyez sur <kbd class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Entrée</kbd> pour ajouter plusieurs produits
+          </p>
+
+          <!-- Résultats -->
+          <div id="resultats-medicament" class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"></div>
+        </div>
+
+        <!-- Droite — image -->
+        <div class="hidden md:block relative h-64 md:h-auto min-h-[280px]">
+          <img
+            src="src/assets/cardmedicament.png"
+            alt="Recherche médicament"
+            class="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <!-- Dégradé gauche sur l'image -->
+          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--
+         CARD SANG
+     -->
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+
+        <!-- Gauche — formulaire -->
+        <div class="p-6 lg:p-8 flex flex-col justify-center">
+
+          <!-- En-tête -->
+          <div class="flex items-center gap-3 mb-4">
+            <img src="src/assets/goutesang.png" alt="" class="w-20 h-14">
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg leading-tight">Rechercher une poche de sang</h3>
+              <p class="text-xs text-gray-400 mt-0.5">Vérifiez la disponibilité des poches de sang dans les centres de santé près de chez vous.</p>
+            </div>
+          </div>
+
+          <!-- Champ + bouton -->
+          <div class="flex gap-2 mb-2">
+            <input
+              id="search-sang"
+              type="text"
+              placeholder="Groupe sanguin (ex : O+, A-)..."
+              class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"
+            />
+            <button
+              onclick="lancerRechercheSang()"
+              class="bg-red-500 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-red-600 transition-colors flex items-center gap-2 whitespace-nowrap"
+            >
+              <i class="fas fa-search text-xs"></i>
+              <span class="hidden sm:inline">Rechercher</span>
+            </button>
+          </div>
+          <p class="text-xs text-gray-400 mb-1">
+             Entrez votre groupe sanguin ex : A+, O-, B+, AB+
+          </p>
+
+          <!-- Résultats -->
+          <div id="resultats-sang" class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"></div>
+        </div>
+
+        <!-- Droite — image -->
+        <div class="hidden md:block relative h-64 md:h-auto min-h-[280px]">
+          <img
+            src="src/assets/cardsang.png"
+            alt="Recherche poche de sang"
+            class="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <!-- Dégradé gauche sur l'image -->
+          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
     </main>
 
     <script>
