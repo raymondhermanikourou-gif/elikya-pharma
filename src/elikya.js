@@ -198,8 +198,8 @@ function lancerRecherche() {
       if (stock === 0) return;
       count++;
       const sc = stock <= 10 ? "stock-low" : "stock-ok";
-      const sl = stock <= 10 ? `⚠ ${stock} restants` : `✓ ${stock} en stock`;
-      zone.innerHTML += `<div class="fade-up bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow mb-2"><div class="flex items-start justify-between gap-2 mb-2"><div><p class="font-semibold text-gray-900 text-sm">${ph.nom}</p><p class="text-xs text-gray-400 mt-0.5"> ${ph.adresse}</p></div><span class="text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ${sc}">${sl}</span></div><div class="flex items-center gap-1.5 mb-3"><span class="text-green-700 font-bold text-sm">${prix.toLocaleString()} FCFA</span><span class="text-xs text-gray-400">/ unité</span></div><div class="flex gap-2"><button onclick="yAller(${ph.lat},${ph.lng})" class="flex-1 flex items-center justify-center gap-2 border border-green-500 text-green-700 font-semibold text-xs py-2 rounded-xl hover:bg-green-50 transition-colors"> Y aller</button><button onclick="ouvrirReservation('${produit.nom}','${ph.nom}',${prix})" class="flex-1 flex items-center justify-center gap-2 bg-green-600 text-white font-semibold text-xs py-2 rounded-xl hover:bg-green-700 transition-colors">🛒 Réserver</button></div></div>`;
+      const sl = stock <= 10 ? ` ${stock} restants` : ` ${stock} en stock`;
+      zone.innerHTML += `<div class="fade-up bg-white border border-gray-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow mb-2"><div class="flex items-start justify-between gap-2 mb-2"><div><p class="font-semibold text-gray-900 text-sm">${ph.nom}</p><p class="text-xs text-gray-400 mt-0.5"> ${ph.adresse}</p></div><span class="text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ${sc}">${sl}</span></div><div class="flex items-center gap-1.5 mb-3"><span class="text-green-700 font-bold text-sm">${prix.toLocaleString()} FCFA</span><span class="text-xs text-gray-400">/ unité</span></div><div class="flex gap-2"><button onclick="yAller(${ph.lat},${ph.lng})" class="flex-1 flex items-center justify-center gap-2 border border-green-500 text-green-700 font-semibold text-xs py-2 rounded-xl hover:bg-green-50 transition-colors"> Y aller</button><button onclick="ouvrirReservation('${produit.nom}','${ph.nom}',${prix})" class="flex-1 flex items-center justify-center gap-2 bg-green-600 text-white font-semibold text-xs py-2 rounded-xl hover:bg-green-700 transition-colors"> Réserver</button></div></div>`;
     });
     if (count === 0) {
       zone.innerHTML += `<div class="fade-up bg-yellow-50 border border-yellow-100 rounded-xl p-3 text-sm text-yellow-700">⚠ <strong>${produit.nom}</strong> en rupture dans toutes nos pharmacies.</div>`;
@@ -387,4 +387,81 @@ function fermerAlerteOverlay(e) {
   if (!e || e.target === document.getElementById('overlay-alerte')) {
     document.getElementById('overlay-alerte').classList.remove('show');
   }
+}
+
+// ══════════════════════════════════════════
+// CONSEILS SANTÉ
+// ══════════════════════════════════════════
+const conseils = [
+  {
+    badge: ' Médicaments',
+    image: 'src/assets/conservemedoc.png',
+    titre: 'Comment conserver ses médicaments correctement',
+    contenu: `
+      <p>La bonne conservation de vos médicaments est essentielle pour qu'ils restent efficaces et sans danger.</p>
+      <p><strong> Température</strong><br/>La plupart des médicaments se conservent à température ambiante (15-25°C). Évitez les endroits chauds comme la cuisine ou la voiture. Certains comme l'insuline nécessitent le réfrigérateur — lisez toujours la notice.</p>
+      <p><strong> Lumière et humidité</strong><br/>Gardez vos médicaments dans leur emballage d'origine, à l'abri de la lumière directe et de l'humidité. La salle de bain n'est pas un bon endroit — la vapeur d'eau les détériore.</p>
+      <p><strong> Date de péremption</strong><br/>Ne consommez jamais un médicament périmé. Vérifiez la date avant chaque prise et rapportez les médicaments non utilisés à la pharmacie.</p>
+      <p><strong> Sécurité</strong><br/>Rangez vos médicaments hors de portée des enfants, dans une armoire fermée à clé si possible.</p>
+    `
+  },
+  {
+    badge: ' Don de sang',
+    image: 'src/assets/donsang1.png',
+    titre: 'Qui peut donner son sang et à quelle fréquence ?',
+    contenu: `
+      <p>Le don de sang est un acte simple qui peut sauver jusqu'à 3 vies. Voici tout ce que vous devez savoir.</p>
+      <p><strong> Critères pour donner</strong><br/>• Avoir entre 18 et 65 ans<br/>• Peser au minimum 50 kg<br/>• Être en bonne santé générale<br/>• Ne pas être à jeun le jour du don<br/>• Ne pas avoir pris d'antibiotiques récemment</p>
+      <p><strong> Fréquence recommandée</strong><br/>• Hommes : toutes les 8 semaines (56 jours) maximum<br/>• Femmes : toutes les 12 semaines maximum<br/>• Chaque don représente environ 450 ml de sang</p>
+      <p><strong> Bénéfices pour le donneur</strong><br/>Le don stimule la production de nouvelles cellules sanguines, constitue un bilan de santé gratuit, et réduit le risque de maladies cardiovasculaires selon certaines études.</p>
+      <p><strong> Où donner à Brazzaville ?</strong><br/>Centre National de Transfusion Sanguine (CNTS) — Boulevard Denis Sassou Nguesso. Ouvert du lundi au vendredi de 7h à 15h.</p>
+    `
+  },
+  {
+    badge: ' Prévention',
+    image: 'src/assets/prevention.png',
+    titre: 'Gestes essentiels pour prévenir les infections courantes',
+    contenu: `
+      <p>À Brazzaville, quelques gestes simples au quotidien peuvent vous protéger de la majorité des infections courantes.</p>
+      <p><strong> Lavage des mains</strong><br/>Lavez-vous les mains régulièrement avec de l'eau propre et du savon pendant au moins 20 secondes — avant les repas, après les toilettes, après les transports en commun.</p>
+      <p><strong> Port du masque</strong><br/>En cas de symptômes respiratoires ou dans les lieux très fréquentés, portez un masque pour protéger les autres et vous-même.</p>
+      <p><strong> Désinfection des surfaces</strong><br/>Nettoyez régulièrement les surfaces fréquemment touchées : poignées de portes, téléphone, robinets.</p>
+      <p><strong> Vaccination</strong><br/>Respectez le calendrier vaccinal recommandé par le Ministère de la Santé du Congo. Les vaccins contre la fièvre jaune, la méningite et l'hépatite B sont essentiels.</p>
+      <p><strong> Eau propre</strong><br/>Consommez uniquement de l'eau potable ou bouillie. Les infections gastro-intestinales sont souvent liées à l'eau contaminée.</p>
+    `
+  },
+  {
+    badge: ' Hôpitaux',
+    image: 'src/assets/csi.webp',
+    titre: 'Hôpitaux de référence au Congo en 2025',
+    contenu: `
+      <p>Voici les principaux établissements de santé à Brazzaville avec leurs spécialités.</p>
+      <p><strong> CHU de Brazzaville</strong><br/>Avenue Auxence Ickonga — Établissement public de référence nationale. Urgences, chirurgie, maternité, pédiatrie, cardiologie.</p>
+      <p><strong> Hôpital Adolphe Sicé</strong><br/>Rue Bouenza, Moungali — Spécialisé en médecine interne et chirurgie générale. Disponible 24h/7.</p>
+      <p><strong> Hôpital de Base de Bacongo</strong><br/>Avenue du Djoué — Consultations générales, maternité, pédiatrie. Service d'urgences actif.</p>
+      <p><strong> Centre Hospitalier de Talangaï</strong><br/>Nord de Brazzaville — Médecine générale, soins primaires, vaccination.</p>
+      <p><strong> Clinique Nganga Edouard</strong><br/>Avenue de France, Centre-ville — Clinique privée spécialisée en chirurgie et imagerie médicale.</p>
+      <p><strong> CNTS — Centre National de Transfusion Sanguine</strong><br/>Boulevard Denis Sassou Nguesso — Collecte de sang, analyses, transfusions. Lun-Ven 7h-15h.</p>
+    `
+  }
+];
+
+function ouvrirConseil(index) {
+  const c = conseils[index];
+  document.getElementById('conseil-badge').textContent = c.badge;
+  document.getElementById('conseil-image').src = c.image;
+  document.getElementById('conseil-image').alt = c.titre;
+  document.getElementById('conseil-titre').textContent = c.titre;
+  document.getElementById('conseil-contenu').innerHTML = c.contenu;
+  document.getElementById('overlay-conseil').classList.add('show');
+}
+
+function fermerConseil(e) {
+  if (e.target === document.getElementById('overlay-conseil')) {
+    fermerConseilDirect();
+  }
+}
+
+function fermerConseilDirect() {
+  document.getElementById('overlay-conseil').classList.remove('show');
 }

@@ -874,6 +874,154 @@
 </div>
 
 
+<!--
+     SECTION CONSEILS SANTÉ
+-->
+<section id="conseils" class="bg-white py-16 px-4 border-t border-gray-100">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- En-tête -->
+    <div class="text-center mb-12">
+      
+      <h2 class="text-3xl lg:text-4xl font-black text-green-700 mb-3">
+        Conseils <span class="text-green-700">Santé</span>
+      </h2>
+      <p class="text-gray-500 text-base max-w-xl mx-auto">
+        Des informations essentielles pour prendre soin de vous et de vos proches au quotidien.
+      </p>
+    </div>
+
+    <!-- Grille 4 cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Card 1 — Conservation médicaments -->
+      <div
+        onclick="ouvrirConseil(0)"
+        class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+      >
+        <div class="relative h-48 overflow-hidden">
+          <img src="src/assets/conservemedoc.png" alt="Conservation médicaments"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-green-700 text-white text-xs font-bold px-2.5 py-1 rounded-full"> Médicaments</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">Comment conserver ses médicaments correctement</h3>
+          <p class="text-xs text-gray-500 leading-relaxed mb-3">Température, lumière, humidité — tout ce qu'il faut savoir pour garder vos médicaments efficaces.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-400"> 2 min de lecture</span>
+            <span class="text-green-700 text-xs font-semibold group-hover:underline">Lire </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 — Don de sang -->
+      <div
+        onclick="ouvrirConseil(1)"
+        class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+      >
+        <div class="relative h-48 overflow-hidden">
+          <img src="src/assets/donsang1.png" alt="Don de sang"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full"> Don de sang</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">Qui peut donner son sang et à quelle fréquence ?</h3>
+          <p class="text-xs text-gray-500 leading-relaxed mb-3">Critères d'éligibilité, fréquence recommandée et bénéfices du don de sang pour le donneur.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-400"> 2 min de lecture</span>
+            <span class="text-green-700 text-xs font-semibold group-hover:underline">Lire </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 — Prévention infections -->
+      <div
+        onclick="ouvrirConseil(2)"
+        class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+      >
+        <div class="relative h-48 overflow-hidden">
+          <img src="src/assets/prevention.png" alt="Prévention infections"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-green-700 text-white text-xs font-bold px-2.5 py-1 rounded-full"> Prévention</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">Gestes essentiels pour prévenir les infections courantes</h3>
+          <p class="text-xs text-gray-500 leading-relaxed mb-3">Les bons gestes au quotidien pour vous protéger et protéger votre entourage à Brazzaville.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-400"> 2 min de lecture</span>
+            <span class="text-green-700 text-xs font-semibold group-hover:underline">Lire </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 — Hôpitaux de référence -->
+      <div
+        onclick="ouvrirConseil(3)"
+        class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+      >
+        <div class="relative h-48 overflow-hidden">
+          <img src="src/assets/csi.webp" alt="Hôpitaux de référence"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-green-700 text-white text-xs font-bold px-2.5 py-1 rounded-full"> Hôpitaux</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">Hôpitaux de référence au Congo en 2025</h3>
+          <p class="text-xs text-gray-500 leading-relaxed mb-3">Les établissements de santé incontournables à Brazzaville avec leurs spécialités et contacts.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-400"> 2 min de lecture</span>
+            <span class="text-green-700 text-xs font-semibold group-hover:underline">Lire </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     OVERLAY CONSEILS — Modal de lecture
+════════════════════════════════════════════ -->
+<div id="overlay-conseil" class="overlay" onclick="fermerConseil(event)">
+  <div class="overlay-box" style="max-width:560px; max-height:85vh; overflow-y:auto;">
+
+    <!-- Header modal -->
+    <div class="flex items-center justify-between mb-4">
+      <span id="conseil-badge" class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700"></span>
+      <button onclick="fermerConseilDirect()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition flex-shrink-0">✕</button>
+    </div>
+
+    <!-- Image -->
+    <div class="rounded-xl overflow-hidden mb-4 h-40">
+      <img id="conseil-image" src="" alt="" class="w-full h-full object-cover" />
+    </div>
+
+    <!-- Titre -->
+    <h3 id="conseil-titre" class="font-black text-gray-900 text-lg mb-3 leading-tight"></h3>
+
+    <!-- Contenu -->
+    <div id="conseil-contenu" class="text-sm text-gray-600 leading-relaxed space-y-3"></div>
+
+    <!-- Bouton fermer -->
+    <button onclick="fermerConseilDirect()" class="w-full mt-6 bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors">
+      Fermer
+    </button>
+
+  </div>
+</div>
+
+
     </main>
 
     <script>
