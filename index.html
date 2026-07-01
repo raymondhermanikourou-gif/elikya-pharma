@@ -114,7 +114,7 @@
           <!-- Logo -->
           <div class="flex items-center gap-2 flex-shrink-0">
             <img
-              src="src/assets/logorecherche.jpeg"
+              src="src/assets/lgf.png"
               alt="logo"
               class="bg-transparent object-contain w-20"
             />
@@ -990,13 +990,13 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     OVERLAY CONSEILS — Modal de lecture
-════════════════════════════════════════════ -->
+<!-- 
+     conseil de lecture
+-->
 <div id="overlay-conseil" class="overlay" onclick="fermerConseil(event)">
   <div class="overlay-box" style="max-width:560px; max-height:85vh; overflow-y:auto;">
 
-    <!-- Header modal -->
+    <!-- Header -->
     <div class="flex items-center justify-between mb-4">
       <span id="conseil-badge" class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700"></span>
       <button onclick="fermerConseilDirect()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition flex-shrink-0">✕</button>
@@ -1023,6 +1023,142 @@
 
 
     </main>
+
+
+
+<!--
+     BANDE RÉASSURANCE avant footer
+-->
+<div class="bg-green-700 py-10 px-4">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+        <i class="fas fa-shield-heart text-white text-xl"></i>
+      </div>
+      <div>
+        <p class="text-white font-bold text-base mb-1">Vos données sont sécurisées et confidentielles</p>
+        <p class="text-green-200 text-sm leading-relaxed">Nous protégeons vos informations pour une expérience en toute confiance. Aucune donnée n'est partagée sans votre consentement.</p>
+      </div>
+    </div>
+    <div class="flex items-start gap-4 md:justify-end">
+      <div>
+        <p class="text-white font-bold text-base mb-1">Besoin d'aide ?</p>
+        <p class="text-green-200 text-sm mb-3">Notre équipe est disponible 24h/7 pour vous accompagner.</p>
+        <a href="mailto:contact@elikyapharma.com" class="inline-flex items-center gap-2 bg-white text-green-700 font-bold text-sm px-5 py-2.5 rounded-full hover:bg-green-50 transition-colors">
+          <i class="fas fa-envelope text-xs"></i>
+          Nous contacter
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+     FOOTER PRINCIPAL
+-->
+<footer class="bg-green-900 text-white px-4 pt-12 pb-6">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- 4 colonnes -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+
+      <!-- Colonne 1 — Logo + description -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <img src="src/assets/lgf.png" alt="logo" class="w=30 h-20 object-contain" />
+          <span class="text-lg font-black tracking-tight">
+            <span class="text-red-400">ELIKYA</span><span class="text-green-300">-PHARMA</span>
+          </span>
+        </div>
+        <p class="text-green-300 text-sm leading-relaxed mb-5">
+          Votre santé, notre priorité. Des services fiables et accessibles pour votre bien-être au quotidien à Brazzaville et au Congo.
+        </p>
+        <!-- Réseaux sociaux -->
+        <div class="flex gap-3">
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+            <i class="fab fa-facebook-f text-sm"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+            <i class="fab fa-instagram text-sm"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+            <i class="fab fa-whatsapp text-sm"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+            <i class="fab fa-twitter text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Colonne 2 — Navigation -->
+      <div>
+        <p class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Navigation</p>
+        <ul class="space-y-2.5">
+          <li><a href="#" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Accueil</a></li>
+          <li><a href="#sos-alerte" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>SOS Alerte</a></li>
+          <li><a href="#don-de-sang" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Don de sang</a></li>
+          <li><a href="#conseils" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Conseils santé</a></li>
+          <li><a href="#partenaires" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Nos partenaires</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 3 — Services -->
+      <div>
+        <p class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Nos services</p>
+        <ul class="space-y-2.5">
+          <li><a href="#recherche-medicament" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Recherche de médicaments</a></li>
+          <li><a href="#recherche-medicament" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Disponibilité du sang</a></li>
+          <li><a href="#recherche-medicament" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Réservation en ligne</a></li>
+          <li><a href="#sos-alerte" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Alertes SOS</a></li>
+          <li><a href="#don-de-sang" class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-green-500"></i>Don de sang</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 4 — Contact -->
+      <div>
+        <p class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Contact</p>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <i class="fas fa-phone text-green-400 text-sm mt-0.5 flex-shrink-0"></i>
+            <span class="text-green-300 text-sm">+242 06 000 00 00</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-envelope text-green-400 text-sm mt-0.5 flex-shrink-0"></i>
+            <span class="text-green-300 text-sm">contact@elikyapharma.com</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-location-dot text-green-400 text-sm mt-0.5 flex-shrink-0"></i>
+            <span class="text-green-300 text-sm">Brazzaville, République du Congo</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-clock text-green-400 text-sm mt-0.5 flex-shrink-0"></i>
+            <span class="text-green-300 text-sm">Disponible 24h/7 — 7j/7</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Séparateur -->
+    <div class="border-t border-green-700/50 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-green-400 text-xs text-center md:text-left">
+        © 2025 ElikyaPharma. Tous droits réservés. Conçu avec ❤️ pour le Congo.
+      </p>
+      <div class="flex gap-5">
+        <a href="#" class="text-green-400 text-xs hover:text-white transition-colors">Politique de confidentialité</a>
+        <a href="#" class="text-green-400 text-xs hover:text-white transition-colors">Conditions d'utilisation</a>
+        <a href="#" class="text-green-400 text-xs hover:text-white transition-colors">Mentions légales</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+
+
+
+
 
     <script>
       function toggleMenu() {
