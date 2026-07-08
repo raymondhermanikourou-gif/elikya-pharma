@@ -465,3 +465,63 @@ function fermerConseil(e) {
 function fermerConseilDirect() {
   document.getElementById('overlay-conseil').classList.remove('show');
 }
+
+// 
+// AUTHENTIFICATION
+// 
+function ouvrirInscription() {
+  document.getElementById('overlay-inscription').classList.add('show');
+}
+function fermerInscription(e) {
+  if (e.target === document.getElementById('overlay-inscription')) fermerInscriptionDirect();
+}
+function fermerInscriptionDirect() {
+  document.getElementById('overlay-inscription').classList.remove('show');
+}
+function ouvrirConnexion() {
+  document.getElementById('overlay-connexion').classList.add('show');
+}
+function fermerConnexion(e) {
+  if (e.target === document.getElementById('overlay-connexion')) fermerConnexionDirect();
+}
+function fermerConnexionDirect() {
+  document.getElementById('overlay-connexion').classList.remove('show');
+}
+function allerInscription() {
+  fermerConnexionDirect();
+  setTimeout(() => ouvrirInscription(), 200);
+}
+function allerConnexion() {
+  fermerInscriptionDirect();
+  setTimeout(() => ouvrirConnexion(), 200);
+}
+function soumettreInscription() {
+  const nom = document.getElementById('ins-nom').value.trim();
+  const tel = document.getElementById('ins-tel').value.trim();
+  const email = document.getElementById('ins-email').value.trim();
+  const mdp = document.getElementById('ins-mdp').value.trim();
+  if (!nom || !tel || !email || !mdp) { alert('Veuillez remplir tous les champs.'); return; }
+  if (mdp.length < 6) { alert('Le mot de passe doit contenir au moins 6 caractères.'); return; }
+  fermerInscriptionDirect();
+  document.getElementById('msg-inscription-ok').innerHTML =
+    `Bienvenue <strong>${nom}</strong> ! Votre compte sera activé dès réception de votre paiement de 1 000 FCFA.`;
+  document.getElementById('overlay-inscription-ok').classList.add('show');
+  document.getElementById('ins-nom').value = '';
+  document.getElementById('ins-tel').value = '';
+  document.getElementById('ins-email').value = '';
+  document.getElementById('ins-mdp').value = '';
+}
+function fermerInscriptionOk(e) {
+  if (!e || e.target === document.getElementById('overlay-inscription-ok')) {
+    document.getElementById('overlay-inscription-ok').classList.remove('show');
+  }
+}
+function soumettreConnexion() {
+  const email = document.getElementById('con-email').value.trim();
+  const mdp = document.getElementById('con-mdp').value.trim();
+  if (!email || !mdp) { alert('Veuillez remplir tous les champs.'); return; }
+  fermerConnexionDirect();
+  alert('Connexion réussie ! Bienvenue sur ElikyaPharma.');
+  document.getElementById('con-email').value = '';
+  document.getElementById('con-mdp').value = '';
+}
