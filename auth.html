@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mobikissi — Connexion / Inscription</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+
+    .hero-bg {
+      background: linear-gradient(135deg, #14532d 0%, #166534 40%, #15803d 70%, #16a34a 100%);
+    }
+
+    /* Animation entrée formulaire */
+    .form-card {
+      animation: slideUp 0.5s ease both;
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(30px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* Animation message bienvenue */
+    .welcome-toast {
+      animation: toastIn 0.6s ease both;
+    }
+    @keyframes toastIn {
+      from { opacity:0; transform:translateX(100px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+
+    /* Spinner */
+    .spinner {
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Barre de progression paiement */
+    .progress-bar {
+      animation: progress 2s ease forwards;
+    }
+    @keyframes progress {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+  </style>
+</head>
+<body class="hero-bg min-h-screen flex flex-col">
+
+<!-- ── LOGO EN HAUT ── -->
+<div class="flex items-center justify-center pt-10 pb-6">
+  <div class="flex items-center gap-3">
+    <!-- Remplace par ton logo : <img src="src/assets/Logo icone.png" class="w-10 h-10"> -->
+    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+      <span class="text-green-800 font-bold text-lg">M</span>
+    </div>
+    <span class="text-3xl font-extrabold tracking-tight">
+      <span class="text-white">MOBI</span><span class="text-green-300">KISSI</span>
+    </span>
+  </div>
+</div>
+
+<p class="text-center text-green-200 text-sm mb-8 px-4">
+  Le sauveur numérique de votre santé à Brazzaville
+</p>
+
+<!-- ── FORMULAIRE PRINCIPAL ── -->
+<div class="flex-1 flex items-start justify-center px-4 pb-12">
+  <div class="form-card bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden">
+
+    <!-- Onglets -->
+    <div class="flex">
+      <button id="tab-connexion" onclick="afficherOnglet('connexion')"
+        class="flex-1 py-4 text-sm font-semibold text-white bg-green-700 transition">
+        Se connecter
+      </button>
+      <button id="tab-inscription" onclick="afficherOnglet('inscription')"
+        class="flex-1 py-4 text-sm font-semibold text-gray-500 bg-gray-100 transition">
+        S'inscrire
+      </button>
+    </div>
+
+    <div class="p-6">
+
+      <!-- ════════════════════════════════
+           PANNEAU CONNEXION
+           ════════════════════════════════ -->
+      <div id="panneau-connexion">
+
+        <h2 class="text-xl font-bold text-gray-900 mb-1">Bon retour 👋</h2>
+        <p class="text-sm text-gray-500 mb-5">Entrez votre numéro pour accéder à Mobikissi.</p>
+
+        <div class="flex flex-col gap-4">
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Numéro de téléphone</label>
+            <input id="co-tel" type="tel" placeholder="+242 06 000 0000"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"/>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Mot de passe</label>
+            <div class="relative">
+              <input id="co-mdp" type="password" placeholder="Votre mot de passe"
+                class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 pr-12"/>
+              <button onclick="toggleMdp('co-mdp')"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">
+                👁
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="co-erreur" class="hidden mt-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600"></div>
+
+        <button onclick="seConnecter()"
+          class="mt-5 w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition flex items-center justify-center gap-2" id="btn-connexion">
+          Se connecter
+        </button>
+
+        <p class="text-center text-xs text-gray-400 mt-4">
+          Pas encore de compte ?
+          <button onclick="afficherOnglet('inscription')" class="text-green-700 font-semibold hover:underline">
+            S'inscrire pour 1 200 FCFA/an
+          </button>
+        </p>
+
+      </div>
+
+      <!-- ════════════════════════════════
+           PANNEAU INSCRIPTION
+           ════════════════════════════════ -->
+      <div id="panneau-inscription" class="hidden">
+
+        <h2 class="text-xl font-bold text-gray-900 mb-1">Créer votre compte</h2>
+        <p class="text-sm text-gray-500 mb-1">Accès complet à tous les services Mobikissi.</p>
+
+        <!-- Badge prix -->
+        <div class="flex items-center gap-2 mb-5">
+          <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">
+            ✅ 1 200 FCFA / an — soit 100 FCFA/mois
+          </span>
+        </div>
+
+        <div class="flex flex-col gap-4">
+
+          <!-- Nom + Prénom -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1">Nom</label>
+              <input id="in-nom" type="text" placeholder="Mabiala"
+                class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1">Prénom</label>
+              <input id="in-prenom" type="text" placeholder="Jean"
+                class="w-full border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"/>
+            </div>
+          </div>
+
+          <!-- Sexe -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-2">Sexe</label>
+            <div class="flex gap-3">
+              <label class="flex-1 flex items-center gap-2 border border-gray-300 rounded-xl px-3 py-3 cursor-pointer hover:border-green-500 transition">
+                <input type="radio" name="sexe" value="M" class="accent-green-700"/>
+                <span class="text-sm text-gray-700">👨 Homme</span>
+              </label>
+              <label class="flex-1 flex items-center gap-2 border border-gray-300 rounded-xl px-3 py-3 cursor-pointer hover:border-green-500 transition">
+                <input type="radio" name="sexe" value="F" class="accent-green-700"/>
+                <span class="text-sm text-gray-700">👩 Femme</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Téléphone -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Numéro de téléphone</label>
+            <input id="in-tel" type="tel" placeholder="+242 06 000 0000"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"/>
+            <p class="text-xs text-gray-400 mt-1">Ce numéro servira à vous identifier à chaque connexion</p>
+          </div>
+
+          <!-- Mot de passe -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Mot de passe</label>
+            <div class="relative">
+              <input id="in-mdp" type="password" placeholder="Choisissez un mot de passe"
+                class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 pr-12"/>
+              <button onclick="toggleMdp('in-mdp')"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">
+                👁
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="in-erreur" class="hidden mt-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600"></div>
+
+        <!-- Bouton payer -->
+        <button onclick="lancerPaiement()"
+          class="mt-5 w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition flex items-center justify-center gap-2" id="btn-inscription">
+          💳 Payer 1 200 FCFA et s'inscrire
+        </button>
+
+        <p class="text-center text-xs text-gray-400 mt-3">
+          Paiement sécurisé via Mobile Money (MTN / Airtel)
+        </p>
+
+        <p class="text-center text-xs text-gray-400 mt-2">
+          Déjà inscrit ?
+          <button onclick="afficherOnglet('connexion')" class="text-green-700 font-semibold hover:underline">
+            Se connecter
+          </button>
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── MODAL PAIEMENT MOBILE MONEY ── -->
+<div id="modal-paiement" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6">
+    <div id="etape-paiement-1">
+      <div class="text-center mb-5">
+        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+          <span class="text-3xl">📱</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900">Paiement Mobile Money</h3>
+        <p class="text-sm text-gray-500 mt-1">Choisissez votre opérateur</p>
+      </div>
+
+      <div class="flex gap-3 mb-5">
+        <button onclick="choisirOperateur('MTN')"
+          class="flex-1 border-2 border-gray-200 rounded-2xl py-4 flex flex-col items-center gap-1 hover:border-yellow-400 transition" id="btn-mtn">
+          <span class="text-2xl">🟡</span>
+          <span class="text-xs font-bold text-gray-700">MTN Money</span>
+        </button>
+        <button onclick="choisirOperateur('Airtel')"
+          class="flex-1 border-2 border-gray-200 rounded-2xl py-4 flex flex-col items-center gap-1 hover:border-red-400 transition" id="btn-airtel">
+          <span class="text-2xl">🔴</span>
+          <span class="text-xs font-bold text-gray-700">Airtel Money</span>
+        </button>
+      </div>
+
+      <div class="bg-gray-50 rounded-2xl px-4 py-3 mb-5 text-sm">
+        <div class="flex justify-between mb-1">
+          <span class="text-gray-500">Abonnement Mobikissi</span>
+          <span class="font-bold">1 200 FCFA</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500">Durée</span>
+          <span class="font-bold text-green-700">1 an complet</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-400 text-center mb-4">
+        Une demande de validation sera envoyée sur votre téléphone
+      </p>
+
+      <button onclick="validerPaiement()"
+        class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition" id="btn-valider-paiement">
+        Valider le paiement
+      </button>
+      <button onclick="fermerModalPaiement()"
+        class="w-full mt-2 text-gray-400 py-2 text-sm hover:text-gray-600 transition">
+        Annuler
+      </button>
+    </div>
+
+    <!-- Étape 2 : traitement -->
+    <div id="etape-paiement-2" class="hidden text-center py-4">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div class="spinner" style="border-color:rgba(20,83,45,0.3); border-top-color:#14532d;"></div>
+      </div>
+      <h3 class="text-lg font-bold text-gray-900 mb-2">Traitement en cours...</h3>
+      <p class="text-sm text-gray-500 mb-4">Validez la demande sur votre téléphone</p>
+      <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+        <div class="progress-bar h-2 bg-green-600 rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- Étape 3 : succès -->
+    <div id="etape-paiement-3" class="hidden text-center py-4">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-4xl">✅</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-900 mb-1">Paiement confirmé !</h3>
+      <p class="text-sm text-gray-500 mb-4">Votre compte Mobikissi est actif pour 1 an.</p>
+      <button onclick="finaliserInscription()"
+        class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition">
+        Accéder à Mobikissi →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ── TOAST BIENVENUE (affiché après connexion) ── -->
+<div id="toast-bienvenue" class="fixed top-4 right-4 z-50 hidden">
+  <div class="welcome-toast bg-white rounded-2xl shadow-2xl border border-green-200 px-5 py-4 flex items-center gap-3 max-w-xs">
+    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0">
+      <span class="text-xl" id="toast-emoji">👨</span>
+    </div>
+    <div>
+      <p class="text-xs text-gray-400">Bienvenue sur Mobikissi</p>
+      <p class="text-sm font-bold text-gray-900" id="toast-nom">Mr. Jean Mabiala</p>
+      <p class="text-xs text-green-600">✅ Accès complet activé</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════ -->
+<script>
+
+// ── BASE UTILISATEURS SIMULÉE ─────────────────────────────
+// En production ce sera une vraie base de données
+const UTILISATEURS = [
+  { tel:"+242060000001", mdp:"pass123", nom:"Mabiala", prenom:"Jean", sexe:"M" },
+  { tel:"+242060000002", mdp:"pass456", nom:"Moukala", prenom:"Marie", sexe:"F" },
+];
+
+let operateurChoisi = null;
+let nouvelUtilisateur = null;
+
+// ── ONGLETS ───────────────────────────────────────────────
+function afficherOnglet(onglet) {
+  const estConnexion = (onglet === 'connexion');
+
+  document.getElementById('panneau-connexion').classList.toggle('hidden', !estConnexion);
+  document.getElementById('panneau-inscription').classList.toggle('hidden', estConnexion);
+
+  document.getElementById('tab-connexion').className = estConnexion
+    ? 'flex-1 py-4 text-sm font-semibold text-white bg-green-700 transition'
+    : 'flex-1 py-4 text-sm font-semibold text-gray-500 bg-gray-100 transition';
+
+  document.getElementById('tab-inscription').className = !estConnexion
+    ? 'flex-1 py-4 text-sm font-semibold text-white bg-green-700 transition'
+    : 'flex-1 py-4 text-sm font-semibold text-gray-500 bg-gray-100 transition';
+}
+
+// ── AFFICHER / CACHER MOT DE PASSE ───────────────────────
+function toggleMdp(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+// ── CONNEXION ─────────────────────────────────────────────
+function seConnecter() {
+  const tel = document.getElementById('co-tel').value.trim();
+  const mdp = document.getElementById('co-mdp').value.trim();
+  const erreur = document.getElementById('co-erreur');
+
+  if (!tel || !mdp) {
+    afficherErreur('co-erreur', 'Veuillez remplir tous les champs.');
+    return;
+  }
+
+  // Simulation chargement
+  const btn = document.getElementById('btn-connexion');
+  btn.innerHTML = '<span class="spinner"></span> Vérification...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    // Cherche l'utilisateur dans la base
+    const user = UTILISATEURS.find(u => u.tel === tel && u.mdp === mdp);
+
+    if (user) {
+      erreur.classList.add('hidden');
+      afficherBienvenue(user);
+      // Redirige vers la page principale après 2 secondes
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2500);
+    } else {
+      btn.innerHTML = 'Se connecter';
+      btn.disabled = false;
+      // Vérifie si le numéro existe mais mot de passe faux
+      const existe = UTILISATEURS.find(u => u.tel === tel);
+      if (existe) {
+        afficherErreur('co-erreur', 'Mot de passe incorrect. Réessayez.');
+      } else {
+        afficherErreur('co-erreur', 'Numéro non reconnu. Veuillez vous inscrire.');
+        setTimeout(() => afficherOnglet('inscription'), 2000);
+      }
+    }
+  }, 1500);
+}
+
+// ── LANCER PAIEMENT ───────────────────────────────────────
+function lancerPaiement() {
+  const nom    = document.getElementById('in-nom').value.trim();
+  const prenom = document.getElementById('in-prenom').value.trim();
+  const tel    = document.getElementById('in-tel').value.trim();
+  const mdp    = document.getElementById('in-mdp').value.trim();
+  const sexe   = document.querySelector('input[name="sexe"]:checked');
+
+  if (!nom || !prenom || !tel || !mdp || !sexe) {
+    afficherErreur('in-erreur', 'Veuillez remplir tous les champs.');
+    return;
+  }
+
+  // Vérifie si déjà inscrit
+  const dejaInscrit = UTILISATEURS.find(u => u.tel === tel);
+  if (dejaInscrit) {
+    afficherErreur('in-erreur', 'Ce numéro est déjà inscrit. Connectez-vous.');
+    setTimeout(() => afficherOnglet('connexion'), 2000);
+    return;
+  }
+
+  // Sauvegarde les données temporairement
+  nouvelUtilisateur = { nom, prenom, tel, mdp, sexe: sexe.value };
+
+  document.getElementById('in-erreur').classList.add('hidden');
+  ouvrirModalPaiement();
+}
+
+// ── MODAL PAIEMENT ────────────────────────────────────────
+function ouvrirModalPaiement() {
+  document.getElementById('modal-paiement').classList.remove('hidden');
+  document.getElementById('modal-paiement').classList.add('flex');
+  document.getElementById('etape-paiement-1').classList.remove('hidden');
+  document.getElementById('etape-paiement-2').classList.add('hidden');
+  document.getElementById('etape-paiement-3').classList.add('hidden');
+  operateurChoisi = null;
+}
+
+function fermerModalPaiement() {
+  document.getElementById('modal-paiement').classList.add('hidden');
+  document.getElementById('modal-paiement').classList.remove('flex');
+}
+
+function choisirOperateur(op) {
+  operateurChoisi = op;
+  document.getElementById('btn-mtn').classList.toggle('border-yellow-400', op === 'MTN');
+  document.getElementById('btn-mtn').classList.toggle('bg-yellow-50', op === 'MTN');
+  document.getElementById('btn-airtel').classList.toggle('border-red-400', op === 'Airtel');
+  document.getElementById('btn-airtel').classList.toggle('bg-red-50', op === 'Airtel');
+}
+
+function validerPaiement() {
+  if (!operateurChoisi) {
+    alert('Veuillez choisir un opérateur (MTN ou Airtel).');
+    return;
+  }
+
+  // Étape 2 : traitement simulé
+  document.getElementById('etape-paiement-1').classList.add('hidden');
+  document.getElementById('etape-paiement-2').classList.remove('hidden');
+
+  // Après 2.5 secondes → succès
+  setTimeout(() => {
+    document.getElementById('etape-paiement-2').classList.add('hidden');
+    document.getElementById('etape-paiement-3').classList.remove('hidden');
+  }, 2500);
+}
+
+function finaliserInscription() {
+  // Ajoute l'utilisateur à la base simulée
+  if (nouvelUtilisateur) {
+    UTILISATEURS.push(nouvelUtilisateur);
+  }
+  fermerModalPaiement();
+  afficherBienvenue(nouvelUtilisateur);
+  // Redirige vers la page principale
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 2500);
+}
+
+// ── TOAST BIENVENUE ───────────────────────────────────────
+function afficherBienvenue(user) {
+  const civilite = user.sexe === 'F' ? 'Mme' : 'Mr';
+  const emoji    = user.sexe === 'F' ? '👩' : '👨';
+  document.getElementById('toast-nom').textContent  = `${civilite}. ${user.prenom} ${user.nom}`;
+  document.getElementById('toast-emoji').textContent = emoji;
+  const toast = document.getElementById('toast-bienvenue');
+  toast.classList.remove('hidden');
+  // Cache le toast après 5 secondes
+  setTimeout(() => toast.classList.add('hidden'), 5000);
+}
+
+// ── AFFICHER ERREUR ───────────────────────────────────────
+function afficherErreur(id, message) {
+  const el = document.getElementById(id);
+  el.textContent = message;
+  el.classList.remove('hidden');
+}
+
+// ── CONNEXION AU CLAVIER ──────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const panneauConnexion = !document.getElementById('panneau-connexion').classList.contains('hidden');
+    if (panneauConnexion) seConnecter();
+  }
+});
+
+</script>
+</body>
+</html>
