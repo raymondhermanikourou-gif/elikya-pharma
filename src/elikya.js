@@ -525,3 +525,72 @@ function soumettreConnexion() {
   document.getElementById('con-email').value = '';
   document.getElementById('con-mdp').value = '';
 }
+
+
+
+
+// Charge les infos utilisateur depuis la session
+function chargerUtilisateur() {
+  const data = sessionStorage.getItem('mobikissi_user');
+  if (!data) { window.location.href = 'index.html'; return; }
+  const user = JSON.parse(data);
+  const initiales = user.prenom.charAt(0).toUpperCase() + user.nom.charAt(0).toUpperCase();
+  const civilite = user.sexe === 'F' ? 'Mme' : 'Mr';
+  const nomComplet = civilite + '. ' + user.prenom + ' ' + user.nom;
+
+  document.getElementById('avatar-initiales').textContent = initiales;
+  document.getElementById('avatar-menu-initiales').textContent = initiales;
+  document.getElementById('navbar-nom').textContent = nomComplet;
+  document.getElementById('menu-nom-complet').textContent = nomComplet;
+
+  // Photo sauvegardee
+  const photo = localStorage.getItem('mobikissi_photo');
+  if (photo) appliquerPhoto(photo);
+}
+
+// Ouvre/ferme menu profil
+function toggleMenuProfil() {
+  const menu = document.getElementById('menu-profil');
+  menu.classList.toggle('hidden');
+}
+
+// Ferme menu profil si clic dehors
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('menu-profil');
+  const btn = e.target.closest('button');
+  if (!menu.contains(e.target) && !e.target.closest('[onclick="toggleMenuProfil()"]')) {
+    menu.classList.add('hidden');
+  }
+});
+
+// Changer photo profil
+function changerPhoto(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    localStorage.setItem('mobikissi_photo', e.target.result);
+    appliquerPhoto(e.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+function appliquerPhoto(src) {
+  // Navbar
+  document.getElementById('avatar-initiales').classList.add('hidden');
+  document.getElementById('avatar-photo').src = src;
+  document.getElementById('avatar-photo').classList.remove('hidden');
+  // Menu
+  document.getElementById('avatar-menu-initiales').classList.add('hidden');
+  document.getElementById('avatar-menu-photo').src = src;
+  document.getElementById('avatar-menu-photo').classList.remove('hidden');
+}
+
+// Deconnexion
+function seDeconnecter() {
+  sessionStorage.removeItem('mobikissi_user');
+  window.location.href = 'index.html';
+}
+
+// Lancer au chargement
+document.addEventListener('DOMContentLoaded', chargerUtilisateur);
