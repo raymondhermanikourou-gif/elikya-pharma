@@ -1,0 +1,2211 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style/output.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="src/elikya.js"></script>
+
+    <title>ElikyaPharma</title>
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .hero-bg {
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.97) 0%,
+            rgba(255, 255, 255, 0.95) 35%,
+            rgba(255, 255, 255, 0.4) 65%,
+            rgba(255, 255, 255, 0) 100%
+          ),
+          url("src/assets/newheader.png");
+        background-size: cover;
+        background-position: center;
+      }
+
+      #mobile-menu {
+        display: none;
+      }
+      #mobile-menu.open {
+        display: flex;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-up {
+        animation: fadeSlideUp 0.35s ease forwards;
+      }
+      .stock-ok {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .stock-low {
+        background: #fef9c3;
+        color: #a16207;
+      }
+      .stock-empty {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .overlay.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .overlay-box {
+        background: white;
+        border-radius: 20px;
+        padding: 1.75rem;
+        width: 90%;
+        max-width: 420px;
+        transform: translateY(20px);
+        transition: transform 0.25s;
+      }
+      .overlay.show .overlay-box {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+
+  <body class="bg-white">
+    <header>
+      <!--
+       NAVBAR
+  -->
+      <nav
+        class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm"
+      >
+        <div
+          class="w-full mx-auto px-4 h-16 flex items-center justify-between sm:px-6"
+        >
+          <!-- Logo -->
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <img
+              src="src/assets/lgf.png"
+              alt="logo"
+              class="bg-transparent object-contain w-20"
+            />
+            <span class="text-xl font-black tracking-tight">
+              <span class="text-red-600">ELIKYA</span
+              ><span class="text-green-800">-PHARMA</span>
+            </span>
+          </div>
+
+          <!-- Liens centre desktop -->
+          <div class="hidden md:flex items-center gap-8">
+            <a
+              href="#sos-alerte"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >SOS Alerte</a
+            >
+            <a
+              href="#don-de-sang"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >Don de sang</a
+            >
+            <a
+              href="#conseils"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >Conseils santé</a
+            >
+            <a
+              href="#partenaires"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >Nos partenaires</a
+            >
+          </div>
+
+          <!-- Boutons droite desktop -->
+          <!-- Se connecter -->
+<button onclick="window.location.href='auth.html'" 
+  class="px-4 py-2 rounded-full border border-green-800 text-green-800 font-semibold text-sm hover:bg-green-50 transition-colors flex items-center gap-2">
+  Se connecter
+</button>
+
+<!-- S'inscrire -->
+<button onclick="window.location.href='auth.html'" 
+  class="px-4 py-2 rounded-full bg-green-800 text-white font-semibold text-sm hover:bg-green-800 transition-colors">
+  S'inscrire
+</button>
+
+          <!-- Burger mobile -->
+          <button
+            id="burger-btn"
+            class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors focus:outline-none"
+            aria-label="Ouvrir le menu"
+            onclick="toggleMenu()"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Menu mobile -->
+        <div
+          id="mobile-menu"
+          class="flex-col md:hidden bg-white shadow-lg border-t border-gray-100"
+        >
+          <a
+            href="#sos-alerte"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-800 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-bell text-red-500 text-sm"></i>
+            </span>
+            SOS Alerte
+          </a>
+          <a
+            href="#don-de-sang"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-droplet text-red-500 text-sm"></i>
+            </span>
+            Don de sang
+          </a>
+          <a
+            href="#conseils"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-book-open text-green-800 text-sm"></i>
+            </span>
+            Conseils santé
+          </a>
+          <a
+            href="#partenaires"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-handshake text-blue-500 text-sm"></i>
+            </span>
+            Nos partenaires
+          </a>
+          <!-- Boutons connexion mobile -->
+          <div class="flex gap-3 px-6 py-4 border-t border-gray-100">
+            <button
+              onclick="window.location.href='auth.html'"
+              class="flex-1 py-2.5 rounded-full border border-green-800 text-green-800 font-semibold text-sm  hover:bg-green-50 transition-colors"
+            >
+              Se connecter
+            </button>
+            <button
+              onclick="window.location.href='auth.html'"
+              class="flex-1 py-2.5 rounded-full bg-green-800 text-white font-semibold text-sm hover:bg-green-800 transition-colors"
+            >
+              S'inscrire
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <!--
+       HERO
+ -->
+      <section
+        class="hero-bg min-h-[420px] lg:min-h-[480px] flex flex-col justify-between"
+      >
+        <!-- Contenu texte -->
+        <div class="max-w-7xl mx-auto px-5 py-14 lg:py-20 w-full">
+          <!-- Titre -->
+          <h1
+            class="text-4xl lg:text-5xl font-black text-green-800 mb-3 leading-tight"
+          >
+            Vos medicaments et votre <br /><span class="text-red-600"
+              >sang</span
+            >
+            a portée de main
+          </h1>
+
+          <!-- Sous-titre -->
+          <p
+            class="text-gray-600 text-sm lg:text-base leading-relaxed max-w-md"
+          >
+            Localisez instantanément vos medicaments et poches de sang aupres de
+            notre reseau partenaire.
+          </p>
+        </div>
+
+        <!-- Barre stats en bas du hero -->
+        <div class="bg-green-800 w-full">
+          <div
+            class="max-w-7xl mx-auto px-5 py-3 flex flex-wrap items-center justify-center md:justify-start gap-6 lg:gap-10"
+          >
+            <div class="flex items-center gap-2">
+              <span class="text-white text-xs font-medium"
+                >Professionnels qualifiés</span
+              >
+            </div>
+            <div class="w-px h-4 bg-green-800 hidden md:block"></div>
+            <div class="flex items-center gap-2">
+              <span class="text-white text-xs font-medium"
+                >Service rapide et sécurisé</span
+              >
+            </div>
+            <div class="w-px h-4 bg-green-800 hidden md:block"></div>
+            <div class="flex items-center gap-2">
+              <span class="text-white text-xs font-medium"
+                >Disponible 7j/7</span
+              >
+            </div>
+            <div class="w-px h-4 bg-green-800 hidden md:block"></div>
+            <div class="flex items-center gap-2">
+              <span class="text-white text-xs font-medium"
+                >+40 hôpitaux connectés</span
+              >
+            </div>
+            <div class="w-px h-4 bg-green-800 hidden md:block"></div>
+            <div class="flex items-center gap-2">
+              <span class="text-white text-xs font-medium"
+                >+120 pharmacies partenaires</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("mobile-menu").classList.toggle("open");
+      }
+    </script>
+
+    <main>
+      <!-- 
+     SECTION DEUX CARDS — DANS LE MAIN
+ -->
+      <section id="recherche-medicament" class="bg-gray-50 py-12 px-4">
+        <div class="max-w-7xl mx-auto space-y-6">
+          <!--
+         CARD MÉDICAMENT
+    -->
+          <div
+            class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <!-- Gauche — formulaire -->
+              <div class="p-6 lg:p-8 flex flex-col justify-center">
+                <!-- En-tête -->
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="src/assets/medi.png" alt="" class="w-20 h-14" />
+                  <div>
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight">
+                      Rechercher un médicament
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      Trouvez rapidement vos médicaments disponibles dans les
+                      pharmacies les plus proches.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Tags produits -->
+                <div
+                  id="tags-medicament"
+                  class="flex flex-wrap gap-2 mb-2 hidden"
+                ></div>
+
+                <!-- Champ + bouton -->
+                <div class="flex gap-2 mb-2">
+                  <input
+                    id="search-medicament"
+                    type="text"
+                    placeholder="Nom du médicament, maladie..."
+                    class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+                  />
+                  <button
+                    onclick="lancerRecherche()"
+                    class="bg-green-700 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <i class="fas fa-search text-xs"></i>
+                    <span class="hidden sm:inline">Rechercher</span>
+                  </button>
+                </div>
+                <p class="text-xs text-gray-400 mb-1">
+                  Appuyez sur
+                  <kbd class="bg-gray-100 px-1.5 py-0.5 rounded text-xs"
+                    >Entrée</kbd
+                  >
+                  pour ajouter plusieurs produits
+                </p>
+
+                <!-- Résultats -->
+                <div
+                  id="resultats-medicament"
+                  class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"
+                ></div>
+              </div>
+
+              <!-- Droite — image -->
+              <div
+                class="hidden md:block relative h-64 md:h-auto min-h-[280px]"
+              >
+                <img
+                  src="src/assets/new.png"
+                  alt="Recherche médicament"
+                  class="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <!-- Dégradé gauche sur l'image -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <!--
+         CARD SANG
+     -->
+          <div
+            class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <!-- Gauche — formulaire -->
+              <div class="p-6 lg:p-8 flex flex-col justify-center">
+                <!-- En-tête -->
+                <div class="flex items-center gap-3 mb-4">
+                  <img
+                    src="src/assets/goutesang.png"
+                    alt=""
+                    class="w-20 h-14"
+                  />
+                  <div>
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight">
+                      Rechercher une poche de sang
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      Vérifiez la disponibilité des poches de sang dans les
+                      centres de santé près de chez vous.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Champ + bouton -->
+                <div class="flex gap-2 mb-2">
+                  <input
+                    id="search-sang"
+                    type="text"
+                    placeholder="Groupe sanguin (ex : O+, A-)..."
+                    class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"
+                  />
+                  <button
+                    onclick="lancerRechercheSang()"
+                    class="bg-red-600 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-red-600 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <i class="fas fa-search text-xs"></i>
+                    <span class="hidden sm:inline">Rechercher</span>
+                  </button>
+                </div>
+                <p class="text-xs text-gray-400 mb-1">
+                  Entrez votre groupe sanguin ex : A+, O-, B+, AB+
+                </p>
+
+                <!-- Résultats -->
+                <div
+                  id="resultats-sang"
+                  class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"
+                ></div>
+              </div>
+
+              <!-- Droite — image -->
+              <div
+                class="hidden md:block relative h-64 md:h-auto min-h-[280px]"
+              >
+                <img
+                  src="src/assets/poche.png"
+                  alt="Recherche poche de sang"
+                  class="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <!-- Dégradé gauche sur l'image -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--
+     SECTION SOS ALERTE
+-->
+      <section
+        id="sos-alerte"
+        class="bg-white py-12 px-4 border-t border-gray-100"
+      >
+        <div class="max-w-7xl mx-auto">
+          <!-- En-tête -->
+          <div class="text-center mb-8">
+            <h2 class="text-3xl lg:text-4xl font-black text-red-600 mb-2">
+              SOS <span class="text-black">Alerte</span>
+            </h2>
+            <p class="text-gray-500 text-sm max-w-xl mx-auto">
+              Médicament ou poche de sang introuvable ? Activez une alerte et
+              soyez notifié dès disponibilité dans un établissement partenaire.
+            </p>
+          </div>
+
+          <!-- Bande principale -->
+          <div
+            class="rounded-2xl shadow-md border border-gray-100 overflow-hidden"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-0">
+              <!-- Colonne 1 — image + titre -->
+              <div
+                class="p-6 flex flex-col items-center justify-center text-center"
+              >
+                <img
+                  src="src/assets/alerte.png"
+                  alt="SOS Alerte"
+                  class="w-100 object-contain mb-3 drop-shadow-lg"
+                />
+                <h3 class="text-gray-500 font-black text-lg leading-tight mb-1">
+                  ALERTE SOS
+                </h3>
+                <p class="text-gray-500 text-xs leading-relaxed">
+                  Besoin d'une aide urgente ? Nous sommes là pour vous.
+                </p>
+              </div>
+
+              <!-- Colonnes 2+3+4 — formulaire -->
+              <div class="col-span-1 lg:col-span-3 p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <!-- Champ 1 — Type + produit médicament -->
+                  <div>
+                    <label
+                      class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                    >
+                      Urgence côté médicaments
+                    </label>
+                    <div class="space-y-2">
+                      <!-- Sélecteur type -->
+                      <div class="grid grid-cols-2 gap-1.5">
+                        <button
+                          type="button"
+                          id="btn-type-med"
+                          onclick="selectTypeAlerte('medicament')"
+                          class="flex items-center justify-center gap-1 border-2 border-green-600 bg-green-50 text-green-700 font-semibold text-xs py-2 rounded-xl transition-all"
+                        >
+                          Médicament
+                        </button>
+                        <button
+                          type="button"
+                          id="btn-type-sang"
+                          onclick="selectTypeAlerte('sang')"
+                          class="flex items-center justify-center gap-1 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2 rounded-xl transition-all hover:border-green-300"
+                        >
+                          Sang
+                        </button>
+                      </div>
+                      <input
+                        id="alerte-produit"
+                        type="text"
+                        placeholder="Décrivez votre urgence..."
+                        class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+                      />
+                      <p class="text-xs text-gray-400 italic">
+                        Ex : Besoin urgent d'insuline, antibiotique...
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Champ 2 — Mode notification -->
+                  <div>
+                    <label
+                      class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                    >
+                      Mode de notification
+                    </label>
+                    <div class="space-y-2">
+                      <div class="grid grid-cols-2 gap-1.5">
+                        <button
+                          type="button"
+                          id="btn-whatsapp"
+                          onclick="selectModeAlerte('whatsapp')"
+                          class="flex items-center justify-center gap-1 border-2 border-green-600 bg-green-50 text-green-700 font-semibold text-xs py-2 rounded-xl transition-all"
+                        >
+                          WhatsApp
+                        </button>
+                        <button
+                          type="button"
+                          id="btn-email"
+                          onclick="selectModeAlerte('email')"
+                          class="flex items-center justify-center gap-1 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2 rounded-xl transition-all hover:border-green-300"
+                        >
+                          Email
+                        </button>
+                      </div>
+                      <!-- Champ WhatsApp -->
+                      <div id="champ-whatsapp">
+                        <div class="flex gap-1.5">
+                          <span
+                            class="flex items-center px-2 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-500 font-medium flex-shrink-0"
+                          >
+                            🇨🇬 +242
+                          </span>
+                          <input
+                            id="alerte-whatsapp"
+                            type="tel"
+                            placeholder="06 123 45 67"
+                            class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+                          />
+                        </div>
+                      </div>
+                      <!-- Champ Email -->
+                      <div id="champ-email" class="hidden">
+                        <input
+                          id="alerte-email"
+                          type="email"
+                          placeholder="votre@email.com"
+                          class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+                        />
+                      </div>
+                      <p class="text-xs text-gray-400 italic">
+                        Ex : 07 00 00 00 00 ou votre@email.com
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Champ 3 — Bouton + info -->
+                  <div class="flex flex-col justify-between">
+                    <div
+                      class="bg-green-50 rounded-xl p-3 mb-3 border border-green-100"
+                    >
+                      <div class="flex items-start gap-2">
+                        <i
+                          class="fas fa-shield-heart text-green-800 text-sm mt-0.5 flex-shrink-0"
+                        ></i>
+                        <div>
+                          <p
+                            class="text-xs font-semibold text-green-800 mb-0.5"
+                          >
+                            Vos données sont sécurisées
+                          </p>
+                          <p class="text-xs text-green-800">
+                            Nous protégeons vos informations pour une expérience
+                            en toute confiance.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onclick="soumettreAlerte()"
+                      class="w-full bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors flex items-center justify-center gap-2"
+                    >
+                      Envoyer l'alerte SOS
+                    </button>
+                    <p class="text-xs text-gray-400 text-center mt-2">
+                      Informations confidentielles
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overlay confirmation alerte -->
+      <div
+        id="overlay-alerte"
+        class="overlay"
+        onclick="fermerAlerteOverlay(event)"
+      >
+        <div class="overlay-box text-center">
+          <div
+            class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"
+          >
+            <svg
+              class="w-7 h-7 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 text-base mb-1">
+            Alerte activée !
+          </h3>
+          <p
+            id="msg-confirmation-alerte"
+            class="text-sm text-gray-500 mb-4"
+          ></p>
+          <button
+            onclick="fermerAlerteOverlay()"
+            class="bg-green-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors"
+          >
+            Parfait, merci !
+          </button>
+        </div>
+      </div>
+
+      <!--
+     SECTION DON DE SANG
+-->
+      <section
+        id="don-de-sang"
+        class="bg-gray-50 py-16 px-4 border-t-4 border-green-700"
+      >
+        <div class="max-w-7xl mx-auto">
+          <!-- En-tête section -->
+          <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-3">
+              Don de <span class="text-red-600">Sang</span>
+            </h2>
+            <p class="text-gray-500 text-base max-w-xl mx-auto">
+              Une poche de sang peut sauver jusqu'à 3 vies. Inscrivez-vous comme
+              donneur et soyez contacté quand votre groupe sanguin est urgent.
+            </p>
+          </div>
+
+          <!-- Contenu principal -->
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start max-w-5xl mx-auto"
+          >
+            <!-- Colonne gauche — stats + info -->
+            <div>
+              <!-- Stats impactantes -->
+              <div class="grid grid-cols-3 gap-3 mb-6">
+                <div
+                  class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100"
+                >
+                  <p class="text-2xl font-black text-green-800 mb-1">3</p>
+                  <p class="text-xs text-gray-500 leading-tight">
+                    vies sauvées<br />par don
+                  </p>
+                </div>
+                <div
+                  class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100"
+                >
+                  <p class="text-2xl font-black text-green-800 mb-1">56j</p>
+                  <p class="text-xs text-gray-500 leading-tight">
+                    entre chaque<br />don possible
+                  </p>
+                </div>
+                <div
+                  class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100"
+                >
+                  <p class="text-2xl font-black text-green-800 mb-1">50%</p>
+                  <p class="text-xs text-gray-500 leading-tight">
+                    du sang manque<br />en Afrique (OMS)
+                  </p>
+                </div>
+              </div>
+
+              <!-- Image + phrase choc -->
+              <div
+                class="relative rounded-2xl overflow-hidden mb-6 shadow-md bg-white"
+              >
+                <img
+                  src="src/assets/dsang.png"
+                  alt="Don de sang"
+                  class="object-cover object-right-top"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-green-800/90 via-green-800/15 to-transparent flex items-end p-5"
+                >
+                  <div>
+                    <p class="text-white font-bold text-sm leading-relaxed">
+                      "Une hémorragie peut être fatale en 2 heures sans
+                      transfusion."
+                    </p>
+                    <p class="text-green-100 text-xs mt-1">
+                      — Source : OMS Afrique, 2021
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Qui peut donner -->
+              <div
+                class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100"
+              >
+                <p class="font-bold text-gray-900 text-sm mb-3">
+                  Qui peut donner son sang ?
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-center gap-2 text-sm text-gray-600">
+                    Avoir entre 18 et 65 ans
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-gray-600">
+                    Peser au minimum 50 kg
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-gray-600">
+                    Être en bonne santé générale
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-gray-600">
+                    Ne pas avoir donné depuis 56 jours
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Groupes urgents -->
+              <div
+                class="mt-4 bg-white rounded-2xl p-5 shadow-sm border border-gray-100"
+              >
+                <div class="flex items-center">
+                  <img
+                    src="src/assets/goutesang.png"
+                    alt=""
+                    class="w-15 h-12"
+                  />
+                  <p class="font-bold text-gray-900 text-sm mb-3">
+                    Groupes les plus urgents à Brazzaville
+                  </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span
+                    class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full"
+                    >O− Universel</span
+                  >
+                  <span
+                    class="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full"
+                    >O+</span
+                  >
+                  <span
+                    class="bg-red-400 text-white text-xs font-bold px-3 py-1.5 rounded-full"
+                    >A−</span
+                  >
+                  <span
+                    class="bg-red-300 text-white text-xs font-bold px-3 py-1.5 rounded-full"
+                    >B−</span
+                  >
+                  <span
+                    class="bg-red-300 text-white text-xs font-bold px-3 py-1.5 rounded-full"
+                    >AB+ Rare</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Colonne droite — formulaire -->
+            <div
+              class="bg-white rounded-2xl shadow-lg p-6 lg:p-8 border border-gray-100"
+            >
+              <!-- Titre formulaire -->
+              <div class="flex items-center gap-3 mb-6">
+                <div
+                  class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center flex-shrink-0"
+                >
+                  <img
+                    src="src/assets/goutesang.png"
+                    alt=""
+                    class="w-15 h-10"
+                  />
+                </div>
+                <div>
+                  <p class="font-bold text-gray-900 text-sm">Devenir donneur</p>
+                  <p class="text-xs text-gray-400">
+                    Sauver jusqu'à 3 vies par don
+                  </p>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <!-- Nom -->
+                <div>
+                  <label
+                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Nom complet
+                  </label>
+                  <input
+                    id="don-nom"
+                    type="text"
+                    placeholder="Ex : Duvarelle Babindamana"
+                    class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-green-100 transition"
+                  />
+                </div>
+
+                <!-- Age + Groupe sanguin -->
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label
+                      class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                    >
+                      Âge
+                    </label>
+                    <input
+                      id="don-age"
+                      type="number"
+                      min="18"
+                      max="65"
+                      placeholder="Ex : 28"
+                      class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-green-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                    >
+                      Groupe sanguin
+                    </label>
+                    <select
+                      id="don-groupe"
+                      class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none focus:border-red-400 focus:ring-1 focus:ring-green-100 transition bg-white"
+                    >
+                      <option value="">Choisir...</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A−</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B−</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O− (Universel)</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB−</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Quartier -->
+                <div>
+                  <label
+                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Quartier / Zone
+                  </label>
+                  <select
+                    id="don-quartier"
+                    class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none focus:border-red-400 focus:ring-1 focus:ring-green-100 transition bg-white"
+                  >
+                    <option value="">Sélectionner votre quartier...</option>
+                    <option value="Centre-ville">Centre-ville</option>
+                    <option value="Poto-Poto">Poto-Poto</option>
+                    <option value="Moungali">Moungali</option>
+                    <option value="Ouenzé">Ouenzé</option>
+                    <option value="Talangaï">Talangaï</option>
+                    <option value="Bacongo">Bacongo</option>
+                    <option value="Makélékélé">Makélékélé</option>
+                    <option value="Madibou">Madibou</option>
+                    <option value="Djiri">Djiri</option>
+                    <option value="Autre">Autre quartier</option>
+                  </select>
+                </div>
+
+                <!-- WhatsApp -->
+                <div>
+                  <label
+                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Numéro WhatsApp
+                  </label>
+                  <div class="flex gap-2">
+                    <span
+                      class="flex items-center px-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-500 font-medium flex-shrink-0"
+                    >
+                      🇨🇬 +242
+                    </span>
+                    <input
+                      id="don-whatsapp"
+                      type="tel"
+                      placeholder="06 123 45 67"
+                      class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-green-100 transition"
+                    />
+                  </div>
+                  <p class="text-xs text-gray-400 mt-1.5">
+                    Vous serez contacté uniquement quand votre groupe est
+                    urgent.
+                  </p>
+                </div>
+
+                <!-- Disponibilité -->
+                <div>
+                  <label
+                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Disponibilité
+                  </label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <label
+                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
+                    >
+                      <input
+                        type="checkbox"
+                        id="don-semaine"
+                        class="accent-red-600"
+                      />
+                      <span class="text-sm text-gray-700">En semaine</span>
+                    </label>
+                    <label
+                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
+                    >
+                      <input
+                        type="checkbox"
+                        id="don-weekend"
+                        class="accent-red-600"
+                      />
+                      <span class="text-sm text-gray-700">Week-end</span>
+                    </label>
+                    <label
+                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
+                    >
+                      <input
+                        type="checkbox"
+                        id="don-urgence"
+                        class="accent-red-600"
+                        checked
+                      />
+                      <span class="text-sm text-gray-700">Urgences 24h/7</span>
+                    </label>
+                    <label
+                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
+                    >
+                      <input
+                        type="checkbox"
+                        id="don-deplacement"
+                        class="accent-red-600"
+                      />
+                      <span class="text-sm text-gray-700"
+                        >Je peux me déplacer</span
+                      >
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Bouton -->
+                <button
+                  onclick="soumettredon()"
+                  class="w-full bg-red-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-red-700 transition-colors flex items-center justify-center gap-2 mt-2"
+                >
+                  Je veux donner mon sang
+                </button>
+
+                <p class="text-xs text-gray-400 text-center">
+                  Vos informations sont confidentielles. Vous pouvez vous
+                  désinscrire à tout moment.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overlay confirmation don -->
+      <div id="overlay-don" class="overlay" onclick="fermerDonOverlay(event)">
+        <div class="overlay-box text-center">
+          <div
+            class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"
+          >
+            <i class="fas fa-heart text-red-600 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-gray-900 text-base mb-1">
+            Merci pour votre générosité !
+          </h3>
+          <p id="msg-confirmation-don" class="text-sm text-gray-500 mb-4"></p>
+          <button
+            onclick="fermerDonOverlay()"
+            class="bg-green-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors"
+          >
+            Parfait, merci !
+          </button>
+        </div>
+      </div>
+
+      <!--
+     SECTION CONSEILS SANTÉ
+-->
+      <section
+        id="conseils"
+        class="bg-white py-16 px-4 border-t border-gray-100"
+      >
+        <div class="max-w-7xl mx-auto">
+          <!-- En-tête -->
+          <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-black text-green-700 mb-3">
+              Conseils <span class="text-green-700">Santé</span>
+            </h2>
+            <p class="text-gray-500 text-base max-w-xl mx-auto">
+              Des informations essentielles pour prendre soin de vous et de vos
+              proches au quotidien.
+            </p>
+          </div>
+
+          <!-- Grille 4 cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Card 1 — Conservation médicaments -->
+            <div
+              onclick="ouvrirConseil(0)"
+              class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  src="src/assets/conservemedoc.png"
+                  alt="Conservation médicaments"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+                ></div>
+                <div class="absolute top-3 left-3">
+                  <span
+                    class="bg-green-700 text-white text-xs font-bold px-2.5 py-1 rounded-full"
+                  >
+                    Médicaments</span
+                  >
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">
+                  Comment conserver ses médicaments correctement
+                </h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-3">
+                  Température, lumière, humidité — tout ce qu'il faut savoir
+                  pour garder vos médicaments efficaces.
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-400"> 2 min de lecture</span>
+                  <span
+                    class="text-green-700 text-xs font-semibold group-hover:underline"
+                    >Lire
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 — Don de sang -->
+            <div
+              onclick="ouvrirConseil(1)"
+              class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  src="src/assets/donsang1.png"
+                  alt="Don de sang"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+                ></div>
+                <div class="absolute top-3 left-3">
+                  <span
+                    class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full"
+                  >
+                    Don de sang</span
+                  >
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">
+                  Qui peut donner son sang et à quelle fréquence ?
+                </h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-3">
+                  Critères d'éligibilité, fréquence recommandée et bénéfices du
+                  don de sang pour le donneur.
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-400"> 2 min de lecture</span>
+                  <span
+                    class="text-green-700 text-xs font-semibold group-hover:underline"
+                    >Lire
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 — Prévention infections -->
+            <div
+              onclick="ouvrirConseil(2)"
+              class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  src="src/assets/prevention.png"
+                  alt="Prévention infections"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+                ></div>
+                <div class="absolute top-3 left-3">
+                  <span
+                    class="bg-green-700 text-white text-xs font-bold px-2.5 py-1 rounded-full"
+                  >
+                    Prévention</span
+                  >
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">
+                  Gestes essentiels pour prévenir les infections courantes
+                </h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-3">
+                  Les bons gestes au quotidien pour vous protéger et protéger
+                  votre entourage à Brazzaville.
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-400"> 2 min de lecture</span>
+                  <span
+                    class="text-green-700 text-xs font-semibold group-hover:underline"
+                    >Lire
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 — Hôpitaux de référence -->
+            <div
+              onclick="ouvrirConseil(3)"
+              class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  src="src/assets/csi.webp"
+                  alt="Hôpitaux de référence"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+                ></div>
+                <div class="absolute top-3 left-3">
+                  <span
+                    class="bg-green-700 text-white text-xs font-bold px-2.5 py-1 rounded-full"
+                  >
+                    Hôpitaux</span
+                  >
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight">
+                  Hôpitaux de référence au Congo en 2025
+                </h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-3">
+                  Les établissements de santé incontournables à Brazzaville avec
+                  leurs spécialités et contacts.
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-400"> 2 min de lecture</span>
+                  <span
+                    class="text-green-700 text-xs font-semibold group-hover:underline"
+                    >Lire
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 
+     conseil de lecture
+-->
+      <div id="overlay-conseil" class="overlay" onclick="fermerConseil(event)">
+        <div
+          class="overlay-box"
+          style="max-width: 560px; max-height: 85vh; overflow-y: auto"
+        >
+          <!-- Header -->
+          <div class="flex items-center justify-between mb-4">
+            <span
+              id="conseil-badge"
+              class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700"
+            ></span>
+            <button
+              onclick="fermerConseilDirect()"
+              class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition flex-shrink-0"
+            >
+              ✕
+            </button>
+          </div>
+
+          <!-- Image -->
+          <div class="rounded-xl overflow-hidden mb-4 h-40">
+            <img
+              id="conseil-image"
+              src=""
+              alt=""
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Titre -->
+          <h3
+            id="conseil-titre"
+            class="font-black text-gray-900 text-lg mb-3 leading-tight"
+          ></h3>
+
+          <!-- Contenu -->
+          <div
+            id="conseil-contenu"
+            class="text-sm text-gray-600 leading-relaxed space-y-3"
+          ></div>
+
+          <!-- Bouton fermer -->
+          <button
+            onclick="fermerConseilDirect()"
+            class="w-full mt-6 bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors"
+          >
+            Fermer
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+     SECTION NOS PARTENAIRES
+════════════════════════════════════════════ -->
+      <section
+        id="partenaires"
+        class="bg-gray-50 py-16 px-4 border-t border-gray-100"
+      >
+        <div class="max-w-7xl mx-auto">
+          <!-- En-tête -->
+          <div class="text-center mb-12">
+           
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-3">
+              Nos <span class="text-green-700">Partenaires</span>
+            </h2>
+            <p class="text-gray-500 text-base max-w-xl mx-auto">
+              Des pharmacies et hôpitaux vérifiés à Brazzaville — stocks mis à
+              jour en temps réel pour vous garantir une information fiable.
+            </p>
+          </div>
+
+          <!-- Pharmacies partenaires -->
+          <div class="mb-10">
+            <div class="flex items-center gap-3 mb-5">
+              
+              <h3 class="font-bold text-gray-900 text-lg">
+                Pharmacies partenaires
+              </h3>
+              <span
+                class="bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full"
+                >5 établissements</span
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  Pharmacie du Centre
+                </p>
+                <p class="text-xs text-gray-500 mb-3">
+                  Centre-ville, Brazzaville
+                </p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  Pharmacie Moungali
+                </p>
+                <p class="text-xs text-gray-500 mb-3">Moungali, Nord</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  Pharmacie Bacongo
+                </p>
+                <p class="text-xs text-gray-500 mb-3">Bacongo, Sud</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  Pharmacie Poto-Poto
+                </p>
+                <p class="text-xs text-gray-500 mb-3">Poto-Poto, Est</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  Pharmacie CHU
+                </p>
+                <p class="text-xs text-gray-500 mb-3">CHU Brazzaville</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hôpitaux partenaires -->
+          <div class="mb-10">
+            <div class="flex items-center gap-3 mb-5">
+              
+              <h3 class="font-bold text-gray-900 text-lg">
+                Hôpitaux & Centres de transfusion
+              </h3>
+              <span
+                class="bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full"
+                >5 établissements</span
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  CHU de Brazzaville
+                </p>
+                <p class="text-xs text-gray-500 mb-1">Urgences · Chirurgie</p>
+                <p class="text-xs text-gray-400 mb-3">Centre-ville</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  hopital grnrral de Djiri
+                </p>
+                <p class="text-xs text-gray-500 mb-1">Médecine · Chirurgie</p>
+                <p class="text-xs text-gray-400 mb-3">Djiri</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  Clinique Nganga Edouard
+                </p>
+                <p class="text-xs text-gray-500 mb-1">Chirurgie · Imagerie</p>
+                <p class="text-xs text-gray-400 mb-3">Centre-ville</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  Hôpital de Bacongo
+                </p>
+                <p class="text-xs text-gray-500 mb-1">Maternité · Pédiatrie</p>
+                <p class="text-xs text-gray-400 mb-3">Bacongo</p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+
+              <div
+                class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all"
+              >
+                <div
+                  class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-3"
+                ></div>
+                <p class="font-bold text-gray-900 text-sm mb-0.5">
+                  CNTS Brazzaville
+                </p>
+                <p class="text-xs text-gray-500 mb-1">Transfusion Sanguine</p>
+                <p class="text-xs text-gray-400 mb-3">
+                  Bd Denis Sassou Nguesso
+                </p>
+                <span
+                  class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >
+                  
+                  Vérifié
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appel à l'action partenaire -->
+          <div class="bg-green-700 rounded-2xl p-8 text-center">
+            <h3 class="text-white font-black text-xl mb-2">
+              Vous êtes une pharmacie ou un hôpital ?
+            </h3>
+            <p class="text-green-200 text-sm mb-6 max-w-lg mx-auto">
+              Rejoignez le réseau ElikyaPharma et connectez-vous à des milliers
+              de patients à Brazzaville. Inscription gratuite pour les
+              établissements partenaires.
+            </p>
+            <a
+              href="mailto:contact@elikyapharma.com"
+              class="inline-flex items-center gap-2 bg-white text-green-700 font-bold text-sm px-6 py-3 rounded-full hover:bg-green-50 transition-colors"
+            >
+              Nous rejoindre — contact@elikyapharma.com
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--
+     BANDE RÉASSURANCE avant footer
+-->
+    <div class="bg-green-700 py-10 px-4">
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+      >
+        <div class="flex items-start gap-4">
+          <div>
+            <p class="text-white font-bold text-base mb-1">
+              Vos données sont sécurisées et confidentielles
+            </p>
+            <p class="text-green-200 text-sm leading-relaxed">
+              Nous protégeons vos informations pour une expérience en toute
+              confiance. Aucune donnée n'est partagée sans votre consentement.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 md:justify-end">
+          <div>
+            <p class="text-white font-bold text-base mb-1">Besoin d'aide ?</p>
+            <p class="text-green-200 text-sm mb-3">
+              Notre équipe est disponible 24h/7 pour vous accompagner.
+            </p>
+            <a
+              href="mailto:contact@elikyapharma.com"
+              class="inline-flex items-center gap-2 bg-white text-green-700 font-bold text-sm px-5 py-2.5 rounded-full hover:bg-green-50 transition-colors"
+            >
+              <i class="fas fa-envelope text-xs"></i>
+              Nous contacter
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+     FOOTER PRINCIPAL
+-->
+    <footer class="bg-green-900 text-white px-4 pt-12 pb-6">
+      <div class="max-w-7xl mx-auto">
+        <!-- 4 colonnes -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+          <!-- Colonne 1 — Logo + description -->
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <img
+                src="src/assets/lgf.png"
+                alt="logo"
+                class="w=30 h-20 object-contain"
+              />
+              <span class="text-lg font-black tracking-tight">
+                <span class="text-red-400">ELIKYA</span
+                ><span class="text-green-300">-PHARMA</span>
+              </span>
+            </div>
+            <p class="text-green-300 text-sm leading-relaxed mb-5">
+              Votre santé, notre priorité. Des services fiables et accessibles
+              pour votre bien-être au quotidien à Brazzaville et au Congo.
+            </p>
+            <!-- Réseaux sociaux -->
+            <div class="flex gap-3">
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <i class="fab fa-facebook-f text-sm"></i>
+              </a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <i class="fab fa-instagram text-sm"></i>
+              </a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <i class="fab fa-whatsapp text-sm"></i>
+              </a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <i class="fab fa-twitter text-sm"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Colonne 2 — Navigation -->
+          <div>
+            <p
+              class="text-white font-bold text-sm mb-4 uppercase tracking-wider"
+            >
+              Navigation
+            </p>
+            <ul class="space-y-2.5">
+              <li>
+                <a
+                  href="#"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Accueil</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#sos-alerte"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >SOS Alerte</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#don-de-sang"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Don de sang</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#conseils"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Conseils santé</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#partenaires"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Nos partenaires</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Colonne 3 — Services -->
+          <div>
+            <p
+              class="text-white font-bold text-sm mb-4 uppercase tracking-wider"
+            >
+              Nos services
+            </p>
+            <ul class="space-y-2.5">
+              <li>
+                <a
+                  href="#recherche-medicament"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Recherche de médicaments</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#recherche-medicament"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Disponibilité du sang</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#recherche-medicament"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Réservation en ligne</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#sos-alerte"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Alertes SOS</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#don-de-sang"
+                  class="text-green-300 text-sm hover:text-white transition-colors flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-xs text-green-500"></i
+                  >Don de sang</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Colonne 4 — Contact -->
+          <div>
+            <p
+              class="text-white font-bold text-sm mb-4 uppercase tracking-wider"
+            >
+              Contact
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <i
+                  class="fas fa-phone text-green-400 text-sm mt-0.5 flex-shrink-0"
+                ></i>
+                <span class="text-green-300 text-sm"
+                  >+242 06 438 72 78/+242 05 685 26 46</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <i
+                  class="fas fa-envelope text-green-400 text-sm mt-0.5 flex-shrink-0"
+                ></i>
+                <span class="text-green-300 text-sm"
+                  >Elikyapharma@gmail.com</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <i
+                  class="fas fa-location-dot text-green-400 text-sm mt-0.5 flex-shrink-0"
+                ></i>
+                <span class="text-green-300 text-sm"
+                  >Brazzaville, République du Congo</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <i
+                  class="fas fa-clock text-green-400 text-sm mt-0.5 flex-shrink-0"
+                ></i>
+                <span class="text-green-300 text-sm">Disponible 24h/7</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Séparateur -->
+        <div
+          class="border-t border-green-700/50 pt-6 flex flex-col md:flex-row items-center justify-between gap-4"
+        >
+          <p class="text-green-400 text-xs text-center md:text-left">
+            © 2026 ElikyaPharma. Tous droits réservés. Conçu avec nos coeurs
+            pour notre pays le Congo.
+          </p>
+          <div class="flex gap-5">
+            <a
+              href="#"
+              class="text-green-400 text-xs hover:text-white transition-colors"
+              >Politique de confidentialité</a
+            >
+            <a
+              href="#"
+              class="text-green-400 text-xs hover:text-white transition-colors"
+              >Conditions d'utilisation</a
+            >
+            <a
+              href="#"
+              class="text-green-400 text-xs hover:text-white transition-colors"
+              >Mentions légales</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("mobile-menu").classList.toggle("open");
+      }
+    </script>
+
+    <!-- Overlay réservation -->
+    <div
+      id="overlay-reservation"
+      class="overlay"
+      onclick="fermerOverlay(event)"
+    >
+      <div class="overlay-box">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-gray-900 text-base">
+              Réserver ce produit
+            </h3>
+            <p
+              id="overlay-pharmacie-nom"
+              class="text-xs text-gray-400 mt-0.5"
+            ></p>
+          </div>
+          <button
+            onclick="fermerOverlayDirect()"
+            class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition"
+          >
+            ✕
+          </button>
+        </div>
+        <div
+          id="overlay-produit-info"
+          class="bg-green-50 rounded-xl p-3 mb-4 text-sm text-green-800 font-medium"
+        ></div>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs font-medium text-gray-600 mb-1 block"
+              >Quantité souhaitée</label
+            >
+            <input
+              id="form-quantite"
+              type="number"
+              min="1"
+              max="20"
+              value="1"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-green-400 transition"
+            />
+          </div>
+          <div>
+            <label class="text-xs font-medium text-gray-600 mb-1 block"
+              >Votre nom complet</label
+            >
+            <input
+              id="form-nom"
+              type="text"
+              placeholder="Ex : Jean Moukoukou"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-green-400 transition"
+            />
+          </div>
+          <div>
+            <label class="text-xs font-medium text-gray-600 mb-1 block"
+              >Votre téléphone</label
+            >
+            <input
+              id="form-telephone"
+              type="tel"
+              placeholder="Ex : 06 123 45 67"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-green-400 transition"
+            />
+          </div>
+          <p class="text-xs text-gray-400">
+             Réservation valable <strong>1 heure</strong> après confirmation.
+          </p>
+          <button
+            onclick="confirmerReservation()"
+            class="w-full bg-green-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-700 transition-colors"
+          >
+            Confirmer la réservation
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay confirmation card medicament -->
+    <div
+      id="overlay-confirmation"
+      class="overlay"
+      onclick="fermerConfirmation(event)"
+    >
+      <div class="overlay-box text-center">
+        <div
+          class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"
+        >
+          <svg
+            class="w-7 h-7 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <h3 class="font-bold text-gray-900 text-base mb-1">
+          Réservation confirmée !
+        </h3>
+        <p class="text-sm text-gray-500 mb-4">
+          La pharmacie a été notifiée. Votre produit est réservé pour
+          <strong>1 heure</strong>.
+        </p>
+        <button
+          onclick="fermerConfirmation()"
+          class="bg-green-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-green-700 transition-colors"
+        >
+          Parfait, merci !
+        </button>
+      </div>
+    </div>
+
+    <!--
+     OVERLAY INSCRIPTION
+-->
+    <div
+      id="overlay-inscription"
+      class="overlay"
+      onclick="fermerInscription(event)"
+    >
+      <div
+        class="overlay-box"
+        style="max-width: 480px; max-height: 90vh; overflow-y: auto"
+      >
+        <!-- Header inscription -->
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h3 class="font-black text-gray-900 text-lg">Créer un compte</h3>
+            <p class="text-xs text-gray-400 mt-0.5">
+              Rejoignez ElikyaPharma — 1 000 FCFA/mois
+            </p>
+          </div>
+          <button
+            onclick="fermerInscriptionDirect()"
+            class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition flex-shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Badge abonnement -->
+        <div
+          class="bg-green-700 rounded-xl p-4 mb-5 flex items-center justify-between"
+        >
+          <div>
+            <p class="text-white font-bold text-sm mb-0.5">
+              Abonnement ElikyaPharma
+            </p>
+            <ul class="space-y-0.5">
+              <li class="text-green-200 text-xs flex items-center gap-1">
+                Recherche illimitée médicaments & sang
+              </li>
+              <li class="text-green-200 text-xs flex items-center gap-1">
+                Réservations en ligne
+              </li>
+              <li class="text-green-200 text-xs flex items-center gap-1">
+                Alertes SOS illimitées
+              </li>
+              <li class="text-green-200 text-xs flex items-center gap-1">
+                Suivi dossier médical
+              </li>
+            </ul>
+          </div>
+          <div class="text-right flex-shrink-0 ml-4">
+            <p class="text-white font-black text-2xl">1 000</p>
+            <p class="text-green-200 text-xs">FCFA/mois</p>
+          </div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="space-y-4 mb-5">
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block"
+              >Nom complet</label
+            >
+            <input
+              id="ins-nom"
+              type="text"
+              placeholder="Ex : mondesir NITOU"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+            />
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block"
+              >Numéro WhatsApp</label
+            >
+            <div class="flex gap-2">
+              <span
+                class="flex items-center px-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-500 font-medium flex-shrink-0"
+                >🇨🇬 +242</span
+              >
+              <input
+                id="ins-tel"
+                type="tel"
+                placeholder="06 123 45 67"
+                class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block"
+              >Email</label
+            >
+            <input
+              id="ins-email"
+              type="email"
+              placeholder="votre@email.com"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+            />
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block"
+              >Mot de passe
+            </label>
+            <input
+              id="ins-mdp"
+              type="password"
+              placeholder="Minimum 6 caractères"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+            />
+          </div>
+        </div>
+
+        <!-- Instructions paiement Mobile Money -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-5">
+          <p class="text-xs font-bold text-green-800 mb-2">
+            Paiement Mobile Money — 1 000 FCFA
+          </p>
+          <div class="space-y-1.5 mb-2">
+            <p class="text-xs text-green-700">
+              <strong>MTN Mobile Money :</strong> Envoyez
+              <strong>1 000 FCFA</strong> au <strong>+242 06 438 72 78</strong>
+            </p>
+            <p class="text-xs text-green-700">
+              <strong>Airtel Money :</strong> Envoyez
+              <strong>1 000 FCFA</strong> au <strong>+242 05 685 26 46</strong>
+            </p>
+          </div>
+          <p class="text-xs text-gray-500">
+            Mentionnez votre numero de telephone. Votre compte sera activé sous
+            05 minutes.
+          </p>
+        </div>
+
+        <!-- Bouton -->
+        <button
+          onclick="soumettreInscription()"
+          class="w-full bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors flex items-center justify-center gap-2 mb-3"
+        >
+          J'ai effectué le paiement — Créer mon compte
+        </button>
+
+        <p class="text-xs text-gray-400 text-center">
+          Déjà inscrit ?
+          <span
+            onclick="allerConnexion()"
+            class="text-green-700 font-semibold cursor-pointer hover:underline"
+            >Se connecter</span
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- 
+     OVERLAY CONNEXION
+-->
+    <div
+      id="overlay-connexion"
+      class="overlay"
+      onclick="fermerConnexion(event)"
+    >
+      <div class="overlay-box" style="max-width: 420px">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h3 class="font-black text-gray-900 text-lg">Se connecter</h3>
+          </div>
+          <button
+            onclick="fermerConnexionDirect()"
+            class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition flex-shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="space-y-4 mb-5">
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block"
+              >Email ou téléphone
+            </label>
+            <input
+              id="con-email"
+              type="text"
+              placeholder="votre@email.com ou 06 438 72 78"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+            />
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block"
+              >Mot de passe
+            </label>
+            <input
+              id="con-mdp"
+              type="password"
+              placeholder="Votre mot de passe"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+            />
+          </div>
+          <div class="text-right">
+            <span
+              class="text-xs text-green-700 font-medium cursor-pointer hover:underline"
+              >Mot de passe oublié ?</span
+            >
+          </div>
+        </div>
+
+        <!-- Bouton connexion -->
+        <button
+          onclick="soumettreConnexion()"
+          class="w-full bg-green-700 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors flex items-center justify-center gap-2 mb-3"
+        >
+          Se connecter
+        </button>
+
+        <p class="text-xs text-gray-400 text-center">
+          Pas encore de compte ?
+          <span
+            onclick="allerInscription()"
+            class="text-green-700 font-semibold cursor-pointer hover:underline"
+            >S'inscrire</span
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- Overlay confirmation inscription -->
+    <div
+      id="overlay-inscription-ok"
+      class="overlay"
+      onclick="fermerInscriptionOk(event)"
+    >
+      <div class="overlay-box text-center">
+        <div
+          class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"
+        >
+          <svg
+            class="w-7 h-7 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <h3 class="font-bold text-gray-900 text-base mb-1">
+          Compte créé avec succès !
+        </h3>
+        <p id="msg-inscription-ok" class="text-sm text-gray-500 mb-4"></p>
+        <button
+          onclick="fermerInscriptionOk()"
+          class="bg-green-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors"
+        >
+          Commencer
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
