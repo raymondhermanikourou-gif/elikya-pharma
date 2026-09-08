@@ -594,3 +594,22 @@ function seDeconnecter() {
 
 // Lancer au chargement
 document.addEventListener('DOMContentLoaded', chargerUtilisateur);
+
+
+function lancerRechercheOxygene() {
+  const q = document.getElementById('search-oxygene').value.trim();
+  if (!q) { alert('Entrez un type d oxygene.'); return; }
+  // A developper
+}
+
+function lancerRechercheVaccin() {
+  const q = document.getElementById('search-vaccin').value.trim();
+  if (!q) { alert('Entrez un nom de vaccin.'); return; }
+  // A developper
+}
+
+function ouvrirDonneur()   { /* A developper */ }
+function ouvrirAlertes()   { /* A developper */ }
+function ouvrirJournees()  { /* A developper */ }
+function ouvrirCarnetMaman() { /* A developper */ }
+function ouvrirCarnetBebe()  { /* A developper */ }
