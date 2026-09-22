@@ -102,205 +102,411 @@
 
   <body class="bg-white">
     <header>
-      
-    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
-  <div class="w-full mx-auto px-4 h-16 flex items-center justify-between sm:px-6">
-
-    <!-- Logo + Nom -->
-    <div class="flex items-center gap-2 flex-shrink-0">
-      <img src="src/assets/lgf.png" alt="logo" class="bg-transparent object-contain w-10 h-10"/>
-      <span class="text-xl font-black tracking-tight">
-        <span class="text-green-800">MOBI</span><span class="text-red-600">KISSI</span>
-      </span>
-    </div>
-
-    <!-- Liens centre desktop uniquement -->
-    <div class="hidden md:flex items-center gap-8">
-      <a href="#sos-alerte" class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors">SOS Alerte</a>
-      <a href="#don-de-sang" class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors">Don de sang</a>
-      <a href="#conseils" class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors">Conseils sante</a>
-      <a href="#partenaires" class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors">Nos partenaires</a>
-    </div>
-
-    <!-- Droite : burger mobile + profil -->
-    <div class="flex items-center gap-3">
-
-      <!-- Burger mobile (liens sections) -->
-      <button id="burger-btn"
-        class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors focus:outline-none"
-        onclick="toggleMenu()">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-
-      <!-- Photo profil + nom (desktop et mobile) -->
-      <div class="relative">
-        <button onclick="toggleMenuProfil()" class="flex items-center gap-2 focus:outline-none">
-          <!-- Avatar : photo ou initiales -->
-          <div id="avatar-navbar"
-            class="w-9 h-9 rounded-full bg-green-700 flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-green-200">
-            <span id="avatar-initiales" class="text-white text-sm font-bold"></span>
-            <img id="avatar-photo" src="" alt="photo" class="hidden w-full h-full object-cover"/>
-          </div>
-          <!-- Nom visible desktop uniquement -->
-          <div class="hidden md:block text-left">
-            <p class="text-xs text-gray-400 leading-none">Bienvenue</p>
-            <p id="navbar-nom" class="text-sm font-semibold text-gray-800 leading-tight"></p>
-          </div>
-        </button>
-
-        <!-- Menu profil deroulant -->
-        <div id="menu-profil"
-          class="hidden absolute right-0 top-12 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden">
-
-          <!-- En-tete profil -->
-          <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
-            <div id="avatar-menu"
-              class="w-12 h-12 rounded-full bg-green-700 flex items-center justify-center overflow-hidden flex-shrink-0">
-              <span id="avatar-menu-initiales" class="text-white font-bold text-base"></span>
-              <img id="avatar-menu-photo" src="" alt="" class="hidden w-full h-full object-cover"/>
-            </div>
-            <div>
-              <p id="menu-nom-complet" class="font-semibold text-gray-900 text-sm"></p>
-              <p class="text-xs text-green-600">Compte actif</p>
-            </div>
+      <nav
+        class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm"
+      >
+        <div
+          class="w-full mx-auto px-4 h-16 flex items-center justify-between sm:px-6"
+        >
+          <!-- Logo + Nom -->
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <img
+              src="src/assets/lgf.png"
+              alt="logo"
+              class="bg-transparent object-contain w-10 h-10"
+            />
+            <span class="text-xl font-black tracking-tight">
+              <span class="text-green-800">MOBIKISSI</span>
+            </span>
           </div>
 
-          <!-- Liens menu -->
-          <div class="py-2">
+          <!-- Liens centre desktop uniquement -->
+          <div class="hidden md:flex items-center gap-8">
+            <a
+              href="#sos-alerte"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >SOS Alerte</a
+            >
+            <a
+              href="#don-de-sang"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >Don de sang</a
+            >
+            <a
+              href="#conseils"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >Conseils sante</a
+            >
+            <a
+              href="#partenaires"
+              class="text-gray-500 font-medium text-sm hover:text-green-800 transition-colors"
+              >Nos partenaires</a
+            >
+          </div>
 
-            <!-- Modifier profil -->
-            <label class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer transition">
-              <span class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 012.828 2.828L11.828 15.828a4 4 0 01-1.414.828l-3 1 1-3a4 4 0 01.828-1.414z"/>
-                </svg>
-              </span>
-              <span>Modifier mon profil</span>
-              <input type="file" accept="image/*" class="hidden" onchange="changerPhoto(event)"/>
-            </label>
+          <!-- Droite : burger mobile + profil -->
+          <div class="flex items-center gap-3">
+            <!-- Burger mobile (liens sections) -->
+            <button
+              id="burger-btn"
+              class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors focus:outline-none"
+              onclick="toggleMenu()"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
 
-            <!-- WhatsApp -->
-            <a href="https://wa.me/" target="_blank"
-              class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition">
-              <span class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.857L.057 23.428a.75.75 0 00.916.916l5.571-1.477A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.714 9.714 0 01-4.974-1.365l-.356-.212-3.705.982.982-3.705-.212-.356A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
-                </svg>
-              </span>
-              Se connecter avec WhatsApp
-            </a>
-
-            <!-- Aide -->
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition">
-              <span class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </span>
-              Aide et assistance
-            </a>
-
-            <div class="border-t border-gray-100 mt-1 pt-1">
-              <!-- Deconnexion -->
-              <button onclick="seDeconnecter()"
-                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition">
-                <span class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                  </svg>
-                </span>
-                Se deconnecter
+            <!-- Photo profil + nom (desktop et mobile) -->
+            <div class="relative">
+              <button
+                onclick="toggleMenuProfil()"
+                class="flex items-center gap-2 focus:outline-none"
+              >
+                <!-- Avatar : photo ou initiales -->
+                <div
+                  id="avatar-navbar"
+                  class="w-9 h-9 rounded-full bg-green-700 flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-green-200"
+                >
+                  <span
+                    id="avatar-initiales"
+                    class="text-white text-sm font-bold"
+                  ></span>
+                  <img
+                    id="avatar-photo"
+                    src=""
+                    alt="photo"
+                    class="hidden w-full h-full object-cover"
+                  />
+                </div>
+                <!-- Nom visible desktop uniquement -->
+                <div class="hidden md:block text-left">
+                  <p class="text-xs text-gray-400 leading-none">Bienvenue</p>
+                  <p
+                    id="navbar-nom"
+                    class="text-sm font-semibold text-gray-800 leading-tight"
+                  ></p>
+                </div>
               </button>
+
+              <!-- Menu profil deroulant -->
+              <div
+                id="menu-profil"
+                class="hidden absolute right-0 top-12 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+              >
+                <!-- En-tete profil -->
+                <div
+                  class="flex items-center gap-3 px-4 py-4 border-b border-gray-100"
+                >
+                  <div
+                    id="avatar-menu"
+                    class="w-12 h-12 rounded-full bg-green-700 flex items-center justify-center overflow-hidden flex-shrink-0"
+                  >
+                    <span
+                      id="avatar-menu-initiales"
+                      class="text-white font-bold text-base"
+                    ></span>
+                    <img
+                      id="avatar-menu-photo"
+                      src=""
+                      alt=""
+                      class="hidden w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p
+                      id="menu-nom-complet"
+                      class="font-semibold text-gray-900 text-sm"
+                    ></p>
+                    <p class="text-xs text-green-600">Compte actif</p>
+                  </div>
+                </div>
+
+                <!-- Liens menu -->
+                <div class="py-2">
+                  <!-- Modifier profil -->
+                  <label
+                    class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer transition"
+                  >
+                    <span
+                      class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-4 h-4 text-green-700"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 012.828 2.828L11.828 15.828a4 4 0 01-1.414.828l-3 1 1-3a4 4 0 01.828-1.414z"
+                        />
+                      </svg>
+                    </span>
+                    <span>Modifier mon profil</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      class="hidden"
+                      onchange="changerPhoto(event)"
+                    />
+                  </label>
+
+                  <!-- WhatsApp -->
+                  <a
+                    href="https://wa.me/"
+                    target="_blank"
+                    class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition"
+                  >
+                    <span
+                      class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-4 h-4 text-green-600"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                        />
+                        <path
+                          d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.857L.057 23.428a.75.75 0 00.916.916l5.571-1.477A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.714 9.714 0 01-4.974-1.365l-.356-.212-3.705.982.982-3.705-.212-.356A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"
+                        />
+                      </svg>
+                    </span>
+                    Se connecter avec WhatsApp
+                  </a>
+
+                  <!-- Aide -->
+                  <a
+                    href="#"
+                    class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition"
+                  >
+                    <span
+                      class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-4 h-4 text-gray-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </span>
+                    Aide et assistance
+                  </a>
+
+                  <div class="border-t border-gray-100 mt-1 pt-1">
+                    <!-- Deconnexion -->
+                    <button
+                      onclick="seDeconnecter()"
+                      class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition"
+                    >
+                      <span
+                        class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0"
+                      >
+                        <svg
+                          class="w-4 h-4 text-red-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                          />
+                        </svg>
+                      </span>
+                      Se deconnecter
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Menu mobile liens sections -->
-  <div id="mobile-menu" class="flex-col md:hidden bg-white shadow-lg border-t border-gray-100">
-    <a href="#sos-alerte" onclick="toggleMenu()"
-      class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-800 hover:bg-green-50 hover:text-green-800 transition-all duration-200">
-      <span class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
-        <i class="fas fa-bell text-red-500 text-sm"></i>
-      </span>
-      SOS Alerte
-    </a>
-    <a href="#don-de-sang" onclick="toggleMenu()"
-      class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200">
-      <span class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
-        <i class="fas fa-droplet text-red-500 text-sm"></i>
-      </span>
-      Don de sang
-    </a>
-    <a href="#conseils" onclick="toggleMenu()"
-      class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200">
-      <span class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-        <i class="fas fa-book-open text-green-800 text-sm"></i>
-      </span>
-      Conseils sante
-    </a>
-    <a href="#partenaires" onclick="toggleMenu()"
-      class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200">
-      <span class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-        <i class="fas fa-handshake text-blue-500 text-sm"></i>
-      </span>
-      Nos partenaires
-    </a>
-  </div>
-</nav>
+        <!-- Menu mobile liens sections -->
+        <div
+          id="mobile-menu"
+          class="flex-col md:hidden bg-white shadow-lg border-t border-gray-100"
+        >
+          <a
+            href="#sos-alerte"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-800 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-bell text-red-500 text-sm"></i>
+            </span>
+            SOS Alerte
+          </a>
+          <a
+            href="#don-de-sang"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-droplet text-red-500 text-sm"></i>
+            </span>
+            Don de sang
+          </a>
+          <a
+            href="#conseils"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-book-open text-green-800 text-sm"></i>
+            </span>
+            Conseils sante
+          </a>
+          <a
+            href="#partenaires"
+            onclick="toggleMenu()"
+            class="flex items-center gap-4 px-6 py-4 text-sm font-medium text-gray-600 border-l-4 border-transparent hover:border-green-600 hover:bg-green-50 hover:text-green-800 transition-all duration-200"
+          >
+            <span
+              class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-handshake text-blue-500 text-sm"></i>
+            </span>
+            Nos partenaires
+          </a>
+        </div>
+      </nav>
 
-
-      <!--
-       HERO
- -->
      <!-- HERO -->
-<section class="hero-bg min-h-[420px] lg:min-h-[500px] flex flex-col justify-between">
+<section
+  class="hero-bg min-h-[420px] lg:min-h-[500px] flex flex-col justify-between relative overflow-hidden"
+>
+  <!-- Image nette en arrière-plan -->
+  <img
+    src="src/assets/ar.jpeg"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover z-0"
+  />
 
-  <!-- Image ar.jpeg en arriere plan -->
+  <!-- Copie floutée, visible seulement à gauche grâce au mask -->
+  <img
+    src="src/assets/ar.jpeg"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover z-[1] hero-blur-layer"
+  />
+
+  <!-- Dégradé blanc pour la lisibilité du titre -->
+  <div class="absolute inset-0 z-[2] hero-fade"></div>
+
   <style>
-    .hero-bg {
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.3) 65%, rgba(255,255,255,0) 100%),
-        url("src/assets/ar.jpeg");
-      background-size: cover;
-      background-position: center;
+    .hero-blur-layer {
+      filter: blur(12px);
+      -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.9) 35%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0) 65%
+      );
+      mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.9) 35%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0) 65%
+      );
+      pointer-events: none;
+    }
+
+    .hero-fade {
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 32%,
+        rgba(255, 255, 255, 0.9) 42%,
+        rgba(255, 255, 255, 0.5) 52%,
+        rgba(255, 255, 255, 0.1) 62%,
+        rgba(255, 255, 255, 0) 72%
+      );
+      pointer-events: none;
+    }
+
+    /* Contrôle de largeur en CSS pur, sans dépendre du build Tailwind */
+    .hero-text-box {
+      width: 100%;
+      max-width: 480px;
+    }
+    @media (min-width: 1024px) {
+      .hero-text-box {
+        max-width: 560px;
+      }
+    }
+
+    /* Barre de stats en vert forcé, garantie même si bg-green-800 n'est pas compilé */
+    .hero-stats-bar {
+      background-color: #14532d;
+      width: 100%;
     }
   </style>
 
-  <div class="max-w-7xl mx-auto px-5 py-14 lg:py-20 w-full">
+  <!-- Contenu texte, limité à la zone blanche -->
+  <div
+    class="max-w-7xl mx-auto px-5 py-14 lg:py-20 w-full relative z-10 flex-1 flex items-center"
+  >
+    <div class="hero-text-box">
+      <!-- Titre -->
+      <h1
+  class="text-3xl lg:text-4xl font-black text-green-800 mb-4 leading-tight"
+>
+  Trouvez votre poche de sang,<br />
+  oxygène medical, vaccin<br />
+  et medicament en quelque secondes.
+</h1>
 
-    <!-- Titre -->
-    <h1 class="text-4xl lg:text-5xl font-black text-green-800 mb-4 leading-tight">
-      Votre sante,<br/>
-      <span class="text-red-600">localisee</span> en temps reel
-    </h1>
-
-    <!-- Sous-titre 4 piliers -->
-    <p class="text-gray-600 text-sm lg:text-base leading-relaxed max-w-lg mb-2">
-      Mobikissi connecte les habitants de Brazzaville aux ressources medicales
-      essentielles disponibles pres de chez eux, en temps reel.
-    </p>
-    <p class="text-gray-500 text-sm max-w-lg leading-relaxed">
-      Poches de sang, oxygene medical, vaccins et medicaments —
-      localisez, reservez et acces a l'itineraire en quelques secondes.
-    </p>
-
+      <!-- Paragraphe -->
+      <p class="text-gray-700 text-base lg:text-lg">
+        Localisez instantanément des etablissements partenaires ayant le
+        produit dont vous avez besoin.
+      </p>
+    </div>
   </div>
 
   <!-- Barre stats -->
-  <div class="bg-green-800 w-full">
-    <div class="max-w-7xl mx-auto px-5 py-3 flex flex-wrap items-center justify-center md:justify-start gap-6 lg:gap-10">
+  <div class="hero-stats-bar relative z-10">
+    <div
+      class="max-w-7xl mx-auto px-5 py-3 flex flex-wrap items-center justify-center md:justify-start gap-6 lg:gap-10"
+    >
       <div class="flex items-center gap-2">
-        <span class="text-white text-xs font-medium">Professionnels qualifies</span>
+        <span class="text-white text-xs font-medium">Professionnels qualifiés</span>
       </div>
       <div class="w-px h-4 bg-green-600 hidden md:block"></div>
       <div class="flex items-center gap-2">
-        <span class="text-white text-xs font-medium">Service rapide et securise</span>
+        <span class="text-white text-xs font-medium">Service rapide et sécurisé</span>
       </div>
       <div class="w-px h-4 bg-green-600 hidden md:block"></div>
       <div class="flex items-center gap-2">
@@ -308,197 +514,305 @@
       </div>
       <div class="w-px h-4 bg-green-600 hidden md:block"></div>
       <div class="flex items-center gap-2">
-        <span class="text-white text-xs font-medium">+40 hopitaux connectes</span>
+        <span class="text-white text-xs font-medium">+10 hôpitaux connectés</span>
       </div>
       <div class="w-px h-4 bg-green-600 hidden md:block"></div>
       <div class="flex items-center gap-2">
-        <span class="text-white text-xs font-medium">+120 pharmacies partenaires</span>
+        <span class="text-white text-xs font-medium">+30 etablissements partenaires</span>
       </div>
     </div>
   </div>
-
 </section>
-</header>
+    </header>
 
-<script>
-  function toggleMenu() {
-    document.getElementById("mobile-menu").classList.toggle("open");
-  }
-</script>
+    <script>
+      function toggleMenu() {
+        document.getElementById("mobile-menu").classList.toggle("open");
+      }
+    </script>
 
-<main>
-
-<!-- 4 CARDS -->
-<section id="recherche" class="bg-gray-50 py-12 px-4">
-  <div class="max-w-7xl mx-auto space-y-6">
-
-    <!-- CARD 1 — SANG -->
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-red-100">
-      <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="p-6 lg:p-8 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="src/assets/goutesang.png" alt="" class="w-20 h-14"/>
-            <div>
-              <h3 class="font-bold text-gray-900 text-lg leading-tight">Rechercher une poche de sang</h3>
-              <p class="text-xs text-gray-400 mt-0.5">Disponibilite en temps reel dans les centres de transfusion.</p>
+    <main>
+      <!-- 4 CARDS -->
+      <section id="recherche" class="bg-gray-50 py-12 px-4">
+        <div class="max-w-7xl mx-auto space-y-6">
+          <!-- CARD 1 — SANG -->
+          <div
+            class="bg-white rounded-2xl shadow-md overflow-hidden border border-red-100"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <div class="p-6 lg:p-8 flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-4">
+                  <img
+                    src="src/assets/goutesang.png"
+                    alt=""
+                    class="w-20 h-14"
+                  />
+                  <div>
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight">
+                      Rechercher une poche de sang
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      Disponibilite en temps reel dans les centres de
+                      transfusion.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-2 mb-2">
+                  <input
+                    id="search-sang"
+                    type="text"
+                    placeholder="Groupe sanguin ex : O+, A-, B+..."
+                    class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"
+                  />
+                  <button
+                    onclick="lancerRechercheSang()"
+                    class="bg-red-600 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-red-700 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <i class="fas fa-search text-xs"></i>
+                    <span class="hidden sm:inline">Rechercher</span>
+                  </button>
+                </div>
+                <p class="text-xs text-gray-400 mb-3">
+                  Entrez votre groupe sanguin ex : A+, O-, B+, AB+
+                </p>
+                <!-- Fonctionnalites supplementaires sang -->
+                <div class="flex flex-wrap gap-2 mt-1">
+                  <button
+                    onclick="ouvrirDonneur()"
+                    class="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-full hover:bg-red-50 transition font-medium"
+                  >
+                    Devenir donneur
+                  </button>
+                  <button
+                    onclick="ouvrirAlertes()"
+                    class="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-full hover:bg-red-50 transition font-medium"
+                  >
+                    S'inscrire aux alertes
+                  </button>
+                  <button
+                    onclick="ouvrirJournees()"
+                    class="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-full hover:bg-red-50 transition font-medium"
+                  >
+                    Journees de don
+                  </button>
+                </div>
+                <div
+                  id="resultats-sang"
+                  class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"
+                ></div>
+              </div>
+              <div
+                class="hidden md:block relative h-64 md:h-auto min-h-[280px]"
+              >
+                <img
+                  src="src/assets/poche.png"
+                  alt="Poche de sang"
+                  class="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"
+                ></div>
+              </div>
             </div>
           </div>
-          <div class="flex gap-2 mb-2">
-            <input id="search-sang" type="text"
-              placeholder="Groupe sanguin ex : O+, A-, B+..."
-              class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"/>
-            <button onclick="lancerRechercheSang()"
-              class="bg-red-600 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-red-700 transition-colors flex items-center gap-2 whitespace-nowrap">
-              <i class="fas fa-search text-xs"></i>
-              <span class="hidden sm:inline">Rechercher</span>
-            </button>
-          </div>
-          <p class="text-xs text-gray-400 mb-3">Entrez votre groupe sanguin ex : A+, O-, B+, AB+</p>
-          <!-- Fonctionnalites supplementaires sang -->
-          <div class="flex flex-wrap gap-2 mt-1">
-            <button onclick="ouvrirDonneur()"
-              class="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-full hover:bg-red-50 transition font-medium">
-              Devenir donneur
-            </button>
-            <button onclick="ouvrirAlertes()"
-              class="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-full hover:bg-red-50 transition font-medium">
-              S'inscrire aux alertes
-            </button>
-            <button onclick="ouvrirJournees()"
-              class="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-full hover:bg-red-50 transition font-medium">
-              Journees de don
-            </button>
-          </div>
-          <div id="resultats-sang" class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"></div>
-        </div>
-        <div class="hidden md:block relative h-64 md:h-auto min-h-[280px]">
-          <img src="src/assets/poche.png" alt="Poche de sang"
-            class="absolute inset-0 w-full h-full object-cover object-center"/>
-          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- CARD 2 — OXYGENE -->
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-blue-100">
-      <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="p-6 lg:p-8 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-4">
-            <!-- Remplace ce div par ton image oxygene : <img src="src/assets/oxygene.png" class="w-20 h-14"/> -->
-            <div class="w-20 h-14 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-wind text-blue-500 text-2xl"></i>
+          <!-- CARD 2 — OXYGENE -->
+          <div
+            class="bg-white rounded-2xl shadow-md overflow-hidden border border-blue-100"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <div class="p-6 lg:p-8 flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-4">
+                  <!-- Remplace ce div par ton image oxygene : <img src="src/assets/oxygene.png" class="w-20 h-14"/> -->
+                  <div
+                    class="w-20 h-14 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0"
+                  >
+                    <i class="fas fa-wind text-blue-500 text-2xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight">
+                      Rechercher de l'oxygene medical
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      Localisez les hopitaux disposant d'oxygene disponible.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-2 mb-2">
+                  <input
+                    id="search-oxygene"
+                    type="text"
+                    placeholder="Ex : bouteille oxygene, concentrateur..."
+                    class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-100 transition"
+                  />
+                  <button
+                    onclick="lancerRechercheOxygene()"
+                    class="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <i class="fas fa-search text-xs"></i>
+                    <span class="hidden sm:inline">Rechercher</span>
+                  </button>
+                </div>
+                <p class="text-xs text-gray-400 mb-1">
+                  Recherchez par type : bouteille, concentrateur, masque...
+                </p>
+                <div
+                  id="resultats-oxygene"
+                  class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"
+                ></div>
+              </div>
+              <div
+                class="hidden md:block relative h-64 md:h-auto min-h-[280px]"
+              >
+                <!-- Remplace par ton image : <img src="src/assets/oxygene-img.png" .../> -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center"
+                >
+                  <p class="text-blue-300 text-sm">Image oxygene a ajouter</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3 class="font-bold text-gray-900 text-lg leading-tight">Rechercher de l'oxygene medical</h3>
-              <p class="text-xs text-gray-400 mt-0.5">Localisez les hopitaux disposant d'oxygene disponible.</p>
-            </div>
           </div>
-          <div class="flex gap-2 mb-2">
-            <input id="search-oxygene" type="text"
-              placeholder="Ex : bouteille oxygene, concentrateur..."
-              class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-100 transition"/>
-            <button onclick="lancerRechercheOxygene()"
-              class="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors flex items-center gap-2 whitespace-nowrap">
-              <i class="fas fa-search text-xs"></i>
-              <span class="hidden sm:inline">Rechercher</span>
-            </button>
-          </div>
-          <p class="text-xs text-gray-400 mb-1">Recherchez par type : bouteille, concentrateur, masque...</p>
-          <div id="resultats-oxygene" class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"></div>
-        </div>
-        <div class="hidden md:block relative h-64 md:h-auto min-h-[280px]">
-          <!-- Remplace par ton image : <img src="src/assets/oxygene-img.png" .../> -->
-          <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-            <p class="text-blue-300 text-sm">Image oxygene a ajouter</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- CARD 3 — VACCINS -->
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-purple-100">
-      <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="p-6 lg:p-8 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-4">
-            <!-- Remplace ce div par ton image vaccin : <img src="src/assets/vaccin.png" class="w-20 h-14"/> -->
-            <div class="w-20 h-14 bg-purple-50 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-syringe text-purple-500 text-2xl"></i>
+          <!-- CARD 3 — VACCINS -->
+          <div
+            class="bg-white rounded-2xl shadow-md overflow-hidden border border-purple-100"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <div class="p-6 lg:p-8 flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-4">
+                  <!-- Remplace ce div par ton image vaccin : <img src="src/assets/vaccin.png" class="w-20 h-14"/> -->
+                  <div
+                    class="w-20 h-14 bg-purple-50 rounded-xl flex items-center justify-center flex-shrink-0"
+                  >
+                    <i class="fas fa-syringe text-purple-500 text-2xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight">
+                      Rechercher un vaccin
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      Disponibilite des vaccins et carnet numerique maman et
+                      bebe.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-2 mb-2">
+                  <input
+                    id="search-vaccin"
+                    type="text"
+                    placeholder="Ex : vaccin hepatite B, tetanos..."
+                    class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-purple-400 focus:ring-1 focus:ring-purple-100 transition"
+                  />
+                  <button
+                    onclick="lancerRechercheVaccin()"
+                    class="bg-purple-600 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-purple-700 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <i class="fas fa-search text-xs"></i>
+                    <span class="hidden sm:inline">Rechercher</span>
+                  </button>
+                </div>
+                <p class="text-xs text-gray-400 mb-3">
+                  Recherchez par nom de vaccin ou type de maladie
+                </p>
+                <!-- Fonctionnalites supplementaires vaccins -->
+                <div class="flex flex-wrap gap-2 mt-1">
+                  <button
+                    onclick="ouvrirCarnetMaman()"
+                    class="text-xs border border-purple-200 text-purple-600 px-3 py-1.5 rounded-full hover:bg-purple-50 transition font-medium"
+                  >
+                    Carnet maman
+                  </button>
+                  <button
+                    onclick="ouvrirCarnetBebe()"
+                    class="text-xs border border-purple-200 text-purple-600 px-3 py-1.5 rounded-full hover:bg-purple-50 transition font-medium"
+                  >
+                    Carnet bebe
+                  </button>
+                </div>
+                <div
+                  id="resultats-vaccin"
+                  class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"
+                ></div>
+              </div>
+              <div
+                class="hidden md:block relative h-64 md:h-auto min-h-[280px]"
+              >
+                <!-- Remplace par ton image : <img src="src/assets/vaccin-img.png" .../> -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center"
+                >
+                  <p class="text-purple-300 text-sm">Image vaccin a ajouter</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3 class="font-bold text-gray-900 text-lg leading-tight">Rechercher un vaccin</h3>
-              <p class="text-xs text-gray-400 mt-0.5">Disponibilite des vaccins et carnet numerique maman et bebe.</p>
-            </div>
           </div>
-          <div class="flex gap-2 mb-2">
-            <input id="search-vaccin" type="text"
-              placeholder="Ex : vaccin hepatite B, tetanos..."
-              class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-purple-400 focus:ring-1 focus:ring-purple-100 transition"/>
-            <button onclick="lancerRechercheVaccin()"
-              class="bg-purple-600 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-purple-700 transition-colors flex items-center gap-2 whitespace-nowrap">
-              <i class="fas fa-search text-xs"></i>
-              <span class="hidden sm:inline">Rechercher</span>
-            </button>
-          </div>
-          <p class="text-xs text-gray-400 mb-3">Recherchez par nom de vaccin ou type de maladie</p>
-          <!-- Fonctionnalites supplementaires vaccins -->
-          <div class="flex flex-wrap gap-2 mt-1">
-            <button onclick="ouvrirCarnetMaman()"
-              class="text-xs border border-purple-200 text-purple-600 px-3 py-1.5 rounded-full hover:bg-purple-50 transition font-medium">
-              Carnet maman
-            </button>
-            <button onclick="ouvrirCarnetBebe()"
-              class="text-xs border border-purple-200 text-purple-600 px-3 py-1.5 rounded-full hover:bg-purple-50 transition font-medium">
-              Carnet bebe
-            </button>
-          </div>
-          <div id="resultats-vaccin" class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"></div>
-        </div>
-        <div class="hidden md:block relative h-64 md:h-auto min-h-[280px]">
-          <!-- Remplace par ton image : <img src="src/assets/vaccin-img.png" .../> -->
-          <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center">
-            <p class="text-purple-300 text-sm">Image vaccin a ajouter</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- CARD 4 — MEDICAMENTS -->
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
-      <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="p-6 lg:p-8 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="src/assets/medi.png" alt="" class="w-20 h-14"/>
-            <div>
-              <h3 class="font-bold text-gray-900 text-lg leading-tight">Rechercher un medicament</h3>
-              <p class="text-xs text-gray-400 mt-0.5">Trouvez rapidement vos medicaments dans les pharmacies les plus proches.</p>
+          <!-- CARD 4 — MEDICAMENTS -->
+          <div
+            class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <div class="p-6 lg:p-8 flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="src/assets/medi.png" alt="" class="w-20 h-14" />
+                  <div>
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight">
+                      Rechercher un medicament
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      Trouvez rapidement vos medicaments dans les pharmacies les
+                      plus proches.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  id="tags-medicament"
+                  class="flex flex-wrap gap-2 mb-2 hidden"
+                ></div>
+                <div class="flex gap-2 mb-2">
+                  <input
+                    id="search-medicament"
+                    type="text"
+                    placeholder="Nom du medicament, maladie..."
+                    class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"
+                  />
+                  <button
+                    onclick="lancerRecherche()"
+                    class="bg-green-700 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <i class="fas fa-search text-xs"></i>
+                    <span class="hidden sm:inline">Rechercher</span>
+                  </button>
+                </div>
+                <p class="text-xs text-gray-400 mb-1">
+                  Appuyez sur
+                  <kbd class="bg-gray-100 px-1.5 py-0.5 rounded text-xs"
+                    >Entree</kbd
+                  >
+                  pour ajouter plusieurs produits
+                </p>
+                <div
+                  id="resultats-medicament"
+                  class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"
+                ></div>
+              </div>
+              <div
+                class="hidden md:block relative h-64 md:h-auto min-h-[280px]"
+              >
+                <img
+                  src="src/assets/new.png"
+                  alt="Medicament"
+                  class="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"
+                ></div>
+              </div>
             </div>
           </div>
-          <div id="tags-medicament" class="flex flex-wrap gap-2 mb-2 hidden"></div>
-          <div class="flex gap-2 mb-2">
-            <input id="search-medicament" type="text"
-              placeholder="Nom du medicament, maladie..."
-              class="flex-1 min-w-0 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-green-600 focus:ring-1 focus:ring-green-100 transition"/>
-            <button onclick="lancerRecherche()"
-              class="bg-green-700 text-white px-5 py-3 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors flex items-center gap-2 whitespace-nowrap">
-              <i class="fas fa-search text-xs"></i>
-              <span class="hidden sm:inline">Rechercher</span>
-            </button>
-          </div>
-          <p class="text-xs text-gray-400 mb-1">
-            Appuyez sur <kbd class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Entree</kbd> pour ajouter plusieurs produits
-          </p>
-          <div id="resultats-medicament" class="hidden mt-3 space-y-3 max-h-72 overflow-y-auto"></div>
         </div>
-        <div class="hidden md:block relative h-64 md:h-auto min-h-[280px]">
-          <img src="src/assets/new.png" alt="Medicament"
-            class="absolute inset-0 w-full h-full object-cover object-center"/>
-          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent"></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
+      </section>
 
       <!--
      SECTION SOS ALERTE
@@ -1329,7 +1643,6 @@
         <div class="max-w-7xl mx-auto">
           <!-- En-tête -->
           <div class="text-center mb-12">
-           
             <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-3">
               Nos <span class="text-green-700">Partenaires</span>
             </h2>
@@ -1342,7 +1655,6 @@
           <!-- Pharmacies partenaires -->
           <div class="mb-10">
             <div class="flex items-center gap-3 mb-5">
-              
               <h3 class="font-bold text-gray-900 text-lg">
                 Pharmacies partenaires
               </h3>
@@ -1368,7 +1680,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1386,7 +1697,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1404,7 +1714,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                
                   Vérifié
                 </span>
               </div>
@@ -1422,7 +1731,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1440,7 +1748,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1450,7 +1757,6 @@
           <!-- Hôpitaux partenaires -->
           <div class="mb-10">
             <div class="flex items-center gap-3 mb-5">
-              
               <h3 class="font-bold text-gray-900 text-lg">
                 Hôpitaux & Centres de transfusion
               </h3>
@@ -1475,7 +1781,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1494,7 +1799,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                
                   Vérifié
                 </span>
               </div>
@@ -1513,7 +1817,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1532,7 +1835,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1553,7 +1855,6 @@
                 <span
                   class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
                 >
-                  
                   Vérifié
                 </span>
               </div>
@@ -1914,7 +2215,7 @@
             />
           </div>
           <p class="text-xs text-gray-400">
-             Réservation valable <strong>1 heure</strong> après confirmation.
+            Réservation valable <strong>1 heure</strong> après confirmation.
           </p>
           <button
             onclick="confirmerReservation()"
