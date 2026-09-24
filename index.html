@@ -1,470 +1,650 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mobikissi</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    body { font-family: 'Poppins', sans-serif; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobikissi</title>
+    <link rel="stylesheet" href="src/style/output.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
 
-    .fade-in {
-      animation: fadeIn 0.4s ease both;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+      .fade-in {
+        animation: fadeIn 0.4s ease both;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    .spinner {
-      border: 3px solid rgba(255,255,255,0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      animation: spin 0.8s linear infinite;
-      display: inline-block;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+      .spinner {
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        animation: spin 0.8s linear infinite;
+        display: inline-block;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
-    .progress-bar {
-      animation: progress 2.5s ease forwards;
-    }
-    @keyframes progress {
-      from { width: 0%; }
-      to   { width: 100%; }
-    }
-  </style>
-</head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-between py-6 px-4">
-
-  <!-- SELECTEUR DE LANGUE -->
-  <div class="w-full max-w-sm flex justify-center mb-2">
-    <select id="langue" onchange="changerLangue(this.value)"
-      class="bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600 focus:outline-none focus:border-green-600 cursor-pointer">
-      <option value="fr">Francais</option>
-      <option value="ln">Lingala</option>
-      <option value="kg">Kituba</option>
-      <option value="en">English</option>
-    </select>
-  </div>
-
-  <!-- CONTENU PRINCIPAL -->
-  <div class="w-full max-w-sm flex flex-col items-center gap-5">
-
-    <!-- LOGO + NOM -->
-    <div class="flex flex-col items-center gap-3">
-      <img src="src/assets/lgf.png" alt="Mobikissi"
-        class="w-20 h-20 object-contain"
-        onerror="this.style.display='none'"/>
-      <span class="text-3xl font-extrabold tracking-tight">
-        <span class="text-green-800">MOBI</span><span class="text-red-600">KISSI</span>
-      </span>
-      <p id="txt-slogan" class="text-sm text-gray-500 text-center">
-        Le sauveur numerique de votre sante a Brazzaville
-      </p>
+      .progress-bar {
+        animation: progress 2.5s ease forwards;
+      }
+      @keyframes progress {
+        from {
+          width: 0%;
+        }
+        to {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-100 min-h-screen flex flex-col items-center justify-between py-6 px-4"
+  >
+    <!-- SELECTEUR DE LANGUE -->
+    <div class="w-full max-w-sm flex justify-center mb-2">
+      <select
+        id="langue"
+        onchange="changerLangue(this.value)"
+        class="bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600 focus:outline-none focus:border-green-600 cursor-pointer"
+      >
+        <option value="fr">Francais</option>
+        <option value="ln">Lingala</option>
+        <option value="kg">Kituba</option>
+        <option value="en">English</option>
+      </select>
     </div>
 
-    <!-- PANNEAU CONNEXION -->
-    <div id="panneau-connexion" class="fade-in w-full bg-white rounded-2xl shadow p-6 flex flex-col gap-4">
-
-      <input id="co-tel" type="tel"
-        placeholder="Numero de telephone"
-        class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"/>
-
-      <input id="co-mdp" type="password"
-        placeholder="Mot de passe"
-        class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"/>
-
-      <div id="co-erreur" class="hidden bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600"></div>
-
-      <button id="btn-connexion" onclick="seConnecter()"
-        class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition flex items-center justify-center">
-        <span id="txt-btn-connexion">Se connecter</span>
-      </button>
-
-      <button onclick="afficherMdpOublie()"
-        class="text-center text-sm text-green-700 font-medium hover:underline">
-        Mot de passe oublie ?
-      </button>
-    </div>
-
-    <!-- SEPARATEUR -->
-    <div class="w-full flex items-center gap-3">
-      <div class="flex-1 h-px bg-gray-300"></div>
-      <span class="text-xs text-gray-400">ou</span>
-      <div class="flex-1 h-px bg-gray-300"></div>
-    </div>
-
-    <!-- BOUTON CREER UN COMPTE -->
-    <button onclick="afficherInscription()"
-      class="w-full border-2 border-green-700 text-green-700 py-3 rounded-xl font-semibold text-sm hover:bg-green-50 transition">
-      Creer mon compte
-    </button>
-
-    <!-- PANNEAU INSCRIPTION (cache par defaut) -->
-    <div id="panneau-inscription" class="hidden fade-in w-full bg-white rounded-2xl shadow p-6 flex flex-col gap-4">
-
-      <h2 class="text-base font-bold text-gray-900">Creer un compte Mobikissi</h2>
-
-      <div class="bg-green-50 border border-green-200 rounded-xl px-4 py-2 text-xs text-green-700 font-medium">
-        Acces complet — 1 200 FCFA par an (100 FCFA par mois)
+    <!-- CONTENU PRINCIPAL -->
+    <div class="w-full max-w-sm flex flex-col items-center gap-5">
+      <!-- LOGO + NOM -->
+      <div class="flex flex-col items-center gap-3">
+        <img
+          src="src/assets/lgf.png"
+          alt="Mobikissi"
+          class="w-20 h-20 object-contain"
+          onerror="this.style.display = 'none'"
+        />
+        <span class="text-3xl font-extrabold tracking-tight">
+          <span class="text-green-800">MOBI</span
+          ><span class="text-red-600">KISSI</span>
+        </span>
+        <p id="txt-slogan" class="text-sm text-gray-500 text-center">
+          Le sauveur numerique de votre sante a Brazzaville
+        </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-3">
-        <input id="in-nom" type="text" placeholder="Nom"
-          class="border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"/>
-        <input id="in-prenom" type="text" placeholder="Prenom"
-          class="border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"/>
+      <!-- PANNEAU CONNEXION -->
+      <div
+        id="panneau-connexion"
+        class="fade-in w-full bg-white rounded-2xl shadow p-6 flex flex-col gap-4"
+      >
+        <input
+          id="co-tel"
+          type="tel"
+          placeholder="Numero de telephone"
+          class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
+        />
+
+        <input
+          id="co-mdp"
+          type="password"
+          placeholder="Mot de passe"
+          class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
+        />
+
+        <div
+          id="co-erreur"
+          class="hidden bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600"
+        ></div>
+
+        <button
+          id="btn-connexion"
+          onclick="seConnecter()"
+          class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition flex items-center justify-center"
+        >
+          <span id="txt-btn-connexion">Se connecter</span>
+        </button>
+
+        <button
+          onclick="afficherMdpOublie()"
+          class="text-center text-sm text-green-700 font-medium hover:underline"
+        >
+          Mot de passe oublie ?
+        </button>
       </div>
 
-      <div class="flex gap-3">
-        <label class="flex-1 flex items-center gap-2 border border-gray-300 rounded-xl px-3 py-3 cursor-pointer hover:border-green-600 transition">
-          <input type="radio" name="sexe" value="M" class="accent-green-700"/>
-          <span class="text-sm text-gray-700">Homme</span>
-        </label>
-        <label class="flex-1 flex items-center gap-2 border border-gray-300 rounded-xl px-3 py-3 cursor-pointer hover:border-green-600 transition">
-          <input type="radio" name="sexe" value="F" class="accent-green-700"/>
-          <span class="text-sm text-gray-700">Femme</span>
-        </label>
+      <!-- SEPARATEUR -->
+      <div class="w-full flex items-center gap-3">
+        <div class="flex-1 h-px bg-gray-300"></div>
+        <span class="text-xs text-gray-400">ou</span>
+        <div class="flex-1 h-px bg-gray-300"></div>
       </div>
 
-      <input id="in-tel" type="tel" placeholder="Numero de telephone"
-        class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"/>
-      <p class="text-xs text-gray-400 -mt-2">Ce numero servira a vous identifier a chaque connexion</p>
-
-      <input id="in-mdp" type="password" placeholder="Choisissez un mot de passe"
-        class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"/>
-
-      <div id="in-erreur" class="hidden bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600"></div>
-
-      <button onclick="lancerPaiement()"
-        class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition">
-        Payer 1 200 FCFA et s'inscrire
+      <!-- BOUTON CREER UN COMPTE -->
+      <button
+        onclick="afficherInscription()"
+        class="w-full border-2 border-green-700 text-green-700 py-3 rounded-xl font-semibold text-sm hover:bg-green-50 transition"
+      >
+        Creer mon compte
       </button>
 
-      <p class="text-center text-xs text-gray-400">Paiement securise via Mobile Money (MTN / Airtel)</p>
+      <!-- PANNEAU INSCRIPTION (cache par defaut) -->
+      <div
+        id="panneau-inscription"
+        class="hidden fade-in w-full bg-white rounded-2xl shadow p-6 flex flex-col gap-4"
+      >
+        <h2 class="text-base font-bold text-gray-900">
+          Creer un compte Mobikissi
+        </h2>
 
-      <button onclick="cacherInscription()"
-        class="text-center text-sm text-gray-400 hover:text-gray-600 transition">
-        Annuler
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- BAS DE PAGE -->
-  <p class="text-xs text-gray-400 text-center mt-6">
-    Mobikissi — Brazzaville, Congo &nbsp;|&nbsp; v1.0
-  </p>
-
-
-  <!-- MODAL PAIEMENT MOBILE MONEY -->
-  <div id="modal-paiement" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
-
-      <!-- Etape 1 : choix operateur -->
-      <div id="etape-1">
-        <div class="text-center mb-5">
-          <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <span class="text-2xl">SIM</span>
-          </div>
-          <h3 class="text-base font-bold text-gray-900">Paiement Mobile Money</h3>
-          <p class="text-sm text-gray-500 mt-1">Choisissez votre operateur</p>
+        <div
+          class="bg-green-50 border border-green-200 rounded-xl px-4 py-2 text-xs text-green-700 font-medium"
+        >
+          Acces complet — 1 200 FCFA par an (100 FCFA par mois)
         </div>
 
-        <div class="flex gap-3 mb-5">
-          <button onclick="choisirOperateur('MTN')" id="btn-mtn"
-            class="flex-1 border-2 border-gray-200 rounded-2xl py-4 flex flex-col items-center gap-1 hover:border-yellow-400 transition">
-            <span class="text-lg font-bold text-yellow-500">MTN</span>
-            <span class="text-xs text-gray-600">MTN Money</span>
-          </button>
-          <button onclick="choisirOperateur('Airtel')" id="btn-airtel"
-            class="flex-1 border-2 border-gray-200 rounded-2xl py-4 flex flex-col items-center gap-1 hover:border-red-400 transition">
-            <span class="text-lg font-bold text-red-600">Airtel</span>
-            <span class="text-xs text-gray-600">Airtel Money</span>
-          </button>
+        <div class="grid grid-cols-2 gap-3">
+          <input
+            id="in-nom"
+            type="text"
+            placeholder="Nom"
+            class="border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
+          />
+          <input
+            id="in-prenom"
+            type="text"
+            placeholder="Prenom"
+            class="border border-gray-300 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
+          />
         </div>
 
-        <div class="bg-gray-50 rounded-xl px-4 py-3 mb-5 text-sm">
-          <div class="flex justify-between mb-1">
-            <span class="text-gray-500">Abonnement Mobikissi</span>
-            <span class="font-bold">1 200 FCFA</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-500">Duree</span>
-            <span class="font-bold text-green-700">1 an complet</span>
-          </div>
+        <div class="flex gap-3">
+          <label
+            class="flex-1 flex items-center gap-2 border border-gray-300 rounded-xl px-3 py-3 cursor-pointer hover:border-green-600 transition"
+          >
+            <input
+              type="radio"
+              name="sexe"
+              value="M"
+              class="accent-green-700"
+            />
+            <span class="text-sm text-gray-700">Homme</span>
+          </label>
+          <label
+            class="flex-1 flex items-center gap-2 border border-gray-300 rounded-xl px-3 py-3 cursor-pointer hover:border-green-600 transition"
+          >
+            <input
+              type="radio"
+              name="sexe"
+              value="F"
+              class="accent-green-700"
+            />
+            <span class="text-sm text-gray-700">Femme</span>
+          </label>
         </div>
 
-        <p class="text-xs text-gray-400 text-center mb-4">
-          Une demande de validation sera envoyee sur votre telephone
+        <input
+          id="in-tel"
+          type="tel"
+          placeholder="Numero de telephone"
+          class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
+        />
+        <p class="text-xs text-gray-400 -mt-2">
+          Ce numero servira a vous identifier a chaque connexion
         </p>
 
-        <button onclick="validerPaiement()"
-          class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition">
-          Valider le paiement
+        <input
+          id="in-mdp"
+          type="password"
+          placeholder="Choisissez un mot de passe"
+          class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
+        />
+
+        <div
+          id="in-erreur"
+          class="hidden bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600"
+        ></div>
+
+        <button
+          onclick="lancerPaiement()"
+          class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition"
+        >
+          Payer 1 200 FCFA et s'inscrire
         </button>
-        <button onclick="fermerModal()"
-          class="w-full mt-2 text-gray-400 py-2 text-sm hover:text-gray-600 transition">
+
+        <p class="text-center text-xs text-gray-400">
+          Paiement securise via Mobile Money (MTN / Airtel)
+        </p>
+
+        <button
+          onclick="cacherInscription()"
+          class="text-center text-sm text-gray-400 hover:text-gray-600 transition"
+        >
           Annuler
         </button>
       </div>
+    </div>
 
-      <!-- Etape 2 : traitement -->
-      <div id="etape-2" class="hidden text-center py-6">
-        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <div class="spinner" style="border-color:rgba(20,83,45,0.3); border-top-color:#14532d;"></div>
+    <!-- BAS DE PAGE -->
+    <p class="text-xs text-gray-400 text-center mt-6">
+      Mobikissi — Brazzaville, Congo &nbsp;|&nbsp; v1.0
+    </p>
+
+    <!-- MODAL PAIEMENT MOBILE MONEY -->
+    <div
+      id="modal-paiement"
+      class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
+        <!-- Etape 1 : choix operateur -->
+        <div id="etape-1">
+          <div class="text-center mb-5">
+            <div
+              class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"
+            >
+              <span class="text-2xl">SIM</span>
+            </div>
+            <h3 class="text-base font-bold text-gray-900">
+              Paiement Mobile Money
+            </h3>
+            <p class="text-sm text-gray-500 mt-1">Choisissez votre operateur</p>
+          </div>
+
+          <div class="flex gap-3 mb-5">
+            <button
+              onclick="choisirOperateur('MTN')"
+              id="btn-mtn"
+              class="flex-1 border-2 border-gray-200 rounded-2xl py-4 flex flex-col items-center gap-1 hover:border-yellow-400 transition"
+            >
+              <span class="text-lg font-bold text-yellow-500">MTN</span>
+              <span class="text-xs text-gray-600">MTN Money</span>
+            </button>
+            <button
+              onclick="choisirOperateur('Airtel')"
+              id="btn-airtel"
+              class="flex-1 border-2 border-gray-200 rounded-2xl py-4 flex flex-col items-center gap-1 hover:border-red-400 transition"
+            >
+              <span class="text-lg font-bold text-red-600">Airtel</span>
+              <span class="text-xs text-gray-600">Airtel Money</span>
+            </button>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl px-4 py-3 mb-5 text-sm">
+            <div class="flex justify-between mb-1">
+              <span class="text-gray-500">Abonnement Mobikissi</span>
+              <span class="font-bold">1 200 FCFA</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Duree</span>
+              <span class="font-bold text-green-700">1 an complet</span>
+            </div>
+          </div>
+
+          <p class="text-xs text-gray-400 text-center mb-4">
+            Une demande de validation sera envoyee sur votre telephone
+          </p>
+
+          <button
+            onclick="validerPaiement()"
+            class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition"
+          >
+            Valider le paiement
+          </button>
+          <button
+            onclick="fermerModal()"
+            class="w-full mt-2 text-gray-400 py-2 text-sm hover:text-gray-600 transition"
+          >
+            Annuler
+          </button>
         </div>
-        <h3 class="text-base font-bold text-gray-900 mb-2">Traitement en cours...</h3>
-        <p class="text-sm text-gray-500 mb-4">Validez la demande sur votre telephone</p>
-        <div class="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
-          <div class="progress-bar h-1.5 bg-green-600 rounded-full"></div>
+
+        <!-- Etape 2 : traitement -->
+        <div id="etape-2" class="hidden text-center py-6">
+          <div
+            class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <div
+              class="spinner"
+              style="
+                border-color: rgba(20, 83, 45, 0.3);
+                border-top-color: #14532d;
+              "
+            ></div>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-2">
+            Traitement en cours...
+          </h3>
+          <p class="text-sm text-gray-500 mb-4">
+            Validez la demande sur votre telephone
+          </p>
+          <div class="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+            <div class="progress-bar h-1.5 bg-green-600 rounded-full"></div>
+          </div>
+        </div>
+
+        <!-- Etape 3 : succes -->
+        <div id="etape-3" class="hidden text-center py-6">
+          <div
+            class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-1">
+            Paiement confirme !
+          </h3>
+          <p class="text-sm text-gray-500 mb-5">
+            Votre compte Mobikissi est actif pour 1 an.
+          </p>
+          <button
+            onclick="finaliserInscription()"
+            class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition"
+          >
+            Acceder a Mobikissi
+          </button>
         </div>
       </div>
+    </div>
 
-      <!-- Etape 3 : succes -->
-      <div id="etape-3" class="hidden text-center py-6">
-        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-          </svg>
-        </div>
-        <h3 class="text-base font-bold text-gray-900 mb-1">Paiement confirme !</h3>
-        <p class="text-sm text-gray-500 mb-5">Votre compte Mobikissi est actif pour 1 an.</p>
-        <button onclick="finaliserInscription()"
-          class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition">
-          Acceder a Mobikissi
+    <!-- MODAL MOT DE PASSE OUBLIE -->
+    <div
+      id="modal-mdp"
+      class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center"
+      >
+        <h3 class="text-base font-bold text-gray-900 mb-2">
+          Mot de passe oublie
+        </h3>
+        <p class="text-sm text-gray-500 mb-4">
+          Cette fonctionnalite sera disponible prochainement.<br />
+          Contactez-nous au <strong>+242 06 000 0000</strong> pour recuperer
+          votre compte.
+        </p>
+        <button
+          onclick="
+            document.getElementById('modal-mdp').classList.add('hidden');
+            document.getElementById('modal-mdp').classList.remove('flex');
+          "
+          class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition"
+        >
+          Fermer
         </button>
       </div>
-
     </div>
-  </div>
 
-  <!-- MODAL MOT DE PASSE OUBLIE -->
-  <div id="modal-mdp" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center">
-      <h3 class="text-base font-bold text-gray-900 mb-2">Mot de passe oublie</h3>
-      <p class="text-sm text-gray-500 mb-4">
-        Cette fonctionnalite sera disponible prochainement.<br/>
-        Contactez-nous au <strong>+242 06 000 0000</strong> pour recuperer votre compte.
-      </p>
-      <button onclick="document.getElementById('modal-mdp').classList.add('hidden'); document.getElementById('modal-mdp').classList.remove('flex');"
-        class="w-full bg-green-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-600 transition">
-        Fermer
-      </button>
-    </div>
-  </div>
+    <!-- JAVASCRIPT -->
+    <script>
+      // -- BASE UTILISATEURS SIMULEE (remplacee par backend plus tard)
+      const UTILISATEURS = [
+        {
+          tel: "+242060000001",
+          mdp: "pass123",
+          nom: "Mabiala",
+          prenom: "Jean",
+          sexe: "M",
+        },
+        {
+          tel: "+242060000002",
+          mdp: "pass456",
+          nom: "Moukala",
+          prenom: "Marie",
+          sexe: "F",
+        },
+      ];
 
+      let operateurChoisi = null;
+      let nouvelUtilisateur = null;
 
-  <!-- JAVASCRIPT -->
-  <script>
+      // -- TRADUCTIONS
+      const TEXTES = {
+        fr: {
+          slogan: "Le sauveur numerique de votre sante a Brazzaville",
+          placeholder_tel: "Numero de telephone",
+          placeholder_mdp: "Mot de passe",
+          btn_connexion: "Se connecter",
+          mdp_oublie: "Mot de passe oublie ?",
+          creer_compte: "Creer mon compte",
+        },
+        ln: {
+          slogan: "Mobikissi azali kosalisa bino na Brazzaville",
+          placeholder_tel: "Numero ya telephone",
+          placeholder_mdp: "Mot de passe",
+          btn_connexion: "Kokota",
+          mdp_oublie: "Olibusu mot de passe ?",
+          creer_compte: "Sala compte na yo",
+        },
+        kg: {
+          slogan: "Mobikissi utusadisila mu Brazzaville",
+          placeholder_tel: "Numero ya telefone",
+          placeholder_mdp: "Diaka dia nsiku",
+          btn_connexion: "Kota",
+          mdp_oublie: "Wabukila diaka ?",
+          creer_compte: "Banga compte yaku",
+        },
+        en: {
+          slogan: "Your digital health lifesaver in Brazzaville",
+          placeholder_tel: "Phone number",
+          placeholder_mdp: "Password",
+          btn_connexion: "Log in",
+          mdp_oublie: "Forgot password?",
+          creer_compte: "Create account",
+        },
+      };
 
-  // -- BASE UTILISATEURS SIMULEE (remplacee par backend plus tard)
-  const UTILISATEURS = [
-    { tel:"+242060000001", mdp:"pass123", nom:"Mabiala",  prenom:"Jean",  sexe:"M" },
-    { tel:"+242060000002", mdp:"pass456", nom:"Moukala",  prenom:"Marie", sexe:"F" },
-  ];
+      function changerLangue(code) {
+        const t = TEXTES[code] || TEXTES["fr"];
+        document.getElementById("txt-slogan").textContent = t.slogan;
+        document.getElementById("co-tel").placeholder = t.placeholder_tel;
+        document.getElementById("co-mdp").placeholder = t.placeholder_mdp;
+        document.getElementById("txt-btn-connexion").textContent =
+          t.btn_connexion;
+      }
 
-  let operateurChoisi   = null;
-  let nouvelUtilisateur = null;
+      // -- AFFICHER / CACHER INSCRIPTION
+      function afficherInscription() {
+        document
+          .getElementById("panneau-inscription")
+          .classList.remove("hidden");
+        document
+          .getElementById("panneau-inscription")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+      function cacherInscription() {
+        document.getElementById("panneau-inscription").classList.add("hidden");
+      }
 
-  // -- TRADUCTIONS
-  const TEXTES = {
-    fr: {
-      slogan:      "Le sauveur numerique de votre sante a Brazzaville",
-      placeholder_tel: "Numero de telephone",
-      placeholder_mdp: "Mot de passe",
-      btn_connexion:   "Se connecter",
-      mdp_oublie:      "Mot de passe oublie ?",
-      creer_compte:    "Creer mon compte",
-    },
-    ln: {
-      slogan:      "Mobikissi azali kosalisa bino na Brazzaville",
-      placeholder_tel: "Numero ya telephone",
-      placeholder_mdp: "Mot de passe",
-      btn_connexion:   "Kokota",
-      mdp_oublie:      "Olibusu mot de passe ?",
-      creer_compte:    "Sala compte na yo",
-    },
-    kg: {
-      slogan:      "Mobikissi utusadisila mu Brazzaville",
-      placeholder_tel: "Numero ya telefone",
-      placeholder_mdp: "Diaka dia nsiku",
-      btn_connexion:   "Kota",
-      mdp_oublie:      "Wabukila diaka ?",
-      creer_compte:    "Banga compte yaku",
-    },
-    en: {
-      slogan:      "Your digital health lifesaver in Brazzaville",
-      placeholder_tel: "Phone number",
-      placeholder_mdp: "Password",
-      btn_connexion:   "Log in",
-      mdp_oublie:      "Forgot password?",
-      creer_compte:    "Create account",
-    },
-  };
+      // -- MOT DE PASSE OUBLIE
+      function afficherMdpOublie() {
+        const m = document.getElementById("modal-mdp");
+        m.classList.remove("hidden");
+        m.classList.add("flex");
+      }
 
-  function changerLangue(code) {
-    const t = TEXTES[code] || TEXTES['fr'];
-    document.getElementById('txt-slogan').textContent         = t.slogan;
-    document.getElementById('co-tel').placeholder             = t.placeholder_tel;
-    document.getElementById('co-mdp').placeholder             = t.placeholder_mdp;
-    document.getElementById('txt-btn-connexion').textContent  = t.btn_connexion;
-  }
+      // -- CONNEXION
+      function seConnecter() {
+        const tel = document.getElementById("co-tel").value.trim();
+        const mdp = document.getElementById("co-mdp").value.trim();
 
-  // -- AFFICHER / CACHER INSCRIPTION
-  function afficherInscription() {
-    document.getElementById('panneau-inscription').classList.remove('hidden');
-    document.getElementById('panneau-inscription').scrollIntoView({ behavior:'smooth' });
-  }
-  function cacherInscription() {
-    document.getElementById('panneau-inscription').classList.add('hidden');
-  }
+        if (!tel || !mdp) {
+          afficherErreur("co-erreur", "Veuillez remplir tous les champs.");
+          return;
+        }
 
-  // -- MOT DE PASSE OUBLIE
-  function afficherMdpOublie() {
-    const m = document.getElementById('modal-mdp');
-    m.classList.remove('hidden');
-    m.classList.add('flex');
-  }
+        const btn = document.getElementById("btn-connexion");
+        btn.innerHTML = '<span class="spinner"></span>';
+        btn.disabled = true;
 
-  // -- CONNEXION
-  function seConnecter() {
-    const tel = document.getElementById('co-tel').value.trim();
-    const mdp = document.getElementById('co-mdp').value.trim();
+        setTimeout(() => {
+          const user = UTILISATEURS.find((u) => u.tel === tel && u.mdp === mdp);
 
-    if (!tel || !mdp) {
-      afficherErreur('co-erreur', 'Veuillez remplir tous les champs.');
-      return;
-    }
+          if (user) {
+            // Sauvegarde la session
+            sessionStorage.setItem("mobikissi_user", JSON.stringify(user));
+            window.location.href = "accueil.html";
+          } else {
+            btn.innerHTML = '<span id="txt-btn-connexion">Se connecter</span>';
+            btn.disabled = false;
 
-    const btn = document.getElementById('btn-connexion');
-    btn.innerHTML = '<span class="spinner"></span>';
-    btn.disabled  = true;
+            const existe = UTILISATEURS.find((u) => u.tel === tel);
+            if (existe) {
+              afficherErreur("co-erreur", "Mot de passe incorrect. Reessayez.");
+            } else {
+              afficherErreur(
+                "co-erreur",
+                "Numero non reconnu. Veuillez creer un compte.",
+              );
+              setTimeout(afficherInscription, 1500);
+            }
+          }
+        }, 1500);
+      }
 
-    setTimeout(() => {
-      const user = UTILISATEURS.find(u => u.tel === tel && u.mdp === mdp);
+      // -- LANCER PAIEMENT
+      function lancerPaiement() {
+        const nom = document.getElementById("in-nom").value.trim();
+        const prenom = document.getElementById("in-prenom").value.trim();
+        const tel = document.getElementById("in-tel").value.trim();
+        const mdp = document.getElementById("in-mdp").value.trim();
+        const sexe = document.querySelector('input[name="sexe"]:checked');
 
-      if (user) {
-        // Sauvegarde la session
-        sessionStorage.setItem('mobikissi_user', JSON.stringify(user));
-        window.location.href = 'accueil.html';
-      } else {
-        btn.innerHTML = '<span id="txt-btn-connexion">Se connecter</span>';
-        btn.disabled  = false;
+        if (!nom || !prenom || !tel || !mdp || !sexe) {
+          afficherErreur("in-erreur", "Veuillez remplir tous les champs.");
+          return;
+        }
 
-        const existe = UTILISATEURS.find(u => u.tel === tel);
-        if (existe) {
-          afficherErreur('co-erreur', 'Mot de passe incorrect. Reessayez.');
+        const dejaInscrit = UTILISATEURS.find((u) => u.tel === tel);
+        if (dejaInscrit) {
+          afficherErreur(
+            "in-erreur",
+            "Ce numero est deja inscrit. Connectez-vous.",
+          );
+          setTimeout(cacherInscription, 1500);
+          return;
+        }
+
+        nouvelUtilisateur = { nom, prenom, tel, mdp, sexe: sexe.value };
+        document.getElementById("in-erreur").classList.add("hidden");
+        ouvrirModal();
+      }
+
+      // -- MODAL PAIEMENT
+      function ouvrirModal() {
+        const m = document.getElementById("modal-paiement");
+        m.classList.remove("hidden");
+        m.classList.add("flex");
+        document.getElementById("etape-1").classList.remove("hidden");
+        document.getElementById("etape-2").classList.add("hidden");
+        document.getElementById("etape-3").classList.add("hidden");
+        operateurChoisi = null;
+      }
+
+      function fermerModal() {
+        const m = document.getElementById("modal-paiement");
+        m.classList.add("hidden");
+        m.classList.remove("flex");
+      }
+
+      function choisirOperateur(op) {
+        operateurChoisi = op;
+        document
+          .getElementById("btn-mtn")
+          .classList.toggle("border-yellow-400", op === "MTN");
+        document
+          .getElementById("btn-mtn")
+          .classList.toggle("bg-yellow-50", op === "MTN");
+        document
+          .getElementById("btn-airtel")
+          .classList.toggle("border-red-500", op === "Airtel");
+        document
+          .getElementById("btn-airtel")
+          .classList.toggle("bg-red-50", op === "Airtel");
+        // Reinitialise l'autre
+        if (op === "MTN") {
+          document
+            .getElementById("btn-airtel")
+            .classList.remove("border-red-500", "bg-red-50");
         } else {
-          afficherErreur('co-erreur', 'Numero non reconnu. Veuillez creer un compte.');
-          setTimeout(afficherInscription, 1500);
+          document
+            .getElementById("btn-mtn")
+            .classList.remove("border-yellow-400", "bg-yellow-50");
         }
       }
-    }, 1500);
-  }
 
-  // -- LANCER PAIEMENT
-  function lancerPaiement() {
-    const nom    = document.getElementById('in-nom').value.trim();
-    const prenom = document.getElementById('in-prenom').value.trim();
-    const tel    = document.getElementById('in-tel').value.trim();
-    const mdp    = document.getElementById('in-mdp').value.trim();
-    const sexe   = document.querySelector('input[name="sexe"]:checked');
+      function validerPaiement() {
+        if (!operateurChoisi) {
+          alert("Veuillez choisir un operateur (MTN ou Airtel).");
+          return;
+        }
+        document.getElementById("etape-1").classList.add("hidden");
+        document.getElementById("etape-2").classList.remove("hidden");
 
-    if (!nom || !prenom || !tel || !mdp || !sexe) {
-      afficherErreur('in-erreur', 'Veuillez remplir tous les champs.');
-      return;
-    }
+        setTimeout(() => {
+          document.getElementById("etape-2").classList.add("hidden");
+          document.getElementById("etape-3").classList.remove("hidden");
+        }, 2500);
+      }
 
-    const dejaInscrit = UTILISATEURS.find(u => u.tel === tel);
-    if (dejaInscrit) {
-      afficherErreur('in-erreur', 'Ce numero est deja inscrit. Connectez-vous.');
-      setTimeout(cacherInscription, 1500);
-      return;
-    }
+      function finaliserInscription() {
+        if (nouvelUtilisateur) {
+          UTILISATEURS.push(nouvelUtilisateur);
+          sessionStorage.setItem(
+            "mobikissi_user",
+            JSON.stringify(nouvelUtilisateur),
+          );
+        }
+        fermerModal();
+        window.location.href = "accueil.html";
+      }
 
-    nouvelUtilisateur = { nom, prenom, tel, mdp, sexe: sexe.value };
-    document.getElementById('in-erreur').classList.add('hidden');
-    ouvrirModal();
-  }
+      // -- ERREUR
+      function afficherErreur(id, message) {
+        const el = document.getElementById(id);
+        el.textContent = message;
+        el.classList.remove("hidden");
+      }
 
-  // -- MODAL PAIEMENT
-  function ouvrirModal() {
-    const m = document.getElementById('modal-paiement');
-    m.classList.remove('hidden');
-    m.classList.add('flex');
-    document.getElementById('etape-1').classList.remove('hidden');
-    document.getElementById('etape-2').classList.add('hidden');
-    document.getElementById('etape-3').classList.add('hidden');
-    operateurChoisi = null;
-  }
+      // -- CONNEXION AU CLAVIER
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") seConnecter();
+      });
 
-  function fermerModal() {
-    const m = document.getElementById('modal-paiement');
-    m.classList.add('hidden');
-    m.classList.remove('flex');
-  }
-
-  function choisirOperateur(op) {
-    operateurChoisi = op;
-    document.getElementById('btn-mtn').classList.toggle('border-yellow-400', op === 'MTN');
-    document.getElementById('btn-mtn').classList.toggle('bg-yellow-50',      op === 'MTN');
-    document.getElementById('btn-airtel').classList.toggle('border-red-500', op === 'Airtel');
-    document.getElementById('btn-airtel').classList.toggle('bg-red-50',      op === 'Airtel');
-    // Reinitialise l'autre
-    if (op === 'MTN') {
-      document.getElementById('btn-airtel').classList.remove('border-red-500', 'bg-red-50');
-    } else {
-      document.getElementById('btn-mtn').classList.remove('border-yellow-400', 'bg-yellow-50');
-    }
-  }
-
-  function validerPaiement() {
-    if (!operateurChoisi) {
-      alert('Veuillez choisir un operateur (MTN ou Airtel).');
-      return;
-    }
-    document.getElementById('etape-1').classList.add('hidden');
-    document.getElementById('etape-2').classList.remove('hidden');
-
-    setTimeout(() => {
-      document.getElementById('etape-2').classList.add('hidden');
-      document.getElementById('etape-3').classList.remove('hidden');
-    }, 2500);
-  }
-
-  function finaliserInscription() {
-    if (nouvelUtilisateur) {
-      UTILISATEURS.push(nouvelUtilisateur);
-      sessionStorage.setItem('mobikissi_user', JSON.stringify(nouvelUtilisateur));
-    }
-    fermerModal();
-    window.location.href = 'accueil.html';
-  }
-
-  // -- ERREUR
-  function afficherErreur(id, message) {
-    const el = document.getElementById(id);
-    el.textContent = message;
-    el.classList.remove('hidden');
-  }
-
-  // -- CONNEXION AU CLAVIER
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Enter') seConnecter();
-  });
-
-  // -- SI DEJA CONNECTE → REDIRECT DIRECT
-  const sessionUser = sessionStorage.getItem('mobikissi_user');
-  if (sessionUser) {
-    window.location.href = 'accueil.html';
-  }
-
-  </script>
-</body>
+      // -- SI DEJA CONNECTE → REDIRECT DIRECT
+      const sessionUser = sessionStorage.getItem("mobikissi_user");
+      if (sessionUser) {
+        window.location.href = "accueil.html";
+      }
+    </script>
+  </body>
 </html>
