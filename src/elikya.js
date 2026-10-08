@@ -618,7 +618,7 @@ function ouvrirCarnetBebe()  { /* A developper */ }
 
 // -- ONGLETS DON DE SANG
 function afficherOngletSang(onglet) {
-  const onglets = ['donneur', 'collectes', 'alerte'];
+  const onglets = ['donneur', 'collectes', 'alerte', 'dashboard'];
   onglets.forEach(o => {
     document.getElementById('onglet-' + o).classList.add('hidden');
     const btn = document.getElementById('onglet-btn-' + o);
@@ -698,6 +698,21 @@ function soumettredon() {
     alert('Veuillez remplir tous les champs.');
     return;
   }
+  // Sauvegarder le profil
+  profilDonneur = { nom, age, groupe, quartier, whatsapp, dateInscription: new Date() };
+  totalDons = 0;
+
+  // Afficher badge niveau 1
+  document.getElementById('badge-label').textContent = 'Donneur Mobikissi';
+  document.getElementById('badge-donneur').classList.remove('hidden');
+  document.getElementById('btn-partage-don').classList.remove('hidden');
+  document.getElementById('msg-confirmation-don').textContent =
+    'Merci ' + nom + ' ! Votre inscription comme donneur ' + groupe + ' a Brazzaville (' + quartier + ') est confirmee. Consultez votre tableau de bord pour suivre vos dons.';
+  document.getElementById('overlay-don').classList.add('show');
+
+  // Initialiser le dashboard
+  initialiserDashboard();
+}
   // Attribuer badge
   const badges = [
     { min: 1, label: 'Donneur Mobikissi', color: 'text-red-600' },
@@ -715,3 +730,109 @@ function partagerDonWhatsapp() {
   const msg = encodeURIComponent('Je viens de m inscrire comme donneur de sang sur Mobikissi ! Rejoignez la communaute des donneurs de Brazzaville et sauvez des vies. #Mobikissi #DonDeSang');
   window.open('https://wa.me/?text=' + msg, '_blank');
 }
+
+
+// -- DONNEES DONNEUR EN MEMOIRE
+let profilDonneur = null;
+let totalDons = 0;
+
+// -- INITIALISER LE TABLEAU DE BORD
+function initialiserDashboard() {
+  if (!profilDonneur) return;
+
+  document.getElementById('dashboard-vide').classList.add('hidden');
+  document.getElementById('dashboard-contenu').classList.remove('hidden');
+
+  document.getElementById('db-nom').textContent = profilDonneur.nom;
+  document.getElementById('db-groupe').textContent = profilDonneur.groupe;
+  document.getElementById('db-quartier').textContent = profilDonneur.quartier;
+  document.getElementById('db-total-dons').textContent = totalDons;
+
+  mettreAJourBadge();
+  mettreAJourCompteur();
+}
+
+// -- METTRE A JOUR LE BADGE
+function mettreAJourBadge() {
+  const niveaux = [
+    { min: 0,  label: 'Donneur Mobikissi',  id: 'badge-1' },
+    { min: 3,  label: 'Sauveteur Regulier', id: 'badge-2' },
+    { min: 5,  label: 'Ambassadeur de Vie', id: 'badge-3' },
+    { min: 10, label: 'Heros du CNTS',      id: 'badge-4' },
+  ];
+
+  let badgeActuel = niveaux[0];
+  niveaux.forEach(n => {
+    const el = document.getElementById(n.id);
+    if (totalDons >= n.min) {
+      el.classList.remove('opacity-40');
+      el.classList.add('border-red-300', 'bg-red-50');
+      badgeActuel = n;
+    } else {
+      el.classList.add('opacity-40');
+      el.classList.remove('border-red-300', 'bg-red-50');
+    }
+  });
+
+  document.getElementById('db-badge-actuel').textContent = badgeActuel.label;
+}
+
+// -- METTRE A JOUR LE COMPTEUR 90 JOURS
+function mettreAJourCompteur() {
+  if (!profilDonneur) return;
+
+  const dateDernier = profilDonneur.dateDernierdDon || profilDonneur.dateInscription;
+  const maintenant = new Date();
+  const joursEcoules = Math.floor((maintenant - dateDernier) / (1000 * 60 * 60 * 24));
+  const joursRestants = Math.max(0, 90 - joursEcoules);
+  const pourcentage = Math.min(100, (joursEcoules / 90) * 100);
+
+  if (joursRestants > 0) {
+    document.getElementById('db-jours-restants').textContent = joursRestants + ' jours restants';
+    document.getElementById('db-eligible').classList.add('hidden');
+  } else {
+    document.getElementById('db-jours-restants').textContent = 'Eligible maintenant !';
+    document.getElementById('db-jours-restants').classList.add('text-green-600');
+    document.getElementById('db-eligible').classList.remove('hidden');
+  }
+
+  document.getElementById('db-barre-90').style.width = pourcentage + '%';
+
+  const dateProchain = new Date(dateDernier);
+  dateProchain.setDate(dateProchain.getDate() + 90);
+  document.getElementById('db-date-prochain').textContent =
+    'Prochain : ' + dateProchain.toLocaleDateString('fr-FR');
+}
+
+// -- DECLARER UN DON
+function declarerDon() {
+  if (!profilDonneur) {
+    alert('Inscrivez-vous d abord comme donneur.');
+    afficherOngletSang('donneur');
+    return;
+  }
+
+  totalDons++;
+  profilDonneur.dateDernierdDon = new Date();
+  document.getElementById('db-total-dons').textContent = totalDons;
+
+  mettreAJourBadge();
+  mettreAJourCompteur();
+
+  if (totalDons >= 1) {
+    const dateFormatee = profilDonneur.dateDernierdDon.toLocaleDateString('fr-FR');
+    document.getElementById('mv-date').textContent = dateFormatee;
+    document.getElementById('message-vie').classList.remove('hidden');
+  }
+
+  let badgeMsg = 'Donneur Mobikissi';
+  if (totalDons >= 10) badgeMsg = 'Heros du CNTS';
+  else if (totalDons >= 5) badgeMsg = 'Ambassadeur de Vie';
+  else if (totalDons >= 3) badgeMsg = 'Sauveteur Regulier';
+
+  alert('Don numero ' + totalDons + ' enregistre ! Votre badge : ' + badgeMsg + '. Le compteur de 90 jours a recommence.');
+}
+
+// -- PARTAGER MESSAGE DE VIE
+function partagerMessageVie() {
+  const msg = encodeURIComponent('Mon don de sang via Mobikissi a sauve une vie au CHU de Brazzaville. Donnez
