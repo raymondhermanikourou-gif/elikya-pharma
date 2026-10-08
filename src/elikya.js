@@ -613,3 +613,105 @@ function ouvrirAlertes()   { /* A developper */ }
 function ouvrirJournees()  { /* A developper */ }
 function ouvrirCarnetMaman() { /* A developper */ }
 function ouvrirCarnetBebe()  { /* A developper */ }
+
+
+
+// -- ONGLETS DON DE SANG
+function afficherOngletSang(onglet) {
+  const onglets = ['donneur', 'collectes', 'alerte'];
+  onglets.forEach(o => {
+    document.getElementById('onglet-' + o).classList.add('hidden');
+    const btn = document.getElementById('onglet-btn-' + o);
+    btn.classList.remove('border-red-600', 'text-red-600');
+    btn.classList.add('border-transparent', 'text-gray-400');
+  });
+  document.getElementById('onglet-' + onglet).classList.remove('hidden');
+  const btnActif = document.getElementById('onglet-btn-' + onglet);
+  btnActif.classList.add('border-red-600', 'text-red-600');
+  btnActif.classList.remove('border-transparent', 'text-gray-400');
+}
+
+// -- FORMULAIRE COLLECTE
+function ouvrirFormulaireCollecte() {
+  document.getElementById('form-collecte').classList.remove('hidden');
+  document.getElementById('form-collecte').scrollIntoView({ behavior: 'smooth' });
+}
+function fermerFormulaireCollecte() {
+  document.getElementById('form-collecte').classList.add('hidden');
+}
+function soumettreCollecte() {
+  alert('Votre demande de collecte a ete soumise. Elle sera verifiee et publiee sous 24h par l equipe Mobikissi.');
+  fermerFormulaireCollecte();
+}
+
+// -- INSCRIPTION A UNE COLLECTE
+function sInscrireCollecte(btn, nom, date) {
+  btn.textContent = 'Inscrit';
+  btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+  btn.classList.add('bg-green-600', 'cursor-default');
+  btn.disabled = true;
+  document.getElementById('msg-collecte').textContent =
+    'Vous etes inscrit a la collecte "' + nom + '" du ' + date + '. Vous recevrez un rappel la veille sur WhatsApp.';
+  document.getElementById('overlay-collecte').classList.add('show');
+}
+function fermerCollecteOverlay(e) {
+  if (!e || e.target === document.getElementById('overlay-collecte')) {
+    document.getElementById('overlay-collecte').classList.remove('show');
+  }
+}
+
+// -- REPONDRE A UNE ALERTE ROUGE
+function repondreAlerte(groupe, lieu) {
+  document.getElementById('msg-alerte-rouge').textContent =
+    'Votre disponibilite pour le groupe ' + groupe + ' au ' + lieu + ' a ete enregistree. L equipe vous contactera sous peu sur WhatsApp.';
+  document.getElementById('overlay-alerte-rouge').classList.add('show');
+}
+function fermerAlerteOverlay(e) {
+  if (!e || e.target === document.getElementById('overlay-alerte-rouge')) {
+    document.getElementById('overlay-alerte-rouge').classList.remove('show');
+  }
+}
+
+// -- PARTAGER ALERTE
+function partagerAlerte() {
+  const msg = encodeURIComponent('URGENT via Mobikissi : Le CNTS de Brazzaville manque de sang O-. Si vous etes donneur O-, venez donner au CNTS. Inscrivez-vous sur Mobikissi.');
+  window.open('https://wa.me/?text=' + msg, '_blank');
+}
+
+// -- S'INSCRIRE AUX ALERTES
+function sInscrireAlertes() {
+  const groupe = document.getElementById('alerte-groupe').value;
+  const zone = document.getElementById('alerte-zone').value;
+  const tel = document.getElementById('alerte-tel').value;
+  if (!groupe || !zone || !tel) { alert('Veuillez remplir tous les champs.'); return; }
+  alert('Vous etes inscrit aux alertes pour le groupe ' + groupe + ' dans la zone ' + zone + '. Vous serez contacte sur WhatsApp uniquement en cas de penurie.');
+}
+
+// -- BADGE DONNEUR APRES SOUMISSION
+function soumettredon() {
+  const nom = document.getElementById('don-nom').value.trim();
+  const age = document.getElementById('don-age').value;
+  const groupe = document.getElementById('don-groupe').value;
+  const quartier = document.getElementById('don-quartier').value;
+  const whatsapp = document.getElementById('don-whatsapp').value.trim();
+  if (!nom || !age || !groupe || !quartier || !whatsapp) {
+    alert('Veuillez remplir tous les champs.');
+    return;
+  }
+  // Attribuer badge
+  const badges = [
+    { min: 1, label: 'Donneur Mobikissi', color: 'text-red-600' },
+  ];
+  document.getElementById('badge-label').textContent = 'Donneur Mobikissi';
+  document.getElementById('badge-donneur').classList.remove('hidden');
+  document.getElementById('btn-partage-don').classList.remove('hidden');
+  document.getElementById('msg-confirmation-don').textContent =
+    'Merci ' + nom + ' ! Votre inscription comme donneur ' + groupe + ' a Brazzaville (' + quartier + ') est confirmee. Vous serez alerte uniquement quand votre groupe est en penurie.';
+  document.getElementById('overlay-don').classList.add('show');
+}
+
+// -- PARTAGER DON WHATSAPP
+function partagerDonWhatsapp() {
+  const msg = encodeURIComponent('Je viens de m inscrire comme donneur de sang sur Mobikissi ! Rejoignez la communaute des donneurs de Brazzaville et sauvez des vies. #Mobikissi #DonDeSang');
+  window.open('https://wa.me/?text=' + msg, '_blank');
+}

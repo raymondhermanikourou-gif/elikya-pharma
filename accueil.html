@@ -483,7 +483,7 @@
       <h1
   class="text-3xl lg:text-4xl font-black text-green-800 mb-4 leading-tight"
 >
-  Trouvez votre poche de <span class=" text-red-700">sang</span> <br />
+  Trouvez votre poche de <span class=" text-red-700">sang</span><br />
   et medicament en quelque secondes.
 </h1>
 
@@ -904,364 +904,548 @@
       <!--
      SECTION DON DE SANG
 -->
-      <section
-        id="don-de-sang"
-        class="bg-gray-50 py-16 px-4 border-t-4 border-green-700"
-      >
-        <div class="max-w-7xl mx-auto">
-          <!-- En-tête section -->
-          <div class="text-center mb-12">
-            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-3">
-              Don de <span class="text-red-600">Sang</span>
-            </h2>
-            <p class="text-gray-500 text-base max-w-xl mx-auto">
-              Une poche de sang peut sauver jusqu'à 3 vies. Inscrivez-vous comme
-              donneur et soyez contacté quand votre groupe sanguin est urgent.
-            </p>
-          </div>
+    <!-- SECTION DON DE SANG -->
+<section id="don-de-sang" class="bg-gray-50 py-12 px-4 border-t border-red-100">
+  <div class="max-w-7xl mx-auto">
 
-          <!-- Contenu principal -->
-          <div
-            class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start max-w-5xl mx-auto"
-          >
-            <!-- Colonne gauche — stats + info -->
+    <!-- En-tete -->
+    <div class="text-center mb-8">
+      <h2 class="text-3xl lg:text-4xl font-black text-red-600 mb-2">
+        Don de <span class="text-gray-900">Sang</span>
+      </h2>
+      <p class="text-gray-500 text-sm max-w-xl mx-auto">
+        Chaque don peut sauver jusqu'a 3 vies. Rejoignez la communaute Mobikissi des donneurs de sang a Brazzaville.
+      </p>
+    </div>
+
+    <!-- Stats rapides -->
+    <div class="grid grid-cols-3 gap-3 mb-8 max-w-lg mx-auto">
+      <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+        <p class="text-2xl font-black text-red-600 mb-1">3</p>
+        <p class="text-xs text-gray-500 leading-tight">vies sauvees<br/>par don</p>
+      </div>
+      <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+        <p class="text-2xl font-black text-red-600 mb-1">90j</p>
+        <p class="text-xs text-gray-500 leading-tight">entre chaque<br/>don possible</p>
+      </div>
+      <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+        <p class="text-2xl font-black text-red-600 mb-1">50%</p>
+        <p class="text-xs text-gray-500 leading-tight">sang manque<br/>en Afrique (OMS)</p>
+      </div>
+    </div>
+
+    <!-- 3 ONGLETS -->
+    <div class="flex gap-2 mb-6 border-b border-gray-200 overflow-x-auto">
+      <button id="onglet-btn-donneur"
+        onclick="afficherOngletSang('donneur')"
+        class="px-5 py-3 text-sm font-bold border-b-2 border-red-600 text-red-600 whitespace-nowrap transition-all">
+        Devenir donneur
+      </button>
+      <button id="onglet-btn-collectes"
+        onclick="afficherOngletSang('collectes')"
+        class="px-5 py-3 text-sm font-bold border-b-2 border-transparent text-gray-400 whitespace-nowrap transition-all hover:text-gray-600">
+        Evenements de collecte
+      </button>
+      <button id="onglet-btn-alerte"
+        onclick="afficherOngletSang('alerte')"
+        class="px-5 py-3 text-sm font-bold border-b-2 border-transparent text-gray-400 whitespace-nowrap transition-all hover:text-gray-600">
+        Alerte Rouge
+      </button>
+    </div>
+
+    <!-- =============================================
+         ONGLET 1 — DEVENIR DONNEUR
+         ============================================= -->
+    <div id="onglet-donneur" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+      <!-- Colonne gauche — info -->
+      <div>
+        <div class="relative rounded-2xl overflow-hidden mb-5 shadow-md">
+          <img src="src/assets/dsang.png" alt="Don de sang"
+            class="w-full object-cover object-right-top"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-green-800/90 via-green-800/15 to-transparent flex items-end p-5">
             <div>
-              <!-- Stats impactantes -->
-              <div class="grid grid-cols-3 gap-3 mb-6">
-                <div
-                  class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100"
-                >
-                  <p class="text-2xl font-black text-green-800 mb-1">3</p>
-                  <p class="text-xs text-gray-500 leading-tight">
-                    vies sauvées<br />par don
-                  </p>
-                </div>
-                <div
-                  class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100"
-                >
-                  <p class="text-2xl font-black text-green-800 mb-1">56j</p>
-                  <p class="text-xs text-gray-500 leading-tight">
-                    entre chaque<br />don possible
-                  </p>
-                </div>
-                <div
-                  class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100"
-                >
-                  <p class="text-2xl font-black text-green-800 mb-1">50%</p>
-                  <p class="text-xs text-gray-500 leading-tight">
-                    du sang manque<br />en Afrique (OMS)
-                  </p>
-                </div>
-              </div>
-
-              <!-- Image + phrase choc -->
-              <div
-                class="relative rounded-2xl overflow-hidden mb-6 shadow-md bg-white"
-              >
-                <img
-                  src="src/assets/dsang.png"
-                  alt="Don de sang"
-                  class="object-cover object-right-top"
-                />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-green-800/90 via-green-800/15 to-transparent flex items-end p-5"
-                >
-                  <div>
-                    <p class="text-white font-bold text-sm leading-relaxed">
-                      "Une hémorragie peut être fatale en 2 heures sans
-                      transfusion."
-                    </p>
-                    <p class="text-green-100 text-xs mt-1">
-                      — Source : OMS Afrique, 2021
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Qui peut donner -->
-              <div
-                class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100"
-              >
-                <p class="font-bold text-gray-900 text-sm mb-3">
-                  Qui peut donner son sang ?
-                </p>
-                <ul class="space-y-2">
-                  <li class="flex items-center gap-2 text-sm text-gray-600">
-                    Avoir entre 18 et 65 ans
-                  </li>
-                  <li class="flex items-center gap-2 text-sm text-gray-600">
-                    Peser au minimum 50 kg
-                  </li>
-                  <li class="flex items-center gap-2 text-sm text-gray-600">
-                    Être en bonne santé générale
-                  </li>
-                  <li class="flex items-center gap-2 text-sm text-gray-600">
-                    Ne pas avoir donné depuis 56 jours
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Groupes urgents -->
-              <div
-                class="mt-4 bg-white rounded-2xl p-5 shadow-sm border border-gray-100"
-              >
-                <div class="flex items-center">
-                  <img
-                    src="src/assets/goutesang.png"
-                    alt=""
-                    class="w-15 h-12"
-                  />
-                  <p class="font-bold text-gray-900 text-sm mb-3">
-                    Groupes les plus urgents à Brazzaville
-                  </p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                  <span
-                    class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full"
-                    >O− Universel</span
-                  >
-                  <span
-                    class="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full"
-                    >O+</span
-                  >
-                  <span
-                    class="bg-red-400 text-white text-xs font-bold px-3 py-1.5 rounded-full"
-                    >A−</span
-                  >
-                  <span
-                    class="bg-red-300 text-white text-xs font-bold px-3 py-1.5 rounded-full"
-                    >B−</span
-                  >
-                  <span
-                    class="bg-red-300 text-white text-xs font-bold px-3 py-1.5 rounded-full"
-                    >AB+ Rare</span
-                  >
-                </div>
-              </div>
-            </div>
-
-            <!-- Colonne droite — formulaire -->
-            <div
-              class="bg-white rounded-2xl shadow-lg p-6 lg:p-8 border border-gray-100"
-            >
-              <!-- Titre formulaire -->
-              <div class="flex items-center gap-3 mb-6">
-                <div
-                  class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="src/assets/goutesang.png"
-                    alt=""
-                    class="w-15 h-10"
-                  />
-                </div>
-                <div>
-                  <p class="font-bold text-gray-900 text-sm">Devenir donneur</p>
-                  <p class="text-xs text-gray-400">
-                    Sauver jusqu'à 3 vies par don
-                  </p>
-                </div>
-              </div>
-
-              <div class="space-y-4">
-                <!-- Nom -->
-                <div>
-                  <label
-                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
-                  >
-                    Nom complet
-                  </label>
-                  <input
-                    id="don-nom"
-                    type="text"
-                    placeholder="Ex : Duvarelle Babindamana"
-                    class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-green-100 transition"
-                  />
-                </div>
-
-                <!-- Age + Groupe sanguin -->
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label
-                      class="text-xs font-semibold text-gray-600 mb-1.5 block"
-                    >
-                      Âge
-                    </label>
-                    <input
-                      id="don-age"
-                      type="number"
-                      min="18"
-                      max="65"
-                      placeholder="Ex : 28"
-                      class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-green-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      class="text-xs font-semibold text-gray-600 mb-1.5 block"
-                    >
-                      Groupe sanguin
-                    </label>
-                    <select
-                      id="don-groupe"
-                      class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none focus:border-red-400 focus:ring-1 focus:ring-green-100 transition bg-white"
-                    >
-                      <option value="">Choisir...</option>
-                      <option value="A+">A+</option>
-                      <option value="A-">A−</option>
-                      <option value="B+">B+</option>
-                      <option value="B-">B−</option>
-                      <option value="O+">O+</option>
-                      <option value="O-">O− (Universel)</option>
-                      <option value="AB+">AB+</option>
-                      <option value="AB-">AB−</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Quartier -->
-                <div>
-                  <label
-                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
-                  >
-                    Quartier / Zone
-                  </label>
-                  <select
-                    id="don-quartier"
-                    class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none focus:border-red-400 focus:ring-1 focus:ring-green-100 transition bg-white"
-                  >
-                    <option value="">Sélectionner votre quartier...</option>
-                    <option value="Centre-ville">Centre-ville</option>
-                    <option value="Poto-Poto">Poto-Poto</option>
-                    <option value="Moungali">Moungali</option>
-                    <option value="Ouenzé">Ouenzé</option>
-                    <option value="Talangaï">Talangaï</option>
-                    <option value="Bacongo">Bacongo</option>
-                    <option value="Makélékélé">Makélékélé</option>
-                    <option value="Madibou">Madibou</option>
-                    <option value="Djiri">Djiri</option>
-                    <option value="Autre">Autre quartier</option>
-                  </select>
-                </div>
-
-                <!-- WhatsApp -->
-                <div>
-                  <label
-                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
-                  >
-                    Numéro WhatsApp
-                  </label>
-                  <div class="flex gap-2">
-                    <span
-                      class="flex items-center px-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-500 font-medium flex-shrink-0"
-                    >
-                      🇨🇬 +242
-                    </span>
-                    <input
-                      id="don-whatsapp"
-                      type="tel"
-                      placeholder="06 123 45 67"
-                      class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-green-100 transition"
-                    />
-                  </div>
-                  <p class="text-xs text-gray-400 mt-1.5">
-                    Vous serez contacté uniquement quand votre groupe est
-                    urgent.
-                  </p>
-                </div>
-
-                <!-- Disponibilité -->
-                <div>
-                  <label
-                    class="text-xs font-semibold text-gray-600 mb-1.5 block"
-                  >
-                    Disponibilité
-                  </label>
-                  <div class="grid grid-cols-2 gap-2">
-                    <label
-                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
-                    >
-                      <input
-                        type="checkbox"
-                        id="don-semaine"
-                        class="accent-red-600"
-                      />
-                      <span class="text-sm text-gray-700">En semaine</span>
-                    </label>
-                    <label
-                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
-                    >
-                      <input
-                        type="checkbox"
-                        id="don-weekend"
-                        class="accent-red-600"
-                      />
-                      <span class="text-sm text-gray-700">Week-end</span>
-                    </label>
-                    <label
-                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
-                    >
-                      <input
-                        type="checkbox"
-                        id="don-urgence"
-                        class="accent-red-600"
-                        checked
-                      />
-                      <span class="text-sm text-gray-700">Urgences 24h/7</span>
-                    </label>
-                    <label
-                      class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 cursor-pointer hover:bg-red-100 transition"
-                    >
-                      <input
-                        type="checkbox"
-                        id="don-deplacement"
-                        class="accent-red-600"
-                      />
-                      <span class="text-sm text-gray-700"
-                        >Je peux me déplacer</span
-                      >
-                    </label>
-                  </div>
-                </div>
-
-                <!-- Bouton -->
-                <button
-                  onclick="soumettredon()"
-                  class="w-full bg-red-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-red-700 transition-colors flex items-center justify-center gap-2 mt-2"
-                >
-                  Je veux donner mon sang
-                </button>
-
-                <p class="text-xs text-gray-400 text-center">
-                  Vos informations sont confidentielles. Vous pouvez vous
-                  désinscrire à tout moment.
-                </p>
-              </div>
+              <p class="text-white font-bold text-sm leading-relaxed">
+                "Une hemorragie peut etre fatale en 2 heures sans transfusion."
+              </p>
+              <p class="text-green-100 text-xs mt-1">Source : OMS Afrique, 2021</p>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Overlay confirmation don -->
-      <div id="overlay-don" class="overlay" onclick="fermerDonOverlay(event)">
-        <div class="overlay-box text-center">
-          <div
-            class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"
-          >
-            <i class="fas fa-heart text-red-600 text-2xl"></i>
+        <!-- Qui peut donner -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
+          <p class="font-bold text-gray-900 text-sm mb-3">Qui peut donner son sang ?</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-sm text-gray-600">
+              <span class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-green-600 text-xs"></i>
+              </span>
+              Avoir entre 18 et 65 ans
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600">
+              <span class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-green-600 text-xs"></i>
+              </span>
+              Peser au minimum 50 kg
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600">
+              <span class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-green-600 text-xs"></i>
+              </span>
+              Etre en bonne sante generale
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600">
+              <span class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-green-600 text-xs"></i>
+              </span>
+              Ne pas avoir donne depuis 90 jours
+            </li>
+          </ul>
+        </div>
+
+        <!-- Groupes urgents -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-2 mb-3">
+            <img src="src/assets/goutesang.png" alt="" class="w-8 h-8"/>
+            <p class="font-bold text-gray-900 text-sm">Groupes les plus urgents a Brazzaville</p>
           </div>
-          <h3 class="font-bold text-gray-900 text-base mb-1">
-            Merci pour votre générosité !
-          </h3>
-          <p id="msg-confirmation-don" class="text-sm text-gray-500 mb-4"></p>
-          <button
-            onclick="fermerDonOverlay()"
-            class="bg-green-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-green-800 transition-colors"
-          >
-            Parfait, merci !
-          </button>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">O- Universel</span>
+            <span class="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full">O+</span>
+            <span class="bg-red-400 text-white text-xs font-bold px-3 py-1.5 rounded-full">A-</span>
+            <span class="bg-red-300 text-white text-xs font-bold px-3 py-1.5 rounded-full">B-</span>
+            <span class="bg-red-300 text-white text-xs font-bold px-3 py-1.5 rounded-full">AB+ Rare</span>
+          </div>
         </div>
       </div>
+
+      <!-- Colonne droite — formulaire -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 lg:p-8 border border-gray-100">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
+            <img src="src/assets/goutesang.png" alt="" class="w-8 h-8"/>
+          </div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">Devenir donneur</p>
+            <p class="text-xs text-gray-400">Sauver jusqu'a 3 vies par don</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Nom complet</label>
+            <input id="don-nom" type="text" placeholder="Ex : Duvarelle Babindamana"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"/>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Age</label>
+              <input id="don-age" type="number" min="18" max="65" placeholder="Ex : 28"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"/>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Groupe sanguin</label>
+              <select id="don-groupe"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 bg-white transition">
+                <option value="">Choisir...</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O- (Universel)</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Quartier / Zone</label>
+            <select id="don-quartier"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 bg-white transition">
+              <option value="">Selectionner votre quartier...</option>
+              <option value="Centre-ville">Centre-ville</option>
+              <option value="Poto-Poto">Poto-Poto</option>
+              <option value="Moungali">Moungali</option>
+              <option value="Ouenze">Ouenze</option>
+              <option value="Talangai">Talangai</option>
+              <option value="Bacongo">Bacongo</option>
+              <option value="Makelekele">Makelekele</option>
+              <option value="Madibou">Madibou</option>
+              <option value="Djiri">Djiri</option>
+              <option value="Autre">Autre quartier</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Numero WhatsApp</label>
+            <div class="flex gap-2">
+              <span class="flex items-center px-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-500 font-medium flex-shrink-0">
+                +242
+              </span>
+              <input id="don-whatsapp" type="tel" placeholder="06 123 45 67"
+                class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none placeholder-gray-400 focus:border-red-400 focus:ring-1 focus:ring-red-100 transition"/>
+            </div>
+            <p class="text-xs text-gray-400 mt-1.5">Vous serez contacte uniquement quand votre groupe est urgent.</p>
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Disponibilite</label>
+            <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-red-300 transition">
+                <input type="radio" name="don-dispo" value="semaine" class="accent-red-600"/>
+                <span class="text-sm text-gray-700">En semaine</span>
+              </label>
+              <label class="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-red-300 transition">
+                <input type="radio" name="don-dispo" value="weekend" class="accent-red-600"/>
+                <span class="text-sm text-gray-700">Le weekend</span>
+              </label>
+              <label class="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-red-300 transition">
+                <input type="radio" name="don-dispo" value="tout" class="accent-red-600"/>
+                <span class="text-sm text-gray-700">Tout moment</span>
+              </label>
+              <label class="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2.5 cursor-pointer hover:border-red-300 transition">
+                <input type="radio" name="don-dispo" value="deplacement" class="accent-red-600"/>
+                <span class="text-sm text-gray-700">Je peux me deplacer</span>
+              </label>
+            </div>
+          </div>
+
+          <button onclick="soumettredon()"
+            class="w-full bg-red-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-red-700 transition-colors flex items-center justify-center gap-2 mt-2">
+            <i class="fas fa-heart text-xs"></i>
+            Je veux donner mon sang
+          </button>
+          <p class="text-xs text-gray-400 text-center">Vos informations sont confidentielles. Vous pouvez vous desinscrire a tout moment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ONGLET 2 — EVENEMENTS DE COLLECTE
+         ============================================= -->
+    <div id="onglet-collectes" class="hidden">
+
+      <!-- Bouton organiser -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h3 class="font-bold text-gray-900 text-base">Prochaines collectes a Brazzaville</h3>
+          <p class="text-sm text-gray-400">Inscrivez-vous a une collecte dans votre quartier</p>
+        </div>
+        <button onclick="ouvrirFormulaireCollecte()"
+          class="bg-red-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-red-700 transition whitespace-nowrap flex items-center gap-2">
+          <i class="fas fa-plus text-xs"></i>
+          Organiser une collecte
+        </button>
+      </div>
+
+      <!-- Liste des evenements -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="liste-collectes">
+
+        <!-- Evenement 1 — CNTS Officiel -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3">
+          <div class="flex items-start justify-between">
+            <span class="bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+              <i class="fas fa-check-circle text-xs"></i> CNTS Officiel
+            </span>
+            <span class="text-xs text-gray-400">15 Oct 2025</span>
+          </div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">Collecte CNTS — Poto-Poto</p>
+            <p class="text-xs text-gray-500 mt-1">CHU de Brazzaville, Arrondissement 3</p>
+          </div>
+          <div class="flex flex-wrap gap-1">
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">O-</span>
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">O+</span>
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">A-</span>
+          </div>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <span><i class="fas fa-clock mr-1"></i>9h00 - 15h00</span>
+            <span><i class="fas fa-users mr-1"></i><span class="font-bold text-green-700">12</span> / 50 inscrits</span>
+          </div>
+          <button onclick="sInscrireCollecte(this, 'CNTS Poto-Poto', '15 Oct 2025')"
+            class="w-full bg-red-600 text-white py-2.5 rounded-xl font-bold text-xs hover:bg-red-700 transition">
+            Je m'inscris
+          </button>
+        </div>
+
+        <!-- Evenement 2 — Partenaire verifie -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3">
+          <div class="flex items-start justify-between">
+            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+              <i class="fas fa-shield-alt text-xs"></i> Partenaire verifie
+            </span>
+            <span class="text-xs text-gray-400">22 Oct 2025</span>
+          </div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">Collecte Universite Marien Ngouabi</p>
+            <p class="text-xs text-gray-500 mt-1">Campus principal, Brazzaville</p>
+          </div>
+          <div class="flex flex-wrap gap-1">
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">Tous groupes</span>
+          </div>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <span><i class="fas fa-clock mr-1"></i>8h00 - 14h00</span>
+            <span><i class="fas fa-users mr-1"></i><span class="font-bold text-green-700">34</span> / 100 inscrits</span>
+          </div>
+          <button onclick="sInscrireCollecte(this, 'Universite Marien Ngouabi', '22 Oct 2025')"
+            class="w-full bg-red-600 text-white py-2.5 rounded-xl font-bold text-xs hover:bg-red-700 transition">
+            Je m'inscris
+          </button>
+        </div>
+
+        <!-- Evenement 3 — Communautaire -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3">
+          <div class="flex items-start justify-between">
+            <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+              <i class="fas fa-users text-xs"></i> Communautaire
+            </span>
+            <span class="text-xs text-gray-400">5 Nov 2025</span>
+          </div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">Don solidaire — Bacongo</p>
+            <p class="text-xs text-gray-500 mt-1">Eglise Evangelique, Bacongo</p>
+          </div>
+          <div class="flex flex-wrap gap-1">
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">B+</span>
+            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">AB+</span>
+          </div>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <span><i class="fas fa-clock mr-1"></i>10h00 - 16h00</span>
+            <span><i class="fas fa-users mr-1"></i><span class="font-bold text-green-700">8</span> / 30 inscrits</span>
+          </div>
+          <button onclick="sInscrireCollecte(this, 'Don solidaire Bacongo', '5 Nov 2025')"
+            class="w-full bg-red-600 text-white py-2.5 rounded-xl font-bold text-xs hover:bg-red-700 transition">
+            Je m'inscris
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Formulaire organiser une collecte (cache par defaut) -->
+      <div id="form-collecte" class="hidden mt-8 bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-bold text-gray-900 text-base">Soumettre un evenement de collecte</h3>
+          <button onclick="fermerFormulaireCollecte()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition">
+            <i class="fas fa-times text-xs"></i>
+          </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Nom de l'organisateur</label>
+            <input type="text" placeholder="Ex : Association Vie et Sante, AGL Congo..."
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 transition"/>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Type d'organisation</label>
+            <select class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 bg-white transition">
+              <option>CNTS / Structure officielle</option>
+              <option>Entreprise partenaire</option>
+              <option>Universite / Ecole</option>
+              <option>Association / Eglise</option>
+              <option>Initiative communautaire</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Date de la collecte</label>
+            <input type="date"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 transition"/>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Horaires</label>
+            <input type="text" placeholder="Ex : 9h00 - 15h00"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 transition"/>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Lieu exact</label>
+            <input type="text" placeholder="Adresse complete"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 transition"/>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Quartier</label>
+            <select class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 bg-white transition">
+              <option value="">Selectionner...</option>
+              <option>Poto-Poto</option><option>Moungali</option>
+              <option>Talangai</option><option>Bacongo</option>
+              <option>Makelekele</option><option>Djiri</option>
+              <option>Ouenze</option><option>Madibou</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Nombre de donneurs attendus</label>
+            <input type="number" placeholder="Ex : 50"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 transition"/>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Contact organisateur</label>
+            <input type="tel" placeholder="+242 06 ..."
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 transition"/>
+          </div>
+        </div>
+        <button onclick="soumettreCollecte()"
+          class="mt-5 w-full bg-red-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-red-700 transition flex items-center justify-center gap-2">
+          <i class="fas fa-paper-plane text-xs"></i>
+          Soumettre pour validation
+        </button>
+        <p class="text-xs text-gray-400 text-center mt-2">Votre evenement sera verifie et publie sous 24h par l'equipe Mobikissi</p>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ONGLET 3 — ALERTE ROUGE
+         ============================================= -->
+    <div id="onglet-alerte" class="hidden">
+
+      <!-- Simulation alerte active -->
+      <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-6 mb-6">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0 animate-pulse">
+            <i class="fas fa-bell text-white text-lg"></i>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">ALERTE ACTIVE</span>
+              <span class="text-xs text-gray-400">Il y a 2 heures</span>
+            </div>
+            <h3 class="font-black text-red-700 text-base mb-1">
+              Penurie critique — Groupe O- a Brazzaville
+            </h3>
+            <p class="text-sm text-gray-600 mb-3">
+              Le CNTS de Brazzaville signale une penurie critique de sang O- (Universel).
+              Les reserves couvrent moins de 24 heures. Votre don aujourd'hui peut sauver jusqu'a 3 vies.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-white border border-red-200 text-red-700 text-xs px-3 py-1 rounded-full font-medium">
+                <i class="fas fa-map-marker-alt mr-1"></i>Brazzaville
+              </span>
+              <span class="bg-white border border-red-200 text-red-700 text-xs px-3 py-1 rounded-full font-medium">
+                <i class="fas fa-tint mr-1"></i>Groupe O-
+              </span>
+              <span class="bg-white border border-red-200 text-red-700 text-xs px-3 py-1 rounded-full font-medium">
+                <i class="fas fa-hospital mr-1"></i>CNTS Brazzaville
+              </span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button onclick="repondreAlerte('O-', 'CNTS Brazzaville')"
+                class="flex-1 bg-red-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-red-700 transition flex items-center justify-center gap-2">
+                <i class="fas fa-heart text-xs"></i>
+                Je reponds a cette alerte
+              </button>
+              <button onclick="partagerAlerte()"
+                class="flex-1 bg-green-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-700 transition flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp text-xs"></i>
+                Partager sur WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S'inscrire aux alertes -->
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+        <h3 class="font-bold text-gray-900 text-base mb-1">S'inscrire aux alertes de penurie</h3>
+        <p class="text-sm text-gray-400 mb-4">Recevez une alerte uniquement quand votre groupe sanguin est en penurie dans votre zone.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Votre groupe sanguin</label>
+            <select id="alerte-groupe"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 bg-white transition">
+              <option value="">Choisir...</option>
+              <option>O+</option><option>O-</option>
+              <option>A+</option><option>A-</option>
+              <option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Votre quartier</label>
+            <select id="alerte-zone"
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 bg-white transition">
+              <option value="">Selectionner...</option>
+              <option>Poto-Poto</option><option>Talangai</option>
+              <option>Bacongo</option><option>Makelekele</option>
+              <option>Moungali</option><option>Djiri</option>
+              <option>Ouenze</option><option>Madibou</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Numero WhatsApp</label>
+            <input id="alerte-tel" type="tel" placeholder="+242 06 ..."
+              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 transition"/>
+          </div>
+        </div>
+        <button onclick="sInscrireAlertes()"
+          class="mt-4 bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-red-700 transition flex items-center gap-2">
+          <i class="fas fa-bell text-xs"></i>
+          Activer mes alertes
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- OVERLAY CONFIRMATION DON -->
+<div id="overlay-don" class="overlay" onclick="fermerDonOverlay(event)">
+  <div class="overlay-box text-center">
+    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+      <i class="fas fa-heart text-red-600 text-2xl"></i>
+    </div>
+    <h3 class="font-bold text-gray-900 text-base mb-1" id="titre-overlay-don">Merci pour votre generosite !</h3>
+    <p id="msg-confirmation-don" class="text-sm text-gray-500 mb-3"></p>
+    <!-- Badge niveau -->
+    <div id="badge-donneur" class="hidden bg-red-50 border border-red-200 rounded-xl p-3 mb-4">
+      <p class="text-xs font-bold text-red-700 mb-1">Votre badge Mobikissi</p>
+      <p id="badge-label" class="text-base font-black text-red-600"></p>
+    </div>
+    <!-- Bouton partage WhatsApp -->
+    <button id="btn-partage-don" onclick="partagerDonWhatsapp()"
+      class="hidden w-full bg-green-600 text-white py-2.5 rounded-xl font-bold text-sm hover:bg-green-700 transition flex items-center justify-center gap-2 mb-3">
+      <i class="fab fa-whatsapp text-sm"></i>
+      Partager sur WhatsApp
+    </button>
+    <button onclick="fermerDonOverlay()"
+      class="bg-gray-100 text-gray-700 px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-200 transition">
+      Parfait, merci !
+    </button>
+  </div>
+</div>
+
+<!-- OVERLAY INSCRIPTION COLLECTE -->
+<div id="overlay-collecte" class="overlay" onclick="fermerCollecteOverlay(event)">
+  <div class="overlay-box text-center">
+    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+      <i class="fas fa-calendar-check text-red-600 text-2xl"></i>
+    </div>
+    <h3 class="font-bold text-gray-900 text-base mb-1">Inscription confirmee !</h3>
+    <p id="msg-collecte" class="text-sm text-gray-500 mb-4"></p>
+    <button onclick="fermerCollecteOverlay()"
+      class="bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-red-700 transition">
+      Parfait !
+    </button>
+  </div>
+</div>
+
+<!-- OVERLAY ALERTE ROUGE -->
+<div id="overlay-alerte-rouge" class="overlay" onclick="fermerAlerteOverlay(event)">
+  <div class="overlay-box text-center">
+    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+      <i class="fas fa-heart text-red-600 text-2xl"></i>
+    </div>
+    <h3 class="font-bold text-gray-900 text-base mb-1">Reponse enregistree !</h3>
+    <p id="msg-alerte-rouge" class="text-sm text-gray-500 mb-4"></p>
+    <button onclick="fermerAlerteOverlay()"
+      class="bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-red-700 transition">
+      Merci !
+    </button>
+  </div>
+</div>
+
+      
 
       <!--
      SECTION CONSEILS SANTÉ
