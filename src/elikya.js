@@ -329,63 +329,73 @@ function toggleMenu() {
 // ══════════════════════════════════════════
 // SOS ALERTE
 // ══════════════════════════════════════════
-let modeAlerte = 'whatsapp';
-let typeAlerte = 'medicament';
+let modeAlerte = "whatsapp";
+let typeAlerte = "medicament";
 
 function selectTypeAlerte(type) {
   typeAlerte = type;
-  const input = document.getElementById('alerte-produit');
-  const label = document.getElementById('label-produit-alerte');
-  if (type === 'medicament') {
-    input.placeholder = 'Ex : Paracétamol 500mg, Amoxicilline...';
-    label.textContent = 'Médicament recherché';
-    document.getElementById('btn-type-med').className = 'flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all';
-    document.getElementById('btn-type-sang').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+  const input = document.getElementById("alerte-produit");
+  const label = document.getElementById("label-produit-alerte");
+  if (type === "medicament") {
+    input.placeholder = "Ex : Paracétamol 500mg, Amoxicilline...";
+    label.textContent = "Médicament recherché";
+    document.getElementById("btn-type-med").className =
+      "flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all";
+    document.getElementById("btn-type-sang").className =
+      "flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300";
   } else {
-    input.placeholder = 'Ex : Groupe A+, O-, B+, AB+...';
-    label.textContent = 'Groupe sanguin recherché';
-    document.getElementById('btn-type-sang').className = 'flex items-center justify-center gap-2 border-2 border-red-400 bg-red-50 text-red-600 font-semibold text-xs py-2.5 rounded-xl transition-all';
-    document.getElementById('btn-type-med').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+    input.placeholder = "Ex : Groupe A+, O-, B+, AB+...";
+    label.textContent = "Groupe sanguin recherché";
+    document.getElementById("btn-type-sang").className =
+      "flex items-center justify-center gap-2 border-2 border-red-400 bg-red-50 text-red-600 font-semibold text-xs py-2.5 rounded-xl transition-all";
+    document.getElementById("btn-type-med").className =
+      "flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300";
   }
 }
 
 function selectModeAlerte(mode) {
   modeAlerte = mode;
-  if (mode === 'whatsapp') {
-    document.getElementById('champ-whatsapp').classList.remove('hidden');
-    document.getElementById('champ-email').classList.add('hidden');
-    document.getElementById('btn-whatsapp').className = 'flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all';
-    document.getElementById('btn-email').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+  if (mode === "whatsapp") {
+    document.getElementById("champ-whatsapp").classList.remove("hidden");
+    document.getElementById("champ-email").classList.add("hidden");
+    document.getElementById("btn-whatsapp").className =
+      "flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all";
+    document.getElementById("btn-email").className =
+      "flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300";
   } else {
-    document.getElementById('champ-email').classList.remove('hidden');
-    document.getElementById('champ-whatsapp').classList.add('hidden');
-    document.getElementById('btn-email').className = 'flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all';
-    document.getElementById('btn-whatsapp').className = 'flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300';
+    document.getElementById("champ-email").classList.remove("hidden");
+    document.getElementById("champ-whatsapp").classList.add("hidden");
+    document.getElementById("btn-email").className =
+      "flex items-center justify-center gap-2 border-2 border-green-500 bg-green-50 text-green-700 font-semibold text-xs py-2.5 rounded-xl transition-all";
+    document.getElementById("btn-whatsapp").className =
+      "flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-500 font-semibold text-xs py-2.5 rounded-xl transition-all hover:border-green-300";
   }
 }
 
 function soumettreAlerte() {
-  const produit = document.getElementById('alerte-produit').value.trim();
-  const contact = modeAlerte === 'whatsapp'
-    ? document.getElementById('alerte-whatsapp').value.trim()
-    : document.getElementById('alerte-email').value.trim();
+  const produit = document.getElementById("alerte-produit").value.trim();
+  const contact =
+    modeAlerte === "whatsapp"
+      ? document.getElementById("alerte-whatsapp").value.trim()
+      : document.getElementById("alerte-email").value.trim();
   if (!produit || !contact) {
-    alert('Veuillez remplir le produit et votre contact.');
+    alert("Veuillez remplir le produit et votre contact.");
     return;
   }
-  const msg = typeAlerte === 'medicament'
-    ? `Vous serez alerté par ${modeAlerte === 'whatsapp' ? 'WhatsApp' : 'email'} dès que <strong>${produit}</strong> est disponible dans une pharmacie partenaire.`
-    : `Vous serez alerté par ${modeAlerte === 'whatsapp' ? 'WhatsApp' : 'email'} dès que le groupe <strong>${produit}</strong> est disponible dans un hôpital partenaire.`;
-  document.getElementById('msg-confirmation-alerte').innerHTML = msg;
-  document.getElementById('overlay-alerte').classList.add('show');
-  document.getElementById('alerte-produit').value = '';
-  document.getElementById('alerte-whatsapp').value = '';
-  document.getElementById('alerte-email').value = '';
+  const msg =
+    typeAlerte === "medicament"
+      ? `Vous serez alerté par ${modeAlerte === "whatsapp" ? "WhatsApp" : "email"} dès que <strong>${produit}</strong> est disponible dans une pharmacie partenaire.`
+      : `Vous serez alerté par ${modeAlerte === "whatsapp" ? "WhatsApp" : "email"} dès que le groupe <strong>${produit}</strong> est disponible dans un hôpital partenaire.`;
+  document.getElementById("msg-confirmation-alerte").innerHTML = msg;
+  document.getElementById("overlay-alerte").classList.add("show");
+  document.getElementById("alerte-produit").value = "";
+  document.getElementById("alerte-whatsapp").value = "";
+  document.getElementById("alerte-email").value = "";
 }
 
 function fermerAlerteOverlay(e) {
-  if (!e || e.target === document.getElementById('overlay-alerte')) {
-    document.getElementById('overlay-alerte').classList.remove('show');
+  if (!e || e.target === document.getElementById("overlay-alerte")) {
+    document.getElementById("overlay-alerte").classList.remove("show");
   }
 }
 
@@ -394,33 +404,33 @@ function fermerAlerteOverlay(e) {
 // ══════════════════════════════════════════
 const conseils = [
   {
-    badge: ' Médicaments',
-    image: 'src/assets/conservemedoc.png',
-    titre: 'Comment conserver ses médicaments correctement',
+    badge: " Médicaments",
+    image: "src/assets/conservemedoc.png",
+    titre: "Comment conserver ses médicaments correctement",
     contenu: `
       <p>La bonne conservation de vos médicaments est essentielle pour qu'ils restent efficaces et sans danger.</p>
       <p><strong> Température</strong><br/>La plupart des médicaments se conservent à température ambiante (15-25°C). Évitez les endroits chauds comme la cuisine ou la voiture. Certains comme l'insuline nécessitent le réfrigérateur — lisez toujours la notice.</p>
       <p><strong> Lumière et humidité</strong><br/>Gardez vos médicaments dans leur emballage d'origine, à l'abri de la lumière directe et de l'humidité. La salle de bain n'est pas un bon endroit — la vapeur d'eau les détériore.</p>
       <p><strong> Date de péremption</strong><br/>Ne consommez jamais un médicament périmé. Vérifiez la date avant chaque prise et rapportez les médicaments non utilisés à la pharmacie.</p>
       <p><strong> Sécurité</strong><br/>Rangez vos médicaments hors de portée des enfants, dans une armoire fermée à clé si possible.</p>
-    `
+    `,
   },
   {
-    badge: ' Don de sang',
-    image: 'src/assets/donsang1.png',
-    titre: 'Qui peut donner son sang et à quelle fréquence ?',
+    badge: " Don de sang",
+    image: "src/assets/donsang1.png",
+    titre: "Qui peut donner son sang et à quelle fréquence ?",
     contenu: `
       <p>Le don de sang est un acte simple qui peut sauver jusqu'à 3 vies. Voici tout ce que vous devez savoir.</p>
       <p><strong> Critères pour donner</strong><br/>• Avoir entre 18 et 65 ans<br/>• Peser au minimum 50 kg<br/>• Être en bonne santé générale<br/>• Ne pas être à jeun le jour du don<br/>• Ne pas avoir pris d'antibiotiques récemment</p>
       <p><strong> Fréquence recommandée</strong><br/>• Hommes : toutes les 8 semaines (56 jours) maximum<br/>• Femmes : toutes les 12 semaines maximum<br/>• Chaque don représente environ 450 ml de sang</p>
       <p><strong> Bénéfices pour le donneur</strong><br/>Le don stimule la production de nouvelles cellules sanguines, constitue un bilan de santé gratuit, et réduit le risque de maladies cardiovasculaires selon certaines études.</p>
       <p><strong> Où donner à Brazzaville ?</strong><br/>Centre National de Transfusion Sanguine (CNTS) — Boulevard Denis Sassou Nguesso. Ouvert du lundi au vendredi de 7h à 15h.</p>
-    `
+    `,
   },
   {
-    badge: ' Prévention',
-    image: 'src/assets/prevention.png',
-    titre: 'Gestes essentiels pour prévenir les infections courantes',
+    badge: " Prévention",
+    image: "src/assets/prevention.png",
+    titre: "Gestes essentiels pour prévenir les infections courantes",
     contenu: `
       <p>À Brazzaville, quelques gestes simples au quotidien peuvent vous protéger de la majorité des infections courantes.</p>
       <p><strong> Lavage des mains</strong><br/>Lavez-vous les mains régulièrement avec de l'eau propre et du savon pendant au moins 20 secondes — avant les repas, après les toilettes, après les transports en commun.</p>
@@ -428,12 +438,12 @@ const conseils = [
       <p><strong> Désinfection des surfaces</strong><br/>Nettoyez régulièrement les surfaces fréquemment touchées : poignées de portes, téléphone, robinets.</p>
       <p><strong> Vaccination</strong><br/>Respectez le calendrier vaccinal recommandé par le Ministère de la Santé du Congo. Les vaccins contre la fièvre jaune, la méningite et l'hépatite B sont essentiels.</p>
       <p><strong> Eau propre</strong><br/>Consommez uniquement de l'eau potable ou bouillie. Les infections gastro-intestinales sont souvent liées à l'eau contaminée.</p>
-    `
+    `,
   },
   {
-    badge: ' Hôpitaux',
-    image: 'src/assets/csi.webp',
-    titre: 'Hôpitaux de référence au Congo en 2025',
+    badge: " Hôpitaux",
+    image: "src/assets/csi.webp",
+    titre: "Hôpitaux de référence au Congo en 2025",
     contenu: `
       <p>Voici les principaux établissements de santé à Brazzaville avec leurs spécialités.</p>
       <p><strong> CHU de Brazzaville</strong><br/>Avenue Auxence Ickonga — Établissement public de référence nationale. Urgences, chirurgie, maternité, pédiatrie, cardiologie.</p>
@@ -442,50 +452,52 @@ const conseils = [
       <p><strong> Centre Hospitalier de Talangaï</strong><br/>Nord de Brazzaville — Médecine générale, soins primaires, vaccination.</p>
       <p><strong> Clinique Nganga Edouard</strong><br/>Avenue de France, Centre-ville — Clinique privée spécialisée en chirurgie et imagerie médicale.</p>
       <p><strong> CNTS — Centre National de Transfusion Sanguine</strong><br/>Boulevard Denis Sassou Nguesso — Collecte de sang, analyses, transfusions. Lun-Ven 7h-15h.</p>
-    `
-  }
+    `,
+  },
 ];
 
 function ouvrirConseil(index) {
   const c = conseils[index];
-  document.getElementById('conseil-badge').textContent = c.badge;
-  document.getElementById('conseil-image').src = c.image;
-  document.getElementById('conseil-image').alt = c.titre;
-  document.getElementById('conseil-titre').textContent = c.titre;
-  document.getElementById('conseil-contenu').innerHTML = c.contenu;
-  document.getElementById('overlay-conseil').classList.add('show');
+  document.getElementById("conseil-badge").textContent = c.badge;
+  document.getElementById("conseil-image").src = c.image;
+  document.getElementById("conseil-image").alt = c.titre;
+  document.getElementById("conseil-titre").textContent = c.titre;
+  document.getElementById("conseil-contenu").innerHTML = c.contenu;
+  document.getElementById("overlay-conseil").classList.add("show");
 }
 
 function fermerConseil(e) {
-  if (e.target === document.getElementById('overlay-conseil')) {
+  if (e.target === document.getElementById("overlay-conseil")) {
     fermerConseilDirect();
   }
 }
 
 function fermerConseilDirect() {
-  document.getElementById('overlay-conseil').classList.remove('show');
+  document.getElementById("overlay-conseil").classList.remove("show");
 }
 
-// 
+//
 // AUTHENTIFICATION
-// 
+//
 function ouvrirInscription() {
-  document.getElementById('overlay-inscription').classList.add('show');
+  document.getElementById("overlay-inscription").classList.add("show");
 }
 function fermerInscription(e) {
-  if (e.target === document.getElementById('overlay-inscription')) fermerInscriptionDirect();
+  if (e.target === document.getElementById("overlay-inscription"))
+    fermerInscriptionDirect();
 }
 function fermerInscriptionDirect() {
-  document.getElementById('overlay-inscription').classList.remove('show');
+  document.getElementById("overlay-inscription").classList.remove("show");
 }
 function ouvrirConnexion() {
-  document.getElementById('overlay-connexion').classList.add('show');
+  document.getElementById("overlay-connexion").classList.add("show");
 }
 function fermerConnexion(e) {
-  if (e.target === document.getElementById('overlay-connexion')) fermerConnexionDirect();
+  if (e.target === document.getElementById("overlay-connexion"))
+    fermerConnexionDirect();
 }
 function fermerConnexionDirect() {
-  document.getElementById('overlay-connexion').classList.remove('show');
+  document.getElementById("overlay-connexion").classList.remove("show");
 }
 function allerInscription() {
   fermerConnexionDirect();
@@ -496,70 +508,83 @@ function allerConnexion() {
   setTimeout(() => ouvrirConnexion(), 200);
 }
 function soumettreInscription() {
-  const nom = document.getElementById('ins-nom').value.trim();
-  const tel = document.getElementById('ins-tel').value.trim();
-  const email = document.getElementById('ins-email').value.trim();
-  const mdp = document.getElementById('ins-mdp').value.trim();
-  if (!nom || !tel || !email || !mdp) { alert('Veuillez remplir tous les champs.'); return; }
-  if (mdp.length < 6) { alert('Le mot de passe doit contenir au moins 6 caractères.'); return; }
+  const nom = document.getElementById("ins-nom").value.trim();
+  const tel = document.getElementById("ins-tel").value.trim();
+  const email = document.getElementById("ins-email").value.trim();
+  const mdp = document.getElementById("ins-mdp").value.trim();
+  if (!nom || !tel || !email || !mdp) {
+    alert("Veuillez remplir tous les champs.");
+    return;
+  }
+  if (mdp.length < 6) {
+    alert("Le mot de passe doit contenir au moins 6 caractères.");
+    return;
+  }
   fermerInscriptionDirect();
-  document.getElementById('msg-inscription-ok').innerHTML =
+  document.getElementById("msg-inscription-ok").innerHTML =
     `Bienvenue <strong>${nom}</strong> ! Votre compte sera activé dès réception de votre paiement de 1 000 FCFA.`;
-  document.getElementById('overlay-inscription-ok').classList.add('show');
-  document.getElementById('ins-nom').value = '';
-  document.getElementById('ins-tel').value = '';
-  document.getElementById('ins-email').value = '';
-  document.getElementById('ins-mdp').value = '';
+  document.getElementById("overlay-inscription-ok").classList.add("show");
+  document.getElementById("ins-nom").value = "";
+  document.getElementById("ins-tel").value = "";
+  document.getElementById("ins-email").value = "";
+  document.getElementById("ins-mdp").value = "";
 }
 function fermerInscriptionOk(e) {
-  if (!e || e.target === document.getElementById('overlay-inscription-ok')) {
-    document.getElementById('overlay-inscription-ok').classList.remove('show');
+  if (!e || e.target === document.getElementById("overlay-inscription-ok")) {
+    document.getElementById("overlay-inscription-ok").classList.remove("show");
   }
 }
 function soumettreConnexion() {
-  const email = document.getElementById('con-email').value.trim();
-  const mdp = document.getElementById('con-mdp').value.trim();
-  if (!email || !mdp) { alert('Veuillez remplir tous les champs.'); return; }
+  const email = document.getElementById("con-email").value.trim();
+  const mdp = document.getElementById("con-mdp").value.trim();
+  if (!email || !mdp) {
+    alert("Veuillez remplir tous les champs.");
+    return;
+  }
   fermerConnexionDirect();
-  alert('Connexion réussie ! Bienvenue sur ElikyaPharma.');
-  document.getElementById('con-email').value = '';
-  document.getElementById('con-mdp').value = '';
+  alert("Connexion réussie ! Bienvenue sur ElikyaPharma.");
+  document.getElementById("con-email").value = "";
+  document.getElementById("con-mdp").value = "";
 }
-
-
-
 
 // Charge les infos utilisateur depuis la session
 function chargerUtilisateur() {
-  const data = sessionStorage.getItem('mobikissi_user');
-  if (!data) { window.location.href = 'index.html'; return; }
+  const data = sessionStorage.getItem("mobikissi_user");
+  if (!data) {
+    window.location.href = "index.html";
+    return;
+  }
   const user = JSON.parse(data);
-  const initiales = user.prenom.charAt(0).toUpperCase() + user.nom.charAt(0).toUpperCase();
-  const civilite = user.sexe === 'F' ? 'Mme' : 'Mr';
-  const nomComplet = civilite + '. ' + user.prenom + ' ' + user.nom;
+  const initiales =
+    user.prenom.charAt(0).toUpperCase() + user.nom.charAt(0).toUpperCase();
+  const civilite = user.sexe === "F" ? "Mme" : "Mr";
+  const nomComplet = civilite + ". " + user.prenom + " " + user.nom;
 
-  document.getElementById('avatar-initiales').textContent = initiales;
-  document.getElementById('avatar-menu-initiales').textContent = initiales;
-  document.getElementById('navbar-nom').textContent = nomComplet;
-  document.getElementById('menu-nom-complet').textContent = nomComplet;
+  document.getElementById("avatar-initiales").textContent = initiales;
+  document.getElementById("avatar-menu-initiales").textContent = initiales;
+  document.getElementById("navbar-nom").textContent = nomComplet;
+  document.getElementById("menu-nom-complet").textContent = nomComplet;
 
   // Photo sauvegardee
-  const photo = localStorage.getItem('mobikissi_photo');
+  const photo = localStorage.getItem("mobikissi_photo");
   if (photo) appliquerPhoto(photo);
 }
 
 // Ouvre/ferme menu profil
 function toggleMenuProfil() {
-  const menu = document.getElementById('menu-profil');
-  menu.classList.toggle('hidden');
+  const menu = document.getElementById("menu-profil");
+  menu.classList.toggle("hidden");
 }
 
 // Ferme menu profil si clic dehors
-document.addEventListener('click', function(e) {
-  const menu = document.getElementById('menu-profil');
-  const btn = e.target.closest('button');
-  if (!menu.contains(e.target) && !e.target.closest('[onclick="toggleMenuProfil()"]')) {
-    menu.classList.add('hidden');
+document.addEventListener("click", function (e) {
+  const menu = document.getElementById("menu-profil");
+  const btn = e.target.closest("button");
+  if (
+    !menu.contains(e.target) &&
+    !e.target.closest('[onclick="toggleMenuProfil()"]')
+  ) {
+    menu.classList.add("hidden");
   }
 });
 
@@ -568,8 +593,8 @@ function changerPhoto(event) {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(e) {
-    localStorage.setItem('mobikissi_photo', e.target.result);
+  reader.onload = function (e) {
+    localStorage.setItem("mobikissi_photo", e.target.result);
     appliquerPhoto(e.target.result);
   };
   reader.readAsDataURL(file);
@@ -577,161 +602,199 @@ function changerPhoto(event) {
 
 function appliquerPhoto(src) {
   // Navbar
-  document.getElementById('avatar-initiales').classList.add('hidden');
-  document.getElementById('avatar-photo').src = src;
-  document.getElementById('avatar-photo').classList.remove('hidden');
+  document.getElementById("avatar-initiales").classList.add("hidden");
+  document.getElementById("avatar-photo").src = src;
+  document.getElementById("avatar-photo").classList.remove("hidden");
   // Menu
-  document.getElementById('avatar-menu-initiales').classList.add('hidden');
-  document.getElementById('avatar-menu-photo').src = src;
-  document.getElementById('avatar-menu-photo').classList.remove('hidden');
+  document.getElementById("avatar-menu-initiales").classList.add("hidden");
+  document.getElementById("avatar-menu-photo").src = src;
+  document.getElementById("avatar-menu-photo").classList.remove("hidden");
 }
 
 // Deconnexion
 function seDeconnecter() {
-  sessionStorage.removeItem('mobikissi_user');
-  window.location.href = 'index.html';
+  sessionStorage.removeItem("mobikissi_user");
+  window.location.href = "index.html";
 }
 
 // Lancer au chargement
-document.addEventListener('DOMContentLoaded', chargerUtilisateur);
-
+document.addEventListener("DOMContentLoaded", chargerUtilisateur);
 
 function lancerRechercheOxygene() {
-  const q = document.getElementById('search-oxygene').value.trim();
-  if (!q) { alert('Entrez un type d oxygene.'); return; }
+  const q = document.getElementById("search-oxygene").value.trim();
+  if (!q) {
+    alert("Entrez un type d oxygene.");
+    return;
+  }
   // A developper
 }
 
 function lancerRechercheVaccin() {
-  const q = document.getElementById('search-vaccin').value.trim();
-  if (!q) { alert('Entrez un nom de vaccin.'); return; }
+  const q = document.getElementById("search-vaccin").value.trim();
+  if (!q) {
+    alert("Entrez un nom de vaccin.");
+    return;
+  }
   // A developper
 }
 
-function ouvrirDonneur()   { /* A developper */ }
-function ouvrirAlertes()   { /* A developper */ }
-function ouvrirJournees()  { /* A developper */ }
-function ouvrirCarnetMaman() { /* A developper */ }
-function ouvrirCarnetBebe()  { /* A developper */ }
-
-
+function ouvrirDonneur() {
+  /* A developper */
+}
+function ouvrirAlertes() {
+  /* A developper */
+}
+function ouvrirJournees() {
+  /* A developper */
+}
+function ouvrirCarnetMaman() {
+  /* A developper */
+}
+function ouvrirCarnetBebe() {
+  /* A developper */
+}
 
 // -- ONGLETS DON DE SANG
 function afficherOngletSang(onglet) {
-  const onglets = ['donneur', 'collectes', 'alerte', 'dashboard'];
-  onglets.forEach(o => {
-    document.getElementById('onglet-' + o).classList.add('hidden');
-    const btn = document.getElementById('onglet-btn-' + o);
-    btn.classList.remove('border-red-600', 'text-red-600');
-    btn.classList.add('border-transparent', 'text-gray-400');
+  const onglets = ["donneur", "collectes", "alerte"];
+  onglets.forEach((o) => {
+    document.getElementById("onglet-" + o).classList.add("hidden");
+    const btn = document.getElementById("onglet-btn-" + o);
+    btn.classList.remove("border-red-600", "text-red-600");
+    btn.classList.add("border-transparent", "text-gray-400");
   });
-  document.getElementById('onglet-' + onglet).classList.remove('hidden');
-  const btnActif = document.getElementById('onglet-btn-' + onglet);
-  btnActif.classList.add('border-red-600', 'text-red-600');
-  btnActif.classList.remove('border-transparent', 'text-gray-400');
+  document.getElementById("onglet-" + onglet).classList.remove("hidden");
+  const btnActif = document.getElementById("onglet-btn-" + onglet);
+  btnActif.classList.add("border-red-600", "text-red-600");
+  btnActif.classList.remove("border-transparent", "text-gray-400");
 }
 
 // -- FORMULAIRE COLLECTE
 function ouvrirFormulaireCollecte() {
-  document.getElementById('form-collecte').classList.remove('hidden');
-  document.getElementById('form-collecte').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById("form-collecte").classList.remove("hidden");
+  document
+    .getElementById("form-collecte")
+    .scrollIntoView({ behavior: "smooth" });
 }
 function fermerFormulaireCollecte() {
-  document.getElementById('form-collecte').classList.add('hidden');
+  document.getElementById("form-collecte").classList.add("hidden");
 }
 function soumettreCollecte() {
-  alert('Votre demande de collecte a ete soumise. Elle sera verifiee et publiee sous 24h par l equipe Mobikissi.');
+  alert(
+    "Votre demande de collecte a ete soumise. Elle sera verifiee et publiee sous 24h par l equipe Mobikissi.",
+  );
   fermerFormulaireCollecte();
 }
 
 // -- INSCRIPTION A UNE COLLECTE
 function sInscrireCollecte(btn, nom, date) {
-  btn.textContent = 'Inscrit';
-  btn.classList.remove('bg-red-600', 'hover:bg-red-700');
-  btn.classList.add('bg-green-600', 'cursor-default');
+  btn.textContent = "Inscrit";
+  btn.classList.remove("bg-red-600", "hover:bg-red-700");
+  btn.classList.add("bg-green-600", "cursor-default");
   btn.disabled = true;
-  document.getElementById('msg-collecte').textContent =
-    'Vous etes inscrit a la collecte "' + nom + '" du ' + date + '. Vous recevrez un rappel la veille sur WhatsApp.';
-  document.getElementById('overlay-collecte').classList.add('show');
+  document.getElementById("msg-collecte").textContent =
+    'Vous etes inscrit a la collecte "' +
+    nom +
+    '" du ' +
+    date +
+    ". Vous recevrez un rappel la veille sur WhatsApp.";
+  document.getElementById("overlay-collecte").classList.add("show");
 }
 function fermerCollecteOverlay(e) {
-  if (!e || e.target === document.getElementById('overlay-collecte')) {
-    document.getElementById('overlay-collecte').classList.remove('show');
+  if (!e || e.target === document.getElementById("overlay-collecte")) {
+    document.getElementById("overlay-collecte").classList.remove("show");
   }
 }
 
 // -- REPONDRE A UNE ALERTE ROUGE
 function repondreAlerte(groupe, lieu) {
-  document.getElementById('msg-alerte-rouge').textContent =
-    'Votre disponibilite pour le groupe ' + groupe + ' au ' + lieu + ' a ete enregistree. L equipe vous contactera sous peu sur WhatsApp.';
-  document.getElementById('overlay-alerte-rouge').classList.add('show');
+  document.getElementById("msg-alerte-rouge").textContent =
+    "Votre disponibilite pour le groupe " +
+    groupe +
+    " au " +
+    lieu +
+    " a ete enregistree. L equipe vous contactera sous peu sur WhatsApp.";
+  document.getElementById("overlay-alerte-rouge").classList.add("show");
 }
 function fermerAlerteOverlay(e) {
-  if (!e || e.target === document.getElementById('overlay-alerte-rouge')) {
-    document.getElementById('overlay-alerte-rouge').classList.remove('show');
+  if (!e || e.target === document.getElementById("overlay-alerte-rouge")) {
+    document.getElementById("overlay-alerte-rouge").classList.remove("show");
   }
 }
 
 // -- PARTAGER ALERTE
 function partagerAlerte() {
-  const msg = encodeURIComponent('URGENT via Mobikissi : Le CNTS de Brazzaville manque de sang O-. Si vous etes donneur O-, venez donner au CNTS. Inscrivez-vous sur Mobikissi.');
-  window.open('https://wa.me/?text=' + msg, '_blank');
+  const msg = encodeURIComponent(
+    "URGENT via Mobikissi : Le CNTS de Brazzaville manque de sang O-. Si vous etes donneur O-, venez donner au CNTS. Inscrivez-vous sur Mobikissi.",
+  );
+  window.open("https://wa.me/?text=" + msg, "_blank");
 }
 
 // -- S'INSCRIRE AUX ALERTES
 function sInscrireAlertes() {
-  const groupe = document.getElementById('alerte-groupe').value;
-  const zone = document.getElementById('alerte-zone').value;
-  const tel = document.getElementById('alerte-tel').value;
-  if (!groupe || !zone || !tel) { alert('Veuillez remplir tous les champs.'); return; }
-  alert('Vous etes inscrit aux alertes pour le groupe ' + groupe + ' dans la zone ' + zone + '. Vous serez contacte sur WhatsApp uniquement en cas de penurie.');
+  const groupe = document.getElementById("alerte-groupe").value;
+  const zone = document.getElementById("alerte-zone").value;
+  const tel = document.getElementById("alerte-tel").value;
+  if (!groupe || !zone || !tel) {
+    alert("Veuillez remplir tous les champs.");
+    return;
+  }
+  alert(
+    "Vous etes inscrit aux alertes pour le groupe " +
+      groupe +
+      " dans la zone " +
+      zone +
+      ". Vous serez contacte sur WhatsApp uniquement en cas de penurie.",
+  );
 }
 
 // -- BADGE DONNEUR APRES SOUMISSION
 function soumettredon() {
-  const nom = document.getElementById('don-nom').value.trim();
-  const age = document.getElementById('don-age').value;
-  const groupe = document.getElementById('don-groupe').value;
-  const quartier = document.getElementById('don-quartier').value;
-  const whatsapp = document.getElementById('don-whatsapp').value.trim();
+  const nom = document.getElementById("don-nom").value.trim();
+  const age = document.getElementById("don-age").value;
+  const groupe = document.getElementById("don-groupe").value;
+  const quartier = document.getElementById("don-quartier").value;
+  const whatsapp = document.getElementById("don-whatsapp").value.trim();
   if (!nom || !age || !groupe || !quartier || !whatsapp) {
-    alert('Veuillez remplir tous les champs.');
+    alert("Veuillez remplir tous les champs.");
     return;
   }
   // Sauvegarder le profil
-  profilDonneur = { nom, age, groupe, quartier, whatsapp, dateInscription: new Date() };
+  profilDonneur = {
+    nom,
+    age,
+    groupe,
+    quartier,
+    whatsapp,
+    dateInscription: new Date(),
+  };
   totalDons = 0;
 
   // Afficher badge niveau 1
-  document.getElementById('badge-label').textContent = 'Donneur Mobikissi';
-  document.getElementById('badge-donneur').classList.remove('hidden');
-  document.getElementById('btn-partage-don').classList.remove('hidden');
-  document.getElementById('msg-confirmation-don').textContent =
-    'Merci ' + nom + ' ! Votre inscription comme donneur ' + groupe + ' a Brazzaville (' + quartier + ') est confirmee. Consultez votre tableau de bord pour suivre vos dons.';
-  document.getElementById('overlay-don').classList.add('show');
+  document.getElementById("badge-label").textContent = "Donneur Mobikissi";
+  document.getElementById("badge-donneur").classList.remove("hidden");
+  document.getElementById("btn-partage-don").classList.remove("hidden");
+  document.getElementById("msg-confirmation-don").textContent =
+    "Merci " +
+    nom +
+    " ! Votre inscription comme donneur " +
+    groupe +
+    " a Brazzaville (" +
+    quartier +
+    ") est confirmee. Consultez votre tableau de bord pour suivre vos dons.";
+  document.getElementById("overlay-don").classList.add("show");
 
   // Initialiser le dashboard
   initialiserDashboard();
 }
-  // Attribuer badge
-  const badges = [
-    { min: 1, label: 'Donneur Mobikissi', color: 'text-red-600' },
-  ];
-  document.getElementById('badge-label').textContent = 'Donneur Mobikissi';
-  document.getElementById('badge-donneur').classList.remove('hidden');
-  document.getElementById('btn-partage-don').classList.remove('hidden');
-  document.getElementById('msg-confirmation-don').textContent =
-    'Merci ' + nom + ' ! Votre inscription comme donneur ' + groupe + ' a Brazzaville (' + quartier + ') est confirmee. Vous serez alerte uniquement quand votre groupe est en penurie.';
-  document.getElementById('overlay-don').classList.add('show');
-}
 
 // -- PARTAGER DON WHATSAPP
 function partagerDonWhatsapp() {
-  const msg = encodeURIComponent('Je viens de m inscrire comme donneur de sang sur Mobikissi ! Rejoignez la communaute des donneurs de Brazzaville et sauvez des vies. #Mobikissi #DonDeSang');
-  window.open('https://wa.me/?text=' + msg, '_blank');
+  const msg = encodeURIComponent(
+    "Je viens de m inscrire comme donneur de sang sur Mobikissi ! Rejoignez la communaute des donneurs de Brazzaville et sauvez des vies. #Mobikissi #DonDeSang",
+  );
+  window.open("https://wa.me/?text=" + msg, "_blank");
 }
-
-
 // -- DONNEES DONNEUR EN MEMOIRE
 let profilDonneur = null;
 let totalDons = 0;
@@ -740,13 +803,13 @@ let totalDons = 0;
 function initialiserDashboard() {
   if (!profilDonneur) return;
 
-  document.getElementById('dashboard-vide').classList.add('hidden');
-  document.getElementById('dashboard-contenu').classList.remove('hidden');
+  document.getElementById("dashboard-vide").classList.add("hidden");
+  document.getElementById("dashboard-contenu").classList.remove("hidden");
 
-  document.getElementById('db-nom').textContent = profilDonneur.nom;
-  document.getElementById('db-groupe').textContent = profilDonneur.groupe;
-  document.getElementById('db-quartier').textContent = profilDonneur.quartier;
-  document.getElementById('db-total-dons').textContent = totalDons;
+  document.getElementById("db-nom").textContent = profilDonneur.nom;
+  document.getElementById("db-groupe").textContent = profilDonneur.groupe;
+  document.getElementById("db-quartier").textContent = profilDonneur.quartier;
+  document.getElementById("db-total-dons").textContent = totalDons;
 
   mettreAJourBadge();
   mettreAJourCompteur();
@@ -755,84 +818,143 @@ function initialiserDashboard() {
 // -- METTRE A JOUR LE BADGE
 function mettreAJourBadge() {
   const niveaux = [
-    { min: 0,  label: 'Donneur Mobikissi',  id: 'badge-1' },
-    { min: 3,  label: 'Sauveteur Regulier', id: 'badge-2' },
-    { min: 5,  label: 'Ambassadeur de Vie', id: 'badge-3' },
-    { min: 10, label: 'Heros du CNTS',      id: 'badge-4' },
+    { min: 0, label: "Donneur Mobikissi", id: "badge-1" },
+    { min: 3, label: "Sauveteur Regulier", id: "badge-2" },
+    { min: 5, label: "Ambassadeur de Vie", id: "badge-3" },
+    { min: 10, label: "Heros du CNTS", id: "badge-4" },
   ];
 
   let badgeActuel = niveaux[0];
-  niveaux.forEach(n => {
+  niveaux.forEach((n) => {
     const el = document.getElementById(n.id);
     if (totalDons >= n.min) {
-      el.classList.remove('opacity-40');
-      el.classList.add('border-red-300', 'bg-red-50');
+      el.classList.remove("opacity-40");
+      el.classList.add("border-red-300", "bg-red-50");
       badgeActuel = n;
     } else {
-      el.classList.add('opacity-40');
-      el.classList.remove('border-red-300', 'bg-red-50');
+      el.classList.add("opacity-40");
+      el.classList.remove("border-red-300", "bg-red-50");
     }
   });
 
-  document.getElementById('db-badge-actuel').textContent = badgeActuel.label;
+  document.getElementById("db-badge-actuel").textContent = badgeActuel.label;
 }
 
 // -- METTRE A JOUR LE COMPTEUR 90 JOURS
 function mettreAJourCompteur() {
   if (!profilDonneur) return;
 
-  const dateDernier = profilDonneur.dateDernierdDon || profilDonneur.dateInscription;
+  const dateDernier =
+    profilDonneur.dateDernierdDon || profilDonneur.dateInscription;
   const maintenant = new Date();
-  const joursEcoules = Math.floor((maintenant - dateDernier) / (1000 * 60 * 60 * 24));
+  const joursEcoules = Math.floor(
+    (maintenant - dateDernier) / (1000 * 60 * 60 * 24),
+  );
   const joursRestants = Math.max(0, 90 - joursEcoules);
   const pourcentage = Math.min(100, (joursEcoules / 90) * 100);
 
   if (joursRestants > 0) {
-    document.getElementById('db-jours-restants').textContent = joursRestants + ' jours restants';
-    document.getElementById('db-eligible').classList.add('hidden');
+    document.getElementById("db-jours-restants").textContent =
+      joursRestants + " jours restants";
+    document.getElementById("db-eligible").classList.add("hidden");
   } else {
-    document.getElementById('db-jours-restants').textContent = 'Eligible maintenant !';
-    document.getElementById('db-jours-restants').classList.add('text-green-600');
-    document.getElementById('db-eligible').classList.remove('hidden');
+    document.getElementById("db-jours-restants").textContent =
+      "Eligible maintenant !";
+    document
+      .getElementById("db-jours-restants")
+      .classList.add("text-green-600");
+    document.getElementById("db-eligible").classList.remove("hidden");
   }
 
-  document.getElementById('db-barre-90').style.width = pourcentage + '%';
+  document.getElementById("db-barre-90").style.width = pourcentage + "%";
 
   const dateProchain = new Date(dateDernier);
   dateProchain.setDate(dateProchain.getDate() + 90);
-  document.getElementById('db-date-prochain').textContent =
-    'Prochain : ' + dateProchain.toLocaleDateString('fr-FR');
+  document.getElementById("db-date-prochain").textContent =
+    "Prochain : " + dateProchain.toLocaleDateString("fr-FR");
 }
 
 // -- DECLARER UN DON
 function declarerDon() {
   if (!profilDonneur) {
-    alert('Inscrivez-vous d abord comme donneur.');
-    afficherOngletSang('donneur');
+    alert("Inscrivez-vous d abord comme donneur.");
+    afficherOngletSang("donneur");
     return;
   }
 
   totalDons++;
   profilDonneur.dateDernierdDon = new Date();
-  document.getElementById('db-total-dons').textContent = totalDons;
+  document.getElementById("db-total-dons").textContent = totalDons;
 
   mettreAJourBadge();
   mettreAJourCompteur();
 
   if (totalDons >= 1) {
-    const dateFormatee = profilDonneur.dateDernierdDon.toLocaleDateString('fr-FR');
-    document.getElementById('mv-date').textContent = dateFormatee;
-    document.getElementById('message-vie').classList.remove('hidden');
+    const dateFormatee =
+      profilDonneur.dateDernierdDon.toLocaleDateString("fr-FR");
+    document.getElementById("mv-date").textContent = dateFormatee;
+    document.getElementById("message-vie").classList.remove("hidden");
   }
 
-  let badgeMsg = 'Donneur Mobikissi';
-  if (totalDons >= 10) badgeMsg = 'Heros du CNTS';
-  else if (totalDons >= 5) badgeMsg = 'Ambassadeur de Vie';
-  else if (totalDons >= 3) badgeMsg = 'Sauveteur Regulier';
+  let badgeMsg = "Donneur Mobikissi";
+  if (totalDons >= 10) badgeMsg = "Heros du CNTS";
+  else if (totalDons >= 5) badgeMsg = "Ambassadeur de Vie";
+  else if (totalDons >= 3) badgeMsg = "Sauveteur Regulier";
 
-  alert('Don numero ' + totalDons + ' enregistre ! Votre badge : ' + badgeMsg + '. Le compteur de 90 jours a recommence.');
+  alert(
+    "Don numero " +
+      totalDons +
+      " enregistre ! Votre badge : " +
+      badgeMsg +
+      ". Le compteur de 90 jours a recommence.",
+  );
 }
 
 // -- PARTAGER MESSAGE DE VIE
 function partagerMessageVie() {
-  const msg = encodeURIComponent('Mon don de sang via Mobikissi a sauve une vie au CHU de Brazzaville. Donnez
+  const msg = encodeURIComponent(
+    "Mon don de sang via Mobikissi a sauve une vie au CHU de Brazzaville. Donnez votre sang, sauvez des vies. #Mobikissi #DonDeSang #Brazzaville",
+  );
+  window.open("https://wa.me/?text=" + msg, "_blank");
+}
+
+// -- CERCLE FAMILIAL
+function ajouterProche() {
+  const nom = prompt("Nom du proche :");
+  if (!nom) return;
+  const groupe = prompt("Groupe sanguin (ex : O+, A-, B+) :");
+  if (!groupe) return;
+  const tel = prompt("Numero WhatsApp (+242...) :");
+  if (!tel) return;
+
+  const liste = document.getElementById("liste-proches");
+  const msgVide = liste.querySelector("p");
+  if (msgVide) msgVide.remove();
+
+  const div = document.createElement("div");
+  div.className =
+    "flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3 border border-gray-100";
+  div.innerHTML = `
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+        <i class="fas fa-user text-red-500 text-sm"></i>
+      </div>
+      <div>
+        <p class="text-sm font-bold text-gray-800">${nom}</p>
+        <p class="text-xs text-gray-400">${tel}</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-full">${groupe}</span>
+      <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Cercle actif</span>
+    </div>
+  `;
+  liste.appendChild(div);
+}
+
+// -- FERMER OVERLAY DON
+function fermerDonOverlay(e) {
+  if (!e || e.target === document.getElementById("overlay-don")) {
+    document.getElementById("overlay-don").classList.remove("show");
+  }
+}
